@@ -18,5 +18,5 @@ jobs:
 
       - uses: actions/upload-artifact@v4
         with:
-          name: main-pdf
-          path: main.pdf
+          name: slides-pdf
+          path: slides.pdf
