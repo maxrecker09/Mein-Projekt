@@ -1,195 +1,325 @@
-
 \documentclass{beamer}
-\usepackage{graphicx} % Required for inserting images
-\usepackage{german} %ersetze ich durch babel, weil das besser sein soll
-%\usepackage[ngerman]{babel}
-%\usepackage{hyphenat} %vonmir um microtype zu nutzen
+
+\usepackage{graphicx}
+\usepackage{german}
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{amsthm}
-\usepackage{url} %ersetze ich nicht durch hyperref
-%\usepackage{hyperref} %zuviele Links auf die man klicken kann
+\usepackage{url}
+\usepackage{microtype}
 
-
-\usepackage{algorithm} %vonmir
-\usepackage[noend]{algpseudocode} %vonmir; noend hilft das kein endif endfor am Ende dasteht
-\usepackage{microtype} %vonmir
-\newcommand{\Z}{\mathbb{Z}} 
-\newcommand{\R}{\mathbb{R}}% reele Zahlen
-\newcommand{\C}{\mathbb{C}}% komplexe Zahlen
-\newcommand{\Q}{\mathbb{Q}}% rationale Zahlen
-\newcommand{\N}{\mathbb{N}}% natürliche Zahlen % von mir
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\N}{\mathbb{N}}
 
 \newtheorem{thm}{Satz}
 
 \title{Approximative Darstellung reeller Zahlen}
-\date{\today} %\date{April 2026}
+\date{\today}
 \author{Max Recker\\ \url{max.recker@uni-bielefeld.de}}
 
 \begin{document}
 
+%------------------------------------------------
 \begin{frame}
-    \titlepage
+\titlepage
 \end{frame}
 
+%------------------------------------------------
 \begin{frame}{Übersicht}
-    \begin{enumerate}
-        \item 4.1 b-adische Darstellung reeller Zahlen
-        \item 4.2 Maschinenzahlen
-        \item 4.3 Rundung
-        \item 4.4 Maschinenzahlarithmetik
-    \end{enumerate}
-
-    
+\begin{enumerate}
+\item 4.1 b-adische Darstellung reeller Zahlen
+\item 4.2 Maschinenzahlen
+\item 4.3 Rundung
+\item 4.4 Maschinenzahlarithmetik
+\end{enumerate}
 \end{frame}
 
-\begin{frame}{4.1 b-adische Darstellung reeller Zahlen}
-\begin{thm}[b-adische Darstellung reeller Zahlen]
-Sei $b \in \N$ mit $b \geq 2$ und $x \in \R \setminus \{0\}$. Dann existieren eindeutig bestimmte Zahlen
+%------------------------------------------------
+\begin{frame}{4.1 Grundidee}
+Ziel: Jede reelle Zahl soll in einer Basis $b\geq 2$ dargestellt werden.
+
+\bigskip
+
+Bekannte Beispiele:
+\begin{itemize}
+\item $b=10$ : Dezimalsystem
+\item $b=2$ : Binärsystem
+\item $b=16$ : Hexadezimalsystem
+\end{itemize}
+
+\bigskip
+
+Wir suchen also eine Darstellung, die für jede Zahl funktioniert.
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Satz zur Darstellung}
+\small
+\begin{thm}
+Sei $b\in\N$, $b\geq 2$, und $x\in\R\setminus\{0\}$.
+
+Dann gibt es eindeutig bestimmte Zahlen
 \[
-E \in \Z,\qquad \sigma \in \{-1,1\},\qquad z_i \in \{0,1,\dots,b-1\}
+E\in\Z,\qquad \sigma\in\{-1,1\},\qquad z_i\in\{0,1,\dots,b-1\},
 \]
-für $i \in \N \cup \{0\}$ mit $z_0 \neq 0$ und $\{i \in \N \mid z_i \neq b-1\}$ unendlich, so dass
+so dass
 \[
-x=\sigma \cdot b^E \cdot \left(\sum_{i=0}^{\infty} z_i b^{-i}\right).
+x=\sigma\cdot b^E\cdot\left(\sum_{i=0}^{\infty} z_i b^{-i}\right).
 \]
 \end{thm}
 
-Diese Darstellung heißt die \textbf{normalisierte b-adische Darstellung} von $x$.
+Diese Darstellung heißt:
+
+\bigskip
+
+\textbf{normalisierte b-adische Darstellung von $x$}
 \end{frame}
 
-\begin{frame}{Bestandteile der Darstellung}
+%------------------------------------------------
+\begin{frame}{Die Formel einfach erklärt}
 \[
-x=\sigma \cdot b^E \cdot \left(\sum_{i=0}^{\infty} z_i b^{-i}\right)
+x=\sigma\cdot b^E\cdot\left(\sum_{i=0}^{\infty} z_i b^{-i}\right)
 \]
+
+\bigskip
 
 \begin{itemize}
-    \item $\sigma \in \{-1,1\}$ ist das \textbf{Vorzeichen}.
-    \item $b$ ist die \textbf{Basis des Zahlensystems}.
-    \item $E \in \Z$ beschreibt die \textbf{Größenordnung} der Zahl.
-    \item $z_i$ ist die \textbf{$i$-te Ziffer} mit
-    \[
-    z_i \in \{0,1,\dots,b-1\}.
-    \]
-    \item $b^{-i}$ ist der \textbf{Stellenwert} der Ziffer $z_i$.
-    \item Also ist
-    \[
-    z_i \cdot b^{-i}=\text{Ziffer} \cdot \text{Stellenwert}.
-    \]
+\item $\sigma$ = Vorzeichen der Zahl
+\item $b$ = Basis des Zahlensystems
+\item $E$ = Exponent / Größenordnung
+\item $z_i$ = Ziffern der Zahl
+\item $b^{-i}$ = Stellenwert
 \end{itemize}
 
-\medskip
+\bigskip
 
-Beispiele für Basen:
-\[
-b=10 \text{ (Dezimalsystem)},\quad b=2 \text{ (Binärsystem)},\quad b=16 \text{ (Hexadezimalsystem)}.
-\]
+Also: Vorzeichen $\times$ Größe $\times$ eigentliche Zifferndarstellung
 \end{frame}
 
-\begin{frame}{Bemerkung zur unendlichen Summe}
-Wir verwenden die übliche Notation für Reihen:
+%------------------------------------------------
+\begin{frame}{Bedeutung der Ziffern}
+Die Ziffern erfüllen:
 \[
-\sum_{i=0}^{\infty} a_i := \lim_{n\to\infty}\sum_{i=0}^{n} a_i.
+z_i\in\{0,1,\dots,b-1\}
 \]
 
-Im vorliegenden Fall betrachten wir
-\[
-\sum_{i=0}^{\infty} z_i b^{-i}.
-\]
+Das heißt:
 
 \begin{itemize}
-    \item Alle Summanden sind nichtnegativ, also sind die Partialsummen monoton wachsend.
-    \item Wegen $z_i \leq b-1$ gilt
-    \[
-    \sum_{i=0}^{\infty} z_i b^{-i}
-    \leq
-    \sum_{i=0}^{\infty} (b-1)b^{-i}.
-    \]
-    \item Die rechte Seite ist eine geometrische Reihe:
-    \[
-    \sum_{i=0}^{\infty} (b-1)b^{-i}
-    =
-    (b-1)\sum_{i=0}^{\infty} b^{-i}
-    =
-    (b-1)\cdot \frac{1}{1-\frac1b}
-    = b.
-    \]
+\item Im Dezimalsystem: $0$ bis $9$
+\item Im Binärsystem: nur $0$ oder $1$
+\item Im Hexsystem: $0$ bis $15$
 \end{itemize}
 
-Also existiert der Grenzwert und es gilt sogar
+\bigskip
+
+Jede Ziffer wird mit ihrem Stellenwert multipliziert:
 \[
-1 \leq \sum_{i=0}^{\infty} z_i b^{-i} < b.
+z_i\cdot b^{-i}
 \]
+
+Dann werden alle Beiträge addiert.
 \end{frame}
 
-\begin{frame}{Beginn des Beweises: Normierung}
-Zunächst ist das Vorzeichen klar:
+%------------------------------------------------
+\begin{frame}{Warum die unendliche Summe?}
+Wir schreiben:
 \[
-\sigma = -1 \text{ falls } x<0,
-\qquad
-\sigma = 1 \text{ falls } x>0.
+\sum_{i=0}^{\infty} z_i b^{-i}
 \]
 
-Außerdem gilt wegen $z_0 \neq 0$:
+Das bedeutet eine unendliche Reihe.
+
+\bigskip
+
+Formal:
 \[
-1 \leq \sum_{i=0}^{\infty} z_i b^{-i} < b.
+\sum_{i=0}^{\infty} a_i
+=
+\lim_{n\to\infty}\sum_{i=0}^{n} a_i
 \]
 
-Daher muss man $x$ zunächst auf den Bereich $[1,b)$ normieren. Dazu wählt man
-\[
-E := \lfloor \log_b |x| \rfloor
-\]
-und setzt
-\[
-a_0 := b^{-E}|x|.
-\]
+\bigskip
 
-Dann gilt
-\[
-1 \leq a_0 < b.
-\]
-
-\medskip
-
-Idee: Wir schreiben also
-\[
-x=\sigma \cdot b^E \cdot a_0
-\]
-mit einer normierten Mantisse $a_0 \in [1,b)$.
+Man betrachtet also immer längere Teilsummen.
 \end{frame}
 
-\begin{frame}{Rekursive Konstruktion der Ziffern}
-Nun werden die Ziffern schrittweise aus $a_0$ gewonnen.
+%------------------------------------------------
+\begin{frame}{Warum existiert der Grenzwert?}
+\begin{itemize}
+\item Alle Summanden sind $\geq 0$
+\item Die Teilsummen wachsen also nur nach oben
+\item Gleichzeitig sind sie beschränkt
+\end{itemize}
 
-Für $i \in \N \cup \{0\}$ definiert man rekursiv:
+Denn:
 \[
-z_i := \lfloor a_i \rfloor
-\qquad\text{und}\qquad
-a_{i+1} := b(a_i-z_i).
+z_i\leq b-1
 \]
+
+also:
+\[
+\sum_{i=0}^{\infty} z_i b^{-i}
+\leq
+\sum_{i=0}^{\infty}(b-1)b^{-i}
+\]
+
+Dadurch existiert der Grenzwert.
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Wichtige Abschätzung}
+Es gilt:
+\[
+1\leq \sum_{i=0}^{\infty} z_i b^{-i}<b
+\]
+
+\bigskip
+
+Warum?
 
 \begin{itemize}
-    \item $z_i$ ist der ganzzahlige Teil von $a_i$,
-    also die nächste Ziffer.
-    \item $a_i-z_i$ ist der Nachkommateil.
-    \item Durch Multiplikation mit $b$ wird die nächste Stelle nach vorne geholt.
+\item Untere Grenze: $z_0\neq 0$
+\item Obere Grenze: keine Ziffer ist größer als $b-1$
 \end{itemize}
 
-\medskip
+\bigskip
 
-Beispiel in Basis $10$ mit $a_0=3{,}14$:
-\[
-z_0=\lfloor 3{,}14\rfloor =3,
-\qquad
-a_1=10(3{,}14-3)=1{,}4,
-\]
-\[
-z_1=\lfloor 1{,}4\rfloor =1,
-\qquad
-a_2=10(1{,}4-1)=4.
-\]
-
-So entstehen Schritt für Schritt die Ziffern der Darstellung. ja
+Die Mantisse liegt also immer zwischen $1$ und $b$.
 \end{frame}
 
+%------------------------------------------------
+\begin{frame}{Beginn des Beweises: Vorzeichen}
+Das Vorzeichen ist direkt klar:
+
+\[
+\sigma=
+\begin{cases}
+-1,& x<0\\[0.2cm]
+1,& x>0
+\end{cases}
+\]
+
+\bigskip
+
+Danach betrachtet man nur noch den Betrag $|x|$.
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Normierung der Zahl}
+Wir wollen die Zahl in den Bereich $[1,b)$ bringen.
+
+Dazu wählen wir:
+\[
+E:=\lfloor \log_b |x|\rfloor
+\]
+
+und setzen:
+\[
+a_0:=b^{-E}|x|
+\]
+
+Dann gilt:
+\[
+1\leq a_0<b
+\]
+
+\bigskip
+
+$a_0$ nennt man die normierte Mantisse.
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Warum macht man das?}
+Dann kann man schreiben:
+\[
+x=\sigma\cdot b^E\cdot a_0
+\]
+
+\bigskip
+
+Das trennt die Zahl in zwei Teile:
+
+\begin{itemize}
+\item $b^E$ = Größe der Zahl
+\item $a_0$ = eigentliche Ziffernstruktur
+\end{itemize}
+
+Das ist genau dieselbe Idee wie wissenschaftliche Schreibweise.
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Ziffern Schritt für Schritt bestimmen}
+Nun gewinnen wir die Ziffern aus $a_0$.
+
+Für $i\in\N\cup\{0\}$:
+\[
+z_i=\lfloor a_i\rfloor
+\]
+
+\[
+a_{i+1}=b(a_i-z_i)
+\]
+
+\bigskip
+
+Bedeutung:
+
+\begin{itemize}
+\item Ganzzahliger Teil = nächste Ziffer
+\item Rest = Nachkommateil
+\item Mit $b$ multiplizieren = nächste Stelle nach vorne holen
+\end{itemize}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Beispiel in Basis 10}
+Sei:
+\[
+a_0=3{,}14
+\]
+
+Dann:
+
+\[
+z_0=\lfloor 3{,}14\rfloor=3
+\]
+
+\[
+a_1=10(3{,}14-3)=1{,}4
+\]
+
+\[
+z_1=\lfloor 1{,}4\rfloor=1
+\]
+
+\[
+a_2=10(1{,}4-1)=4
+\]
+
+Also entstehen die Ziffern $3,1,4,\dots$
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Fazit zu 4.1}
+\begin{itemize}
+\item Jede reelle Zahl besitzt eine b-adische Darstellung
+\item Die Basis kann frei gewählt werden
+\item Durch Normierung erhält man eine einheitliche Form
+\item Die Ziffern werden rekursiv berechnet
+\end{itemize}
+
+\bigskip
+
+Wichtig für später:
+
+\bigskip
+
+Darauf bauen Maschinenzahlen und Computerarithmetik auf.
+\end{frame}
+
+%------------------------------------------------
 \end{document}
