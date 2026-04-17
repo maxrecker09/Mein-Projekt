@@ -225,94 +225,441 @@ Dann gilt:
 \end{frame}
 
 %------------------------------------------------
-\begin{frame}{Beweis zu Satz 4.1 -- Schritt 3}
-Damit kann man schreiben:
-\[
-x=\sigma\cdot b^E\cdot a_0
-\]
-
-\bigskip
-
-Trennung der Zahl:
-
-\begin{itemize}
-\item $b^E$ bestimmt die Größe
-\item $a_0$ enthält die Ziffernstruktur
-\end{itemize}
-
-\bigskip
-
-Das entspricht der wissenschaftlichen Schreibweise.
-\end{frame}
-
 %------------------------------------------------
-\begin{frame}{Beweis zu Satz 4.1 -- Schritt 4}
-Jetzt bestimmen wir die Ziffern einzeln.
+\begin{frame}{Beweis zu Satz 4.1 -- Schritt 3}
+\small
+\textbf{Satz 4.1:} Für jedes $x\in\R\setminus\{0\}$ existiert eine normalisierte b-adische Darstellung.
 
-Für $i\in\N\cup\{0\}$:
+\bigskip
+
+\textbf{Ziel von Schritt 3:} Die Ziffern $z_i$ konstruieren.
+
+\bigskip
+
+Wir setzen
 \[
-z_i=\lfloor a_i\rfloor
+a_0:=b^{-E}|x|
 \]
-
+und definieren rekursiv für $i\in\N\cup\{0\}$:
 \[
-a_{i+1}=b(a_i-z_i)
+z_i:=\lfloor a_i\rfloor,
+\qquad
+a_{i+1}:=b(a_i-z_i).
 \]
 
 \bigskip
 
-Idee:
-
+\textbf{Idee:}
 \begin{enumerate}
-\item Ganzzahliger Teil = nächste Ziffer
-\item Rest behalten
-\item mit $b$ multiplizieren
+\item $z_i$ ist der ganzzahlige Teil von $a_i$, also die nächste Ziffer.
+\item $a_i-z_i$ ist der Rest nach dem Komma.
+\item Durch Multiplikation mit $b$ wird die nächste Stelle nach vorne geholt.
 \end{enumerate}
 \end{frame}
 
 %------------------------------------------------
-\begin{frame}{Beispiel 4.1: Basis 10}
-Sei:
+\begin{frame}{Beweis zu Satz 4.1 -- Schritt 4}
+\small
+\textbf{Satz 4.1:} Für jedes $x\in\R\setminus\{0\}$ existiert eine normalisierte b-adische Darstellung.
+
+\bigskip
+
+Aus
+\[
+1\le a_0<b
+\]
+folgt direkt:
+\[
+z_0\neq 0.
+\]
+
+Außerdem gilt für alle $i$:
+\[
+0\le a_i<b
+\quad\Longrightarrow\quad
+z_i=\lfloor a_i\rfloor\in\{0,1,\dots,b-1\}.
+\]
+
+\bigskip
+
+\textbf{Wichtig:}
+\begin{itemize}
+\item Die Ziffern liegen genau im erlaubten Bereich.
+\item Die erste Ziffer ist nicht null.
+\item Damit passt die Konstruktion zur Behauptung des Satzes.
+\end{itemize}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Beispiel zum Konstruktionsverfahren}
+\small
+\textbf{Satz 4.1:} Für jedes $x\in\R\setminus\{0\}$ existiert eine normalisierte b-adische Darstellung.
+
+\bigskip
+
+\textbf{Beispiel in Basis $10$:}
 \[
 a_0=3{,}14
 \]
 
 Dann:
-
 \[
-z_0=\lfloor3{,}14\rfloor=3
+z_0=\lfloor 3{,}14\rfloor=3
 \]
-
 \[
 a_1=10(3{,}14-3)=1{,}4
 \]
-
 \[
-z_1=\lfloor1{,}4\rfloor=1
+z_1=\lfloor 1{,}4\rfloor=1
 \]
-
 \[
 a_2=10(1{,}4-1)=4
 \]
 
-Also entstehen die Ziffern:
+\bigskip
+
+Also entstehen Schritt für Schritt die Ziffern
 \[
 3,1,4,\dots
 \]
+
+\textbf{Merke:} Genau so liest man die Ziffern der Mantisse nacheinander ab.
 \end{frame}
 
 %------------------------------------------------
-\begin{frame}{Zusammenfassung zu 4.1}
+\begin{frame}{Beweis zu Satz 4.1 -- Schritt 5}
+\small
+\textbf{Satz 4.1:} Für jedes $x\in\R\setminus\{0\}$ existiert eine normalisierte b-adische Darstellung.
+
+\bigskip
+
+\textbf{Entscheidende Behauptung:} Für alle $n\in\N\cup\{0\}$ gilt
+\[
+a_0=\sum_{i=0}^{n} z_i b^{-i}+a_{n+1}b^{-n-1}.
+\]
+
+\bigskip
+
+\textbf{Bedeutung der Formel:}
 \begin{itemize}
-\item Jede reelle Zahl besitzt eine b-adische Darstellung.
-\item Die Mantisse liegt immer in $[1,b)$.
-\item Die Ziffern werden rekursiv erzeugt.
-\item Die Darstellung ist Grundlage für Computerzahlen.
+\item \(\sum_{i=0}^{n} z_i b^{-i}\) enthält die schon bekannten Ziffern.
+\item \(a_{n+1}b^{-n-1}\) ist der Rest.
+\item Für großes $n$ wird der Rest immer kleiner.
 \end{itemize}
 
 \bigskip
 
-\textbf{Nächstes Kapitel:} Maschinenzahlen
+\textbf{Idee:} So nähert sich die endliche Teilsumme immer besser an \(a_0\) an.
 \end{frame}
 
 %------------------------------------------------
-\end{document}
+\begin{frame}{Beweis zu Satz 4.1 -- Induktion: Anfang}
+\small
+\textbf{Zu zeigen:}
+\[
+a_0=\sum_{i=0}^{n} z_i b^{-i}+a_{n+1}b^{-n-1}
+\quad \text{für alle } n\in\N\cup\{0\}.
+\]
+
+\bigskip
+
+\textbf{1. Induktionsanfang:} $n=0$
+
+Dann lautet die Behauptung:
+\[
+a_0=z_0b^0+a_1b^{-1}.
+\]
+
+Da
+\[
+a_1=b(a_0-z_0)
+\]
+gilt, folgt
+\[
+\frac{a_1}{b}=a_0-z_0.
+\]
+
+Also:
+\[
+z_0+\frac{a_1}{b}=z_0+(a_0-z_0)=a_0.
+\]
+
+Damit stimmt die Formel für $n=0$.
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Beweis zu Satz 4.1 -- Induktion: Schritt}
+\small
+\textbf{Induktionsannahme:}
+\[
+a_0=\sum_{i=0}^{n-1} z_i b^{-i}+a_n b^{-n}.
+\]
+
+\bigskip
+
+\textbf{2. Induktionsschritt:} Zeige die Formel für $n$.
+
+Aus der Definition
+\[
+a_{n+1}=b(a_n-z_n)
+\]
+folgt
+\[
+a_n=z_n+\frac{a_{n+1}}{b}.
+\]
+
+Einsetzen in die Induktionsannahme liefert:
+\[
+a_0=\sum_{i=0}^{n-1} z_i b^{-i}+\left(z_n+\frac{a_{n+1}}{b}\right)b^{-n}.
+\]
+
+Ausmultiplizieren:
+\[
+a_0=\sum_{i=0}^{n-1} z_i b^{-i}+z_n b^{-n}+a_{n+1}b^{-n-1}.
+\]
+
+Also:
+\[
+a_0=\sum_{i=0}^{n} z_i b^{-i}+a_{n+1}b^{-n-1}.
+\]
+
+Damit ist die Behauptung bewiesen.
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Beweis zu Satz 4.1 -- Schritt 6}
+\small
+\textbf{Wichtige Behauptung:}
+\[
+a_0=\sum_{i=0}^{n} z_i b^{-i}+a_{n+1}b^{-n-1}.
+\]
+
+\bigskip
+
+Wir lassen jetzt $n\to\infty$ gehen.
+
+Dann verschwindet der Restterm
+\[
+a_{n+1}b^{-n-1}\to 0,
+\]
+denn:
+\[
+0\le a_{n+1}<b
+\]
+und daher
+\[
+0\le a_{n+1}b^{-n-1}<b\cdot b^{-n-1}=b^{-n}\to 0.
+\]
+
+Also folgt
+\[
+a_0=\sum_{i=0}^{\infty} z_i b^{-i}.
+\]
+
+Mit
+\[
+x=\sigma\cdot b^E\cdot a_0
+\]
+erhalten wir schließlich
+\[
+x=\sigma\cdot b^E\cdot \left(\sum_{i=0}^{\infty} z_i b^{-i}\right).
+\]
+
+\textbf{Damit ist die Darstellung konstruiert.}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Beweis zu Satz 4.1 -- Schritt 7: Existenz}
+\small
+\textbf{Noch zu zeigen:}
+\[
+\{i\in\N\mid z_i\neq b-1\}\ \text{ist unendlich.}
+\]
+
+\bigskip
+
+Angenommen, das wäre falsch.
+
+Dann gäbe es ein \(n_0\in\N\), so dass für alle \(i>n_0\) gilt:
+\[
+z_i=b-1.
+\]
+
+Dann wäre
+\[
+a_0=\sum_{i=0}^{n_0} z_i b^{-i}+\sum_{i=n_0+1}^{\infty}(b-1)b^{-i}.
+\]
+
+Die zweite Summe kann man ausrechnen zu
+\[
+b^{-n_0}.
+\]
+
+Also:
+\[
+a_0=\sum_{i=0}^{n_0} z_i b^{-i}+b^{-n_0}.
+\]
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Beweis zu Satz 4.1 -- Schritt 8: Widerspruch}
+\small
+\textbf{Annahme zum Widerspruch:} Ab einem Index gilt immer \(z_i=b-1\).
+
+\bigskip
+
+Aus der vorher bewiesenen Behauptung folgt aber auch:
+\[
+a_0=\sum_{i=0}^{n_0} z_i b^{-i}+a_{n_0+1}b^{-n_0-1}.
+\]
+
+Vergleich mit
+\[
+a_0=\sum_{i=0}^{n_0} z_i b^{-i}+b^{-n_0}
+\]
+liefert:
+\[
+a_{n_0+1}b^{-n_0-1}=b^{-n_0}.
+\]
+
+Also:
+\[
+a_{n_0+1}=b.
+\]
+
+Das ist unmöglich, denn wir wissen bereits:
+\[
+0\le a_i<b.
+\]
+
+\bigskip
+
+\textbf{Widerspruch.} Also ist
+\[
+\{i\in\N\mid z_i\neq b-1\}
+\]
+unendlich.
+
+Damit ist die \textbf{Existenz} vollständig bewiesen.
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Beweis zu Satz 4.1 -- Schritt 9: Eindeutigkeit}
+\small
+\textbf{Nun zur Eindeutigkeit.}
+
+Angenommen, es gäbe zwei Darstellungen:
+\[
+x=\sigma\cdot b^E\cdot \sum_{i=0}^{\infty} y_i b^{-i}
+=
+\sigma\cdot b^E\cdot \sum_{i=0}^{\infty} z_i b^{-i}.
+\]
+
+Sei $n$ der kleinste Index mit
+\[
+y_n\neq z_n.
+\]
+
+Ohne Einschränkung gelte:
+\[
+y_n+1\le z_n.
+\]
+
+Dann ist die zweite Darstellung ab der Stelle $n$ mindestens „größer“ als die erste.
+
+\bigskip
+
+\textbf{Idee:} Daraus folgt am Ende
+\[
+\sum_{i=0}^{\infty} y_i b^{-i}<\sum_{i=0}^{\infty} z_i b^{-i},
+\]
+also ein Widerspruch.
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Beweis zu Satz 4.1 -- Schritt 10: Eindeutigkeit}
+\small
+Aus der Annahme \(y_n+1\le z_n\) folgt:
+\[
+\sum_{i=0}^{\infty} y_i b^{-i}
+\le
+\sum_{i=0}^{n-1} y_i b^{-i}+(z_n-1)b^{-n}+\sum_{i=n+1}^{\infty} y_i b^{-i}.
+\]
+
+Da alle Ziffern höchstens \(b-1\) sind, gilt weiter:
+\[
+\sum_{i=n+1}^{\infty} y_i b^{-i}
+<
+\sum_{i=n+1}^{\infty}(b-1)b^{-i}.
+\]
+
+Zusammen ergibt sich:
+\[
+\sum_{i=0}^{\infty} y_i b^{-i}
+<
+\sum_{i=0}^{n-1} z_i b^{-i}+z_n b^{-n}
+\le
+\sum_{i=0}^{\infty} z_i b^{-i}.
+\]
+
+Also wären die beiden Darstellungen verschieden.
+
+Das widerspricht aber der Annahme, dass beide dieselbe Zahl \(x\) darstellen.
+
+\bigskip
+
+\textbf{Damit ist auch die Eindeutigkeit bewiesen.}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Beispiel 4.2}
+\small
+\textbf{Beispiel aus dem Skript für \(b=2\):}
+
+\[
+\frac13
+=
+2^{-2}\left(2^0+2^{-2}+2^{-4}+2^{-6}+\dots\right)
+=
+(0,01)_2
+\]
+
+\bigskip
+
+Außerdem:
+\[
+8{,}1
+=
+2^3\left(2^0+2^{-7}+2^{-8}+2^{-11}+2^{-12}+\dots\right)
+=
+(1000,00011\dots)_2
+\]
+
+\bigskip
+
+\textbf{Wichtig:}
+Auch bekannte Dezimalzahlen können in Basis 2 eine unendliche Darstellung besitzen.
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Zusammenfassung zu Satz 4.1}
+\small
+\textbf{Satz 4.1:} Jede reelle Zahl \(x\neq 0\) besitzt eine eindeutig bestimmte normalisierte b-adische Darstellung.
+
+\bigskip
+
+\textbf{Beweisstruktur:}
+\begin{enumerate}
+\item Vorzeichen bestimmen
+\item Zahl normieren
+\item Ziffern rekursiv konstruieren
+\item zentrale Behauptung per Induktion beweisen
+\item Existenz vollständig zeigen
+\item Eindeutigkeit mit Widerspruch zeigen
+\end{enumerate}
+
+\bigskip
+
+\textbf{Bedeutung für das nächste Kapitel:}
+Diese Darstellung ist die Grundlage der Maschinenzahlen.
+\end{frame}
