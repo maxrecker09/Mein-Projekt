@@ -38,12 +38,16 @@
 \end{frame}
 
 %------------------------------------------------
-\begin{frame}{4.1 Grundidee}
-Ziel: Jede reelle Zahl soll in einer Basis $b\geq 2$ dargestellt werden.
+\begin{frame}{4.1 Motivation}
+Ziel des Kapitels:
 
 \bigskip
 
-Bekannte Beispiele:
+Jede reelle Zahl soll in einer Basis $b\geq 2$ dargestellt werden.
+
+\bigskip
+
+Bekannte Basen:
 \begin{itemize}
 \item $b=10$ : Dezimalsystem
 \item $b=2$ : Binärsystem
@@ -52,18 +56,18 @@ Bekannte Beispiele:
 
 \bigskip
 
-Wir suchen also eine Darstellung, die für jede Zahl funktioniert.
+Diese Darstellung ist die Grundlage für spätere Maschinenzahlen.
 \end{frame}
 
 %------------------------------------------------
-\begin{frame}{Satz zur Darstellung}
+\begin{frame}{Satz 4.1: b-adische Darstellung}
 \small
 \begin{thm}
 Sei $b\in\N$, $b\geq 2$, und $x\in\R\setminus\{0\}$.
 
-Dann gibt es eindeutig bestimmte Zahlen
+Dann existieren eindeutig bestimmte Zahlen
 \[
-E\in\Z,\qquad \sigma\in\{-1,1\},\qquad z_i\in\{0,1,\dots,b-1\},
+E\in\Z,\quad \sigma\in\{-1,1\},\quad z_i\in\{0,1,\dots,b-1\},
 \]
 so dass
 \[
@@ -71,15 +75,13 @@ x=\sigma\cdot b^E\cdot\left(\sum_{i=0}^{\infty} z_i b^{-i}\right).
 \]
 \end{thm}
 
-Diese Darstellung heißt:
-
 \bigskip
 
-\textbf{normalisierte b-adische Darstellung von $x$}
+\textbf{Merke:} Jede Zahl besteht aus Vorzeichen, Größe und Ziffernfolge.
 \end{frame}
 
 %------------------------------------------------
-\begin{frame}{Die Formel einfach erklärt}
+\begin{frame}{Erklärung der Bestandteile}
 \[
 x=\sigma\cdot b^E\cdot\left(\sum_{i=0}^{\infty} z_i b^{-i}\right)
 \]
@@ -87,73 +89,60 @@ x=\sigma\cdot b^E\cdot\left(\sum_{i=0}^{\infty} z_i b^{-i}\right)
 \bigskip
 
 \begin{itemize}
-\item $\sigma$ = Vorzeichen der Zahl
-\item $b$ = Basis des Zahlensystems
+\item $\sigma$ = Vorzeichen
+\item $b$ = Basis
 \item $E$ = Exponent / Größenordnung
-\item $z_i$ = Ziffern der Zahl
+\item $z_i$ = $i$-te Ziffer
 \item $b^{-i}$ = Stellenwert
 \end{itemize}
 
 \bigskip
 
-Also: Vorzeichen $\times$ Größe $\times$ eigentliche Zifferndarstellung
+Also:
+\[
+\text{Zahl}=\text{Vorzeichen}\cdot\text{Größe}\cdot\text{Mantisse}
+\]
 \end{frame}
 
 %------------------------------------------------
-\begin{frame}{Bedeutung der Ziffern}
-Die Ziffern erfüllen:
+\begin{frame}{Ziffern im jeweiligen Zahlensystem}
+Es gilt immer:
 \[
 z_i\in\{0,1,\dots,b-1\}
 \]
 
-Das heißt:
+\bigskip
+
+Beispiele:
 
 \begin{itemize}
-\item Im Dezimalsystem: $0$ bis $9$
-\item Im Binärsystem: nur $0$ oder $1$
-\item Im Hexsystem: $0$ bis $15$
+\item Basis $10$: Ziffern $0$ bis $9$
+\item Basis $2$: Ziffern $0,1$
+\item Basis $8$: Ziffern $0$ bis $7$
+\item Basis $16$: Ziffern $0$ bis $15$
 \end{itemize}
 
 \bigskip
 
-Jede Ziffer wird mit ihrem Stellenwert multipliziert:
-\[
-z_i\cdot b^{-i}
-\]
-
-Dann werden alle Beiträge addiert.
+Jede Ziffer darf also nur Werte annehmen, die zur Basis passen.
 \end{frame}
 
 %------------------------------------------------
-\begin{frame}{Warum die unendliche Summe?}
-Wir schreiben:
+\begin{frame}{Bemerkung 4.1: Warum existiert die Summe?}
+Wir betrachten:
 \[
 \sum_{i=0}^{\infty} z_i b^{-i}
 \]
 
-Das bedeutet eine unendliche Reihe.
-
 \bigskip
 
-Formal:
-\[
-\sum_{i=0}^{\infty} a_i
-=
-\lim_{n\to\infty}\sum_{i=0}^{n} a_i
-\]
+Warum existiert der Grenzwert?
 
-\bigskip
-
-Man betrachtet also immer längere Teilsummen.
-\end{frame}
-
-%------------------------------------------------
-\begin{frame}{Warum existiert der Grenzwert?}
-\begin{itemize}
-\item Alle Summanden sind $\geq 0$
-\item Die Teilsummen wachsen also nur nach oben
-\item Gleichzeitig sind sie beschränkt
-\end{itemize}
+\begin{enumerate}
+\item Alle Summanden sind nichtnegativ.
+\item Die Partialsummen wachsen monoton.
+\item Die Summe ist nach oben beschränkt.
+\end{enumerate}
 
 Denn:
 \[
@@ -166,35 +155,36 @@ also:
 \leq
 \sum_{i=0}^{\infty}(b-1)b^{-i}
 \]
-
-Dadurch existiert der Grenzwert.
 \end{frame}
 
 %------------------------------------------------
-\begin{frame}{Wichtige Abschätzung}
-Es gilt:
+\begin{frame}{Wichtige Folgerung}
+Für die Mantisse gilt:
 \[
 1\leq \sum_{i=0}^{\infty} z_i b^{-i}<b
 \]
 
 \bigskip
 
-Warum?
+Begründung:
 
 \begin{itemize}
-\item Untere Grenze: $z_0\neq 0$
-\item Obere Grenze: keine Ziffer ist größer als $b-1$
+\item $z_0\neq 0$ liefert die untere Grenze
+\item keine Ziffer größer als $b-1$ liefert die obere Grenze
 \end{itemize}
 
 \bigskip
 
-Die Mantisse liegt also immer zwischen $1$ und $b$.
+\textbf{Wichtig:} Dieser Bereich $[1,b)$ wird später immer wieder gebraucht.
 \end{frame}
 
 %------------------------------------------------
-\begin{frame}{Beginn des Beweises: Vorzeichen}
-Das Vorzeichen ist direkt klar:
+\begin{frame}{Beweis zu Satz 4.1 -- Schritt 1}
+\textbf{Ziel:} Darstellung von $x$ konstruieren.
 
+\bigskip
+
+Zuerst das Vorzeichen:
 \[
 \sigma=
 \begin{cases}
@@ -205,16 +195,18 @@ Das Vorzeichen ist direkt klar:
 
 \bigskip
 
-Danach betrachtet man nur noch den Betrag $|x|$.
+Danach genügt es, nur noch $|x|$ zu betrachten.
 \end{frame}
 
 %------------------------------------------------
-\begin{frame}{Normierung der Zahl}
-Wir wollen die Zahl in den Bereich $[1,b)$ bringen.
+\begin{frame}{Beweis zu Satz 4.1 -- Schritt 2}
+Nun bringen wir die Zahl in den Standardbereich $[1,b)$.
 
-Dazu wählen wir:
+\bigskip
+
+Wir wählen:
 \[
-E:=\lfloor \log_b |x|\rfloor
+E:=\lfloor \log_b|x|\rfloor
 \]
 
 und setzen:
@@ -229,31 +221,33 @@ Dann gilt:
 
 \bigskip
 
-$a_0$ nennt man die normierte Mantisse.
+\textbf{Merke:} $a_0$ heißt normierte Mantisse.
 \end{frame}
 
 %------------------------------------------------
-\begin{frame}{Warum macht man das?}
-Dann kann man schreiben:
+\begin{frame}{Beweis zu Satz 4.1 -- Schritt 3}
+Damit kann man schreiben:
 \[
 x=\sigma\cdot b^E\cdot a_0
 \]
 
 \bigskip
 
-Das trennt die Zahl in zwei Teile:
+Trennung der Zahl:
 
 \begin{itemize}
-\item $b^E$ = Größe der Zahl
-\item $a_0$ = eigentliche Ziffernstruktur
+\item $b^E$ bestimmt die Größe
+\item $a_0$ enthält die Ziffernstruktur
 \end{itemize}
 
-Das ist genau dieselbe Idee wie wissenschaftliche Schreibweise.
+\bigskip
+
+Das entspricht der wissenschaftlichen Schreibweise.
 \end{frame}
 
 %------------------------------------------------
-\begin{frame}{Ziffern Schritt für Schritt bestimmen}
-Nun gewinnen wir die Ziffern aus $a_0$.
+\begin{frame}{Beweis zu Satz 4.1 -- Schritt 4}
+Jetzt bestimmen wir die Ziffern einzeln.
 
 Für $i\in\N\cup\{0\}$:
 \[
@@ -266,17 +260,17 @@ a_{i+1}=b(a_i-z_i)
 
 \bigskip
 
-Bedeutung:
+Idee:
 
-\begin{itemize}
+\begin{enumerate}
 \item Ganzzahliger Teil = nächste Ziffer
-\item Rest = Nachkommateil
-\item Mit $b$ multiplizieren = nächste Stelle nach vorne holen
-\end{itemize}
+\item Rest behalten
+\item mit $b$ multiplizieren
+\end{enumerate}
 \end{frame}
 
 %------------------------------------------------
-\begin{frame}{Beispiel in Basis 10}
+\begin{frame}{Beispiel 4.1: Basis 10}
 Sei:
 \[
 a_0=3{,}14
@@ -285,7 +279,7 @@ a_0=3{,}14
 Dann:
 
 \[
-z_0=\lfloor 3{,}14\rfloor=3
+z_0=\lfloor3{,}14\rfloor=3
 \]
 
 \[
@@ -293,32 +287,31 @@ a_1=10(3{,}14-3)=1{,}4
 \]
 
 \[
-z_1=\lfloor 1{,}4\rfloor=1
+z_1=\lfloor1{,}4\rfloor=1
 \]
 
 \[
 a_2=10(1{,}4-1)=4
 \]
 
-Also entstehen die Ziffern $3,1,4,\dots$
+Also entstehen die Ziffern:
+\[
+3,1,4,\dots
+\]
 \end{frame}
 
 %------------------------------------------------
-\begin{frame}{Fazit zu 4.1}
+\begin{frame}{Zusammenfassung zu 4.1}
 \begin{itemize}
-\item Jede reelle Zahl besitzt eine b-adische Darstellung
-\item Die Basis kann frei gewählt werden
-\item Durch Normierung erhält man eine einheitliche Form
-\item Die Ziffern werden rekursiv berechnet
+\item Jede reelle Zahl besitzt eine b-adische Darstellung.
+\item Die Mantisse liegt immer in $[1,b)$.
+\item Die Ziffern werden rekursiv erzeugt.
+\item Die Darstellung ist Grundlage für Computerzahlen.
 \end{itemize}
 
 \bigskip
 
-Wichtig für später:
-
-\bigskip
-
-Darauf bauen Maschinenzahlen und Computerarithmetik auf.
+\textbf{Nächstes Kapitel:} Maschinenzahlen
 \end{frame}
 
 %------------------------------------------------
