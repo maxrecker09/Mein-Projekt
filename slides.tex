@@ -818,6 +818,432 @@ Wenn an der ersten unterschiedlichen Stelle eine Ziffer kleiner ist, dann kann d
 
 \end{frame}
 
+%------------------------------------------------
+\begin{frame}{4.2 Maschinenzahlen}
+
+\large
+
+\textbf{Motivation / Zusammenhang:}
+
+\vspace{0.5cm}
+
+Da in einem Rechner nur endlich viele Stellen einer reellen Zahl dargestellt werden können,
+
+nutzt man in Anlehnung an Satz 4.1  
+(normalisierte \(b\)-adische Darstellung von \(x\))
+
+die folgende Darstellung.
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Definition 4.3: Maschinenzahl}
+
+\tiny
+
+Seien \(b,m\in\N\) mit \(b\geq 2\).
+
+Eine \(b\)-adische \(m\)-stellige normalisierte Gleitkommazahl hat die Form
+
+\[
+x=\sigma \cdot b^E \cdot
+\left(\sum_{i=0}^{m-1} z_i b^{-i}\right)
+\]
+
+mit
+
+\[
+\sigma\in\{-1,1\},
+\qquad
+E\in\Z,
+\]
+
+\[
+z_0\neq 0,
+\qquad
+z_i\in\{0,\dots,b-1\}
+\quad \text{für alle } i\in\N\cup\{0\}.
+\]
+
+\vspace{0.4cm}
+
+\(\Rightarrow\) Der einzige Unterschied zu Satz 4.1 ist:
+
+Die Reihe läuft jetzt nur noch bis \(m-1\), da wir eine \(m\)-stellige Zahl haben.
+
+\vspace{0.4cm}
+
+\textbf{Warum nicht bis \(m\)?}
+
+Weil wir bei \(0\) anfangen:
+
+\[
+i=0 \text{ (1. Stelle), }\;
+i=1 \text{ (2. Stelle), }\;
+\dots,\;
+i=m-1 \text{ (m-te Stelle).}
+\]
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Beispiel}
+
+\large
+
+\textbf{1)} Für \(b=10\) hat die Zahl \(136{,}5\) die normalisierte 5-stellige Darstellung:
+
+\[
+136{,}5 = 1{,}3650 \cdot 10^2
+\]
+
+\vspace{0.5cm}
+
+In C++-Notation schreibt sich das als:
+
+\[
+1.365\texttt{e}+2
+\]
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Maschinenzahlbereich}
+
+\small
+
+Für die Darstellung im Rechner sind geeignete Werte für \(b, m\) und den zulässigen Bereich
+
+\[
+\{E_{\min}, \dots, E_{\max}\}
+\]
+
+für \(E\) zu wählen.
+
+\vspace{0.3cm}
+
+Dies bestimmt den Maschinenzahlbereich:
+
+\[
+F(b,m,E_{\min},E_{\max})
+\]
+
+\vspace{0.4cm}
+
+\textbf{Bedeutung:}
+
+\begin{itemize}
+\item \(b\): Basis des Zahlensystems
+
+\item \(m\): Anzahl der Mantissenstellen
+
+\item \(E_{\min}, E_{\max}\): erlaubter Exponentenbereich
+\end{itemize}
+
+\vspace{0.4cm}
+
+In dieser Menge liegen Zahlen der Form:
+
+\[
+x=\sigma \cdot b^E \cdot \left(\sum_{i=0}^{m-1} z_i b^{-i}\right),
+\]
+
+mit erlaubten Exponenten, genau \(m\) Stellen und normalisiert, sowie zusätzlich \(0\).
+
+\vspace{0.4cm}
+
+\textbf{Beispiel:}
+
+\[
+-3 \leq E \leq 4
+\]
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Definition des Maschinenzahlbereichs}
+
+\small
+
+Der Maschinenzahlbereich ist die Menge der \(b\)-adischen, \(m\)-stelligen,
+normalisierten Gleitkommazahlen mit Exponent
+
+\[
+E\in\{E_{\min},\dots,E_{\max}\},
+\]
+
+zuzüglich der Zahl \(0\).
+
+\vspace{0.5cm}
+
+\textbf{Hinweis:}
+
+Die \(0\) muss extra hinzugefügt werden, da sie wegen der Normalisierung
+(\(z_0\neq 0\)) nicht automatisch in der Menge enthalten ist.
+
+\vspace{0.8cm}
+
+Die Elemente eines (festen) Maschinenzahlbereichs heißen
+\textbf{Maschinenzahlen}.
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Beispiel für Maschinenzahlen}
+
+\large
+
+\textbf{Beispiel:}
+
+\[
+b=10,\quad m=3,\quad E\in\{-1,0,1\}
+\]
+
+\vspace{0.5cm}
+
+Dann sind mögliche Maschinenzahlen z.\,B.:
+
+\[
+1{,}23\cdot 10^1 = 12{,}3
+\]
+
+\[
+9{,}99\cdot 10^{-1} = 0{,}999
+\]
+
+\[
+-4{,}56\cdot 10^0 = -4{,}56
+\]
+
+\vspace{0.5cm}
+
+Und immer auch:
+
+\[
+0
+\]
+
+\end{frame}
+%------------------------------------------------
+\begin{frame}{Anwendung in der Praxis}
+
+\small
+
+Im 1985 verabschiedeten IEEE-Standard 754 wird beispielsweise
+ein Datentyp \texttt{double} definiert mit
+
+\[
+b=2,\quad m=53,\quad E\in\{-1022,\dots,1023\}.
+\]
+
+\vspace{0.4cm}
+
+Dabei steht IEEE für:
+
+\textit{The Institute of Electrical and Electronics Engineers}
+
+\vspace{0.5cm}
+
+Wir schreiben:
+
+\[
+F_{\text{double}}=F(2,53,-1022,1023).
+\]
+
+\vspace{0.5cm}
+
+Zur Darstellung dieser Zahlen reichen 64 Bits aus:
+
+\begin{itemize}
+\item 1 Bit für das Vorzeichen
+\item 52 Bits für die Mantisse
+\item 11 Bits für den Exponenten
+\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{IEEE 754: Hidden Bit}
+
+\small
+
+Wir schreiben:
+
+\[
+F_{\text{double}}=F(2,53,-1022,1023).
+\]
+
+\vspace{0.4cm}
+
+Zur Darstellung dieser Zahlen reichen 64 Bits aus:
+
+\begin{itemize}
+\item 1 Bit für das Vorzeichen
+\item 52 Bits \(z_1,\dots,z_{52}\) für die Mantisse
+\item 11 Bits für den Exponenten
+\end{itemize}
+
+\vspace{0.6cm}
+
+Da wegen der Normalisierung das nullte Bit \(z_0\) immer den Wert \(1\) hat,
+kann dieses weggelassen werden.
+
+\vspace{0.3cm}
+
+Es wird daher als \textbf{hidden bit} bezeichnet.
+
+\vspace{0.4cm}
+
+Deshalb genügen 52 Mantissenbits bei \(m=53\).
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{IEEE 754: Bias-Darstellung}
+
+\small
+
+Für den Exponenten wird die sogenannte \textbf{Bias-Darstellung} benutzt:
+
+Eine Konstante (Bias) wird hinzuaddiert, um alle Exponenten positiv zu speichern.
+
+\vspace{0.6cm}
+
+Im konkreten Fall \texttt{double} wird
+
+\[
+1023
+\]
+
+hinzuaddiert.
+
+\vspace{0.5cm}
+
+Beispiele:
+
+\[
+E=0 \;\rightarrow\; 1023
+\]
+
+\[
+E=5 \;\rightarrow\; 1028
+\]
+
+\[
+E=-3 \;\rightarrow\; 1020
+\]
+
+\vspace{0.6cm}
+
+Für den C++-Datentyp \texttt{double} schreibt der Standard nicht exakt vor,
+wie dies intern umgesetzt wird.
+
+Üblicherweise erfolgt die Implementierung jedoch gemäß IEEE 754.
+
+Davon gehen wir im Folgenden aus.
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Bit-Aufbau der Gleitkommadarstellung}
+
+\small
+
+Die Abspeicherung in Bits für die normalisierte Gleitkommadarstellung sieht wie folgt aus:
+
+\vspace{0.7cm}
+
+\[
+\begin{array}{|c|c|c|}
+\hline
+\textbf{1 Bit} & \textbf{11 Bits} & \textbf{52 Bits} \\
+\hline
+\dfrac{1+\sigma}{2} & E+1023 & z_1,z_2,\dots,z_{52} \\
+\hline
+\end{array}
+\]
+
+\vspace{0.8cm}
+
+\textbf{Bedeutung:}
+
+\begin{itemize}
+\item Vorzeichenbit:
+\[
+\sigma=-1 \Rightarrow \frac{1+\sigma}{2}=0,
+\qquad
+\sigma=1 \Rightarrow \frac{1+\sigma}{2}=1
+\]
+
+\item Exponent wird mit Bias gespeichert: \(E+1023\)
+
+\item Mantisse speichert die Bits \(z_1,\dots,z_{52}\)
+\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Spezielle Exponentenwerte}
+
+\small
+
+Die zwei freien Exponenten \(-1023\) und \(1024\)
+
+(bzw. \(0\) und \(2047\) in Bias-Darstellung)
+
+werden für Sonderfälle benutzt.
+
+\vspace{0.5cm}
+
+\textbf{Verwendung:}
+
+\begin{itemize}
+\item \(\pm 0\)
+
+\item \(\pm \infty\)
+
+\item subnormale Zahlen  
+(Exponent kleiner als \(-1022\))
+
+\item NaN (\textit{Not a Number})
+\end{itemize}
+
+\vspace{0.5cm}
+
+NaN entsteht z.\,B. bei unzulässigen Rechenoperationen wie
+
+\[
+\log(-1).
+\]
+
+\vspace{0.4cm}
+
+Ebenso können Werte größer als \(1023\) über spezielle Kodierungen dargestellt werden.
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Range eines Maschinenzahlbereichs}
+
+\small
+
+Wir bezeichnen mit
+
+\[
+\operatorname{range}(F):=
+\left[
+\min\{\,f\in F \mid f>0\,\},
+\max F
+\right]
+\]
+
+das kleinste Intervall, in dem alle darstellbaren positiven Zahlen liegen.
+
+\end{frame}
+
+
+
+
 \end{document}
 
 
