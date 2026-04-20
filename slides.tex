@@ -1244,6 +1244,475 @@ das kleinste Intervall, in dem alle darstellbaren positiven Zahlen liegen.
 
 
 
+
+
+
+
+
+
+
+%------------------------------------------------
+\begin{frame}{4.4 Maschinenzahlarithmetik}
+
+\small
+
+Sei \(\circ\) eine der vier Operationen
+
+\[
+\{+,-,\cdot,/\}.
+\]
+
+Wie Beispiel 4.13 verdeutlicht, gilt für \(x,y\in F\) nicht notwendigerweise:
+
+\[
+x\circ y \in F.
+\]
+
+\vspace{0.5cm}
+
+\textbf{Warum?}
+
+Weil das exakte mathematische Ergebnis oft nicht im endlichen
+Maschinenzahlsystem darstellbar ist.
+
+\vspace{0.6cm}
+
+\textbf{Beispiel:}
+
+\[
+10^{300}\cdot 10^{300}=10^{600}
+\]
+
+Dies liegt außerhalb des erlaubten Exponentenbereichs.
+
+\vspace{0.3cm}
+
+\[
+\Rightarrow \text{Overflow / Underflow}
+\]
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Ersatzoperation auf dem Rechner}
+
+\small
+
+Stattdessen wird auf dem Rechner eine Ersatzoperation
+
+\[
+\odot
+\]
+
+ausgeführt, sodass
+
+\[
+x\odot y \in F
+\]
+
+gilt.
+
+Wir nehmen im Folgenden an, dass:
+
+\vspace{0.6cm}
+
+\textbf{Annahme 4.12}
+
+\[
+x\odot y=\operatorname{rd}(x\circ y)
+\]
+
+für eine Rundung \(\operatorname{rd}\) zu \(F\) und alle \(x,y\in F\).
+
+\vspace{0.6cm}
+
+\textbf{Bedeutung:}
+
+\begin{itemize}
+\item großes Kreiszeichen \(\odot\): Rechneroperation
+\item kleines Kreiszeichen \(\circ\): mathematische Operation \(\{+,-,\cdot,/\}\)
+\item wichtig, um Computerschritte mathematisch analysieren zu können
+\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Hinweis zur Ausarbeitung}
+
+\small
+
+Dies wird zum Beispiel vom IEEE-Standard 754 gefordert.
+
+\vspace{0.5cm}
+
+Zudem wird dies dort auch für die Wurzelfunktion vorausgesetzt,
+
+nicht aber z.\,B. für
+
+\[
+\sin(x),\quad \exp(x),\quad \text{etc.}
+\]
+
+\vspace{0.8cm}
+
+\textbf{Zum Weiterlesen:}
+
+Die exakte Rundung elementarer Funktionen ist deutlich schwieriger
+als bei den vier Grundrechenarten.
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Bedeutung der Rundungsannahme}
+
+\small
+
+Annahme 4.12 garantiert, dass man als Ergebnis einer Rechenoperation
+das auf die nächste Maschinenzahl gerundete exakte Ergebnis von \(x\circ y\) erhält.
+
+\vspace{0.4cm}
+
+Man beachte aber, dass zur Berechnung von \(x\odot y\) nicht zuerst
+\(x\circ y\) exakt berechnet werden muss.
+
+Vielmehr kann man die Rechnung abbrechen, sobald hinreichend viele Stellen
+berechnet sind.
+
+\vspace{0.6cm}
+
+Die Anzahl der Stellen wird durch den Maschinenzahlbereich festgelegt.
+
+\vspace{0.5cm}
+
+\textbf{Beispiel:}
+
+\[
+x\circ y = 4{,}613728\ldots
+\]
+
+Maschinenzahlen mit 2 Stellen:
+
+\[
+4{,}6 \qquad \text{und} \qquad 4{,}7
+\]
+
+D.\,h. ab dem Zwischenstand \(4{,}61\) kann man bereits abbrechen
+und auf \(4{,}6\) runden.
+
+\vspace{0.3cm}
+
+Sonst rechnet der Computer unnötig lange weiter.
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Beispiel 4.13}
+
+\scriptsize
+
+Sei 
+\[
+F=F(10,2,-5,5).
+\]
+
+Wähle
+\[
+x=4{,}5\cdot 10^{1}=45
+\quad \text{und} \quad
+y=1{,}1\cdot 10^{0}=1{,}1.
+\]
+
+\vspace{0.4cm}
+
+Dann sind:
+
+\[
+x\oplus y=\operatorname{rd}(x+y)
+=\operatorname{rd}(46{,}1)
+=\operatorname{rd}(4{,}61\cdot 10^{1})
+=4{,}6\cdot 10^{1}
+\]
+
+\[
+x\ominus y=\operatorname{rd}(x-y)
+=\operatorname{rd}(43{,}9)
+=\operatorname{rd}(4{,}39\cdot 10^{1})
+=4{,}4\cdot 10^{1}
+\]
+
+\[
+x\odot y=\operatorname{rd}(x\cdot y)
+=\operatorname{rd}(49{,}5)
+=\operatorname{rd}(4{,}95\cdot 10^{1})
+\in \{4{,}9\cdot 10^{1},\,5{,}0\cdot 10^{1}\}
+\]
+
+\[
+x\oslash y=\operatorname{rd}(x/y)
+=\operatorname{rd}(40{,}\overline{90})
+=\operatorname{rd}(4{,}\overline{09}\cdot 10^{1})
+=4{,}1\cdot 10^{1}
+\]
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Relativer Fehler}
+
+\scriptsize
+
+Gemäß Annahme 4.12 gilt für den relativen Fehler:
+
+\vspace{0.3cm}
+
+\[
+\left|
+\frac{x\circ y-x\odot y}{x\circ y}
+\right|
+=
+\left|
+\frac{x\circ y-\operatorname{rd}(x\circ y)}{x\circ y}
+\right|
+\leq \operatorname{eps}(F)
+\]
+
+\vspace{0.3cm}
+
+falls
+
+\[
+|x\circ y|\in \operatorname{range}(F).
+\]
+
+\vspace{0.5cm}
+
+Dabei ist
+
+\[
+x\odot y=\operatorname{rd}(x\circ y).
+\]
+
+\vspace{0.5cm}
+
+Zur Erinnerung:
+
+\[
+\operatorname{eps}(F):=
+\sup\left\{
+\left|
+\frac{x-\operatorname{rd}(x)}{x}
+\right|
+\;\middle|\;
+x\in\mathbb{R},\ |x|\in\operatorname{range}(F)
+\right\}.
+\]
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Beispiel zum relativen Fehler}
+
+\small
+
+\textbf{Beispiel:}
+
+\[
+x\circ y = 10{,}00 \quad \text{(exaktes Ergebnis)}
+\]
+
+\[
+x\odot y = 9{,}99 \quad \text{(gerundetes Ergebnis)}
+\]
+
+\vspace{0.5cm}
+
+Absoluter Fehler:
+\[
+0{,}01
+\]
+
+Relativer Fehler:
+\[
+\frac{0{,}01}{10} = 0{,}001 = 0{,}1\%
+\]
+
+\vspace{0.5cm}
+
+Wenn \(\operatorname{eps}(F)=0{,}1\%\), dann passt die Aussage.
+
+\vspace{0.6cm}
+
+\textbf{Merksatz:}
+
+Je kleiner \(\operatorname{eps}(F)\), desto genauer das Zahlensystem.
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Wichtiger Zusatz}
+
+\small
+
+Das Kommutativgesetz für Addition und Multiplikation gilt auch
+in der Maschinenzahlarithmetik.
+
+\vspace{0.6cm}
+
+Assoziativ- und Distributivgesetz gelten jedoch
+im Allgemeinen nicht.
+
+\vspace{0.8cm}
+
+\[
+x\oplus y = y\oplus x
+\qquad\qquad
+x\odot y = y\odot x
+\]
+
+\vspace{0.6cm}
+
+Aber im Allgemeinen nicht:
+
+\[
+(x\oplus y)\oplus z = x\oplus (y\oplus z)
+\]
+
+\[
+x\odot (y\oplus z)= (x\odot y)\oplus (x\odot z)
+\]
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Beispiel 4.14}
+
+\scriptsize
+
+Im Maschinenzahlbereich
+
+\[
+F=F(10,2,-5,5)
+\]
+
+seien
+
+\[
+x=4{,}1\cdot 10^{0},\qquad
+y=8{,}2\cdot 10^{-1},\qquad
+z=1{,}4\cdot 10^{-1}.
+\]
+
+\vspace{0.4cm}
+
+Dann sind:
+
+\[
+(x\oplus y)\oplus z
+=
+4{,}9\oplus 0{,}14
+=
+5{,}0
+\]
+
+\[
+x\oplus (y\oplus z)
+=
+4{,}1\oplus 0{,}96
+=
+5{,}1
+\]
+
+\[
+x\odot (y\oplus z)
+=
+4{,}1\odot 0{,}96
+=
+3{,}9
+\]
+
+\[
+(x\odot y)\oplus (x\odot z)
+=
+3{,}4\oplus 0{,}57
+=
+4{,}0
+\]
+
+\vspace{0.4cm}
+
+\textbf{Warum ist das so?}
+
+Nach jedem Rechenschritt wird gerundet:
+
+\[
+\text{Rechnen} \;\rightarrow\; \text{Runden} \;\rightarrow\; \text{Weiterrechnen}
+\]
+
+Dadurch verändern sich Zwischenwerte.
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Wichtige Erkenntnis}
+
+\small
+
+Folglich können mathematisch äquivalente Ausdrücke bei der Ausführung
+in der Maschinenzahlarithmetik zu wesentlich unterschiedlichen Ergebnissen führen,
+auch wenn der Input als Maschinenzahlen darstellbar ist.
+
+\vspace{0.4cm}
+
+Dies kann \textbf{dramatische Folgen} haben.
+
+\vspace{0.6cm}
+
+\textbf{Übersetzung:}
+
+Auch wenn zwei Formeln mathematisch exakt dasselbe bedeuten,
+können sie auf dem Computer verschiedene Ergebnisse liefern.
+
+\vspace{0.6cm}
+
+\textbf{Warum? Wegen:}
+
+\begin{itemize}
+\item Rundung
+\item Reihenfolge der Rechenschritte
+\item Auslöschungseffekten
+\item Overflow / Underflow
+\item Verlust von Stellen
+\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Folgen für die Praxis}
+
+\small
+
+\textbf{Folgen für die Praxis:}
+
+\begin{itemize}
+\item falsche Simulationen
+\item falsche wissenschaftliche Ergebnisse
+\item Abstürze
+\item ungenaue Finanzberechnungen
+\item Fehler in Technik / Navigation / Medizinsoftware
+\end{itemize}
+
+\vspace{0.8cm}
+
+\textbf{Wichtigste Erkenntnis des Kapitels:}
+
+In numerischer Mathematik zählt nicht nur,
+ob eine Formel mathematisch richtig ist,
+
+sondern auch, \textbf{wie} man sie berechnet.
+
+\end{frame}
+
+
 \end{document}
 
 
