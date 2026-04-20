@@ -38,631 +38,778 @@
 \end{frame}
 
 %------------------------------------------------
-\begin{frame}{4.1 Motivation}
-Ziel des Kapitels:
+\begin{frame}{Ziel des Kapitels}
 
-\bigskip
-
-Jede reelle Zahl soll in einer Basis $b\geq 2$ dargestellt werden.
-
-\bigskip
-
-Bekannte Basen:
 \begin{itemize}
-\item $b=10$ : Dezimalsystem
-\item $b=2$ : Binärsystem
-\item $b=16$ : Hexadezimalsystem
+    \item Jede reelle Zahl soll in einer Basis \( b \geq 2 \) dargestellt werden.
 \end{itemize}
 
-\bigskip
+\vspace{0.5cm}
 
-Diese Darstellung ist die Grundlage für spätere Maschinenzahlen.
+\textbf{Bekannte Basen:}
+
+\[
+\begin{array}{l}
+b \in \N,\; b \geq 2 \\[0.3em]
+b = 10:\ \text{Dezimalsystem} \\
+b = 2:\ \text{Binärsystem} \\
+b = 8:\ \text{Oktalsystem} \\
+b = 16:\ \text{Hexadezimalsystem}
+\end{array}
+\]
+
+\vspace{0.5cm}
+
+Diese Darstellung ist die Grundlage für spätere Maschinenzahlen (4.2).
+
 \end{frame}
 
 %------------------------------------------------
-\begin{frame}{Satz 4.1: b-adische Darstellung}
-\small
-\begin{thm}
-Sei $b\in\N$, $b\geq 2$, und $x\in\R\setminus\{0\}$.
+\begin{frame}{Satz 4.1: b-adische Darstellung reeller Zahlen}
 
-Dann existieren eindeutig bestimmte Zahlen
+\begin{thm}
+Sei \( b \in \N \) mit \( b \geq 2 \). Sei \( x \in \R \setminus \{0\} \). Dann existieren eindeutig bestimmte Zahlen
+
 \[
-E\in\Z,\quad \sigma\in\{-1,1\},\quad z_i\in\{0,1,\dots,b-1\},
+E \in \Z,\quad \sigma \in \{-1,1\},\quad z_i \in \{0,1,\dots,b-1\}
 \]
-so dass
+
+für \( i \in \N \cup \{0\} \) mit
+
 \[
-x=\sigma\cdot b^E\cdot\left(\sum_{i=0}^{\infty} z_i b^{-i}\right).
+\{\, i \in \N \mid z_i \neq b-1 \,\} \text{ unendlich}, \quad z_0 \neq 0
 \]
+
+und
+
+\[
+x=\sigma \cdot b^E \cdot \left(\sum_{i=0}^{\infty} z_i \, b^{-i}\right).
+\]
+
+Dies heißt die (normalisierte) b-adische Darstellung von \(x\).
 \end{thm}
 
-\bigskip
-
-\textbf{Merke:} Jede Zahl besteht aus Vorzeichen, Größe und Ziffernfolge.
 \end{frame}
 
 %------------------------------------------------
-\begin{frame}{Erklärung der Bestandteile}
+\begin{frame}{Bestandteile von \(x\)}
+
 \[
-x=\sigma\cdot b^E\cdot\left(\sum_{i=0}^{\infty} z_i b^{-i}\right)
+x=\sigma \cdot b^E \cdot \left(\sum_{i=0}^{\infty} z_i\, b^{-i}\right)
 \]
 
-\bigskip
+\vspace{0.4cm}
 
 \begin{itemize}
-\item $\sigma$ = Vorzeichen
-\item $b$ = Basis
-\item $E$ = Exponent / Größenordnung
-\item $z_i$ = $i$-te Ziffer
-\item $b^{-i}$ = Stellenwert
+    \item \(x\): die Zahl, die dargestellt werden soll
+    
+    \item \(\sigma \in \{-1,1\}\): Vorzeichen
+    
+    \item \(b\): Basis des Zahlensystems
+    
+    \item \(E \in \Z\): Exponent / Größenordnung
+    
+    \item \(z_i\): \(i\)-te Ziffer der Zahl
+    
+    \item \(b^{-i}\): Stellenwert der jeweiligen Ziffer
 \end{itemize}
 
-\bigskip
+\vspace{0.4cm}
 
-Also:
+\textbf{Beispiel:}
+
 \[
-\text{Zahl}=\text{Vorzeichen}\cdot\text{Größe}\cdot\text{Mantisse}
+3{,}1415
+\quad\Rightarrow\quad
+z_0=3,\; z_1=1,\; z_2=4,\; z_3=1,\; z_4=5
 \]
+
+\vspace{0.3cm}
+
+\[
+\Rightarrow\quad
+\text{Zahl = Vorzeichen \(\cdot\) Größe \(\cdot\) Mantisse}
+\]
+
 \end{frame}
 
 %------------------------------------------------
-\begin{frame}{Ziffern im jeweiligen Zahlensystem}
-Es gilt immer:
+\begin{frame}{Behauptung und Beginn des Beweises}
+
+\textbf{Behauptung:} Es gilt
+
 \[
-z_i\in\{0,1,\dots,b-1\}
+1 \leq \sum_{i=0}^{\infty} z_i b^{-i}
+<
+\sum_{i=0}^{\infty} (b-1)b^{-i}
+= b.
 \]
 
-\bigskip
+\vspace{0.3cm}
 
-Beispiele:
+Der Grenzwert existiert, da die Partialsummen monoton wachsend sind und durch \(b\) nach oben beschränkt sind.
 
-\begin{itemize}
-\item Basis $10$: Ziffern $0$ bis $9$
-\item Basis $2$: Ziffern $0,1$
-\item Basis $8$: Ziffern $0$ bis $7$
-\item Basis $16$: Ziffern $0$ bis $15$
-\end{itemize}
+\vspace{0.6cm}
 
-\bigskip
-
-Jede Ziffer darf also nur Werte annehmen, die zur Basis passen.
-\end{frame}
-
-%------------------------------------------------
-\begin{frame}{Bemerkung 4.1: Warum existiert die Summe?}
-Wir betrachten:
-\[
-\sum_{i=0}^{\infty} z_i b^{-i}
-\]
-
-\bigskip
-
-Warum existiert der Grenzwert?
+\textbf{Beweis der Aussage:}
 
 \begin{enumerate}
-\item Alle Summanden sind nichtnegativ.
-\item Die Partialsummen wachsen monoton.
-\item Die Summe ist nach oben beschränkt.
+    \item Sei \(x \in \R \setminus \{0\}\).
+
+    Offenbar muss gelten:
+    \[
+    \sigma = -1 \quad \text{falls } x<0,
+    \qquad
+    \sigma = 1 \quad \text{falls } x>0.
+    \]
+
+    Für
+    \[
+    z_i \in \{0,1,\dots,b-1\}, \quad i\in\N\cup\{0\},
+    \]
+    mit
+    \[
+    \{\, i\in\N \mid z_i \neq b-1 \,\}\neq\emptyset
+    \quad\text{und}\quad z_0\neq 0
+    \]
+    gilt ...
 \end{enumerate}
 
-Denn:
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Warum gilt die Abschätzung?}
+
+\textbf{(2) Warum ist}
 \[
-z_i\leq b-1
+1 \leq \sum_{i=0}^{\infty} z_i b^{-i}\, ?
 \]
 
-also:
+Da \(z_0 \neq 0\) und
+\[
+z_0 \in \{0,1,\dots,b-1\},
+\]
+folgt wegen Ganzzahligkeit:
+\[
+z_0 \geq 1.
+\]
+
+Damit gilt bereits
 \[
 \sum_{i=0}^{\infty} z_i b^{-i}
-\leq
-\sum_{i=0}^{\infty}(b-1)b^{-i}
+= z_0 + \sum_{i=1}^{\infty} z_i b^{-i}
+\geq z_0 \geq 1.
 \]
+
+Gleichheit gilt genau dann, wenn
+\[
+z_i=0 \quad \text{für alle } i\geq 1.
+\]
+
+\vspace{0.5cm}
+
+\textbf{(3) Warum ist}
+\[
+\sum_{i=0}^{\infty} (b-1)b^{-i}=b\, ?
+\]
+
+\[
+\sum_{i=0}^{\infty} (b-1)b^{-i}
+= (b-1)\sum_{i=0}^{\infty} b^{-i}.
+\]
+
+Dies ist eine geometrische Reihe mit Quotient \(q=\frac1b\), also
+
+\[
+\sum_{i=0}^{\infty} b^{-i}
+= \frac{1}{1-\frac1b}
+= \frac{b}{b-1}.
+\]
+
+Somit:
+
+\[
+(b-1)\cdot \frac{b}{b-1}=b.
+\]
+
 \end{frame}
 
 %------------------------------------------------
-\begin{frame}{Wichtige Folgerung}
-Für die Mantisse gilt:
+\begin{frame}{Ziel der Normierung}
+
+\textbf{Behauptung:}
 \[
-1\leq \sum_{i=0}^{\infty} z_i b^{-i}<b
+E := \left\lfloor \log_b |x| \right\rfloor
 \]
 
-\bigskip
+\vspace{0.4cm}
 
-Begründung:
+Wir wollen \(x\) so schreiben, dass
+
+\[
+x=\sigma \cdot b^E \cdot a_0
+\qquad \text{mit} \qquad 1 \leq a_0 < b.
+\]
+
+Dann folgt:
+
+\[
+a_0=b^{-E}|x|.
+\]
+
+\vspace{0.4cm}
+
+Gesucht ist also ein Exponent \(E\), für den gilt:
+
+\[
+1 \leq b^{-E}|x| < b.
+\]
+
+Umformen liefert:
+
+\[
+1 \leq \frac{|x|}{b^E} < b
+\quad \Longleftrightarrow \quad
+b^E \leq |x| < b^{E+1}.
+\]
+
+\vspace{0.4cm}
+
+Das bedeutet:
 
 \begin{itemize}
-\item $z_0\neq 0$ liefert die untere Grenze
-\item keine Ziffer größer als $b-1$ liefert die obere Grenze
+    \item Finde eine ganze Zahl \(E\), sodass \(|x|\)
+    zwischen zwei benachbarten Potenzen von \(b\) liegt.
 \end{itemize}
 
-\bigskip
-
-\textbf{Wichtig:} Dieser Bereich $[1,b)$ wird später immer wieder gebraucht.
 \end{frame}
 
 %------------------------------------------------
-\begin{frame}{Beweis zu Satz 4.1 -- Schritt 1}
-\textbf{Ziel:} Darstellung von $x$ konstruieren.
-
-\bigskip
-
-Zuerst das Vorzeichen:
-\[
-\sigma=
-\begin{cases}
--1,& x<0\\[0.2cm]
-1,& x>0
-\end{cases}
-\]
-
-\bigskip
-
-Danach genügt es, nur noch $|x|$ zu betrachten.
-\end{frame}
-
-%------------------------------------------------
-\begin{frame}{Beweis zu Satz 4.1 -- Schritt 2}
-Nun bringen wir die Zahl in den Standardbereich $[1,b)$.
-
-\bigskip
-
-Wir wählen:
-\[
-E:=\lfloor \log_b|x|\rfloor
-\]
-
-und setzen:
-\[
-a_0:=b^{-E}|x|
-\]
-
-Dann gilt:
-\[
-1\leq a_0<b
-\]
-
-\bigskip
-
-\textbf{Merke:} $a_0$ heißt normierte Mantisse.
-\end{frame}
-
-%------------------------------------------------
-%------------------------------------------------
-\begin{frame}{Beweis zu Satz 4.1 -- Schritt 3}
-\small
-\textbf{Satz 4.1:} Für jedes $x\in\R\setminus\{0\}$ existiert eine normalisierte b-adische Darstellung.
-
-\bigskip
-
-\textbf{Ziel von Schritt 3:} Die Ziffern $z_i$ konstruieren.
-
-\bigskip
-
-Wir setzen
-\[
-a_0:=b^{-E}|x|
-\]
-und definieren rekursiv für $i\in\N\cup\{0\}$:
-\[
-z_i:=\lfloor a_i\rfloor,
-\qquad
-a_{i+1}:=b(a_i-z_i).
-\]
-
-\bigskip
-
-\textbf{Idee:}
-\begin{enumerate}
-\item $z_i$ ist der ganzzahlige Teil von $a_i$, also die nächste Ziffer.
-\item $a_i-z_i$ ist der Rest nach dem Komma.
-\item Durch Multiplikation mit $b$ wird die nächste Stelle nach vorne geholt.
-\end{enumerate}
-\end{frame}
-
-%------------------------------------------------
-\begin{frame}{Beweis zu Satz 4.1 -- Schritt 4}
-\small
-\textbf{Satz 4.1:} Für jedes $x\in\R\setminus\{0\}$ existiert eine normalisierte b-adische Darstellung.
-
-\bigskip
+\begin{frame}{Bestimmung des Exponenten \(E\)}
 
 Aus
+
 \[
-1\le a_0<b
-\]
-folgt direkt:
-\[
-z_0\neq 0.
+b^E \leq |x| < b^{E+1}
 \]
 
-Außerdem gilt für alle $i$:
+wenden wir den Logarithmus zur Basis \(b\) an:
+
 \[
-0\le a_i<b
-\quad\Longrightarrow\quad
-z_i=\lfloor a_i\rfloor\in\{0,1,\dots,b-1\}.
+\log_b(b^E) \leq \log_b(|x|) < \log_b(b^{E+1}).
 \]
 
-\bigskip
+Mit
 
-\textbf{Wichtig:}
-\begin{itemize}
-\item Die Ziffern liegen genau im erlaubten Bereich.
-\item Die erste Ziffer ist nicht null.
-\item Damit passt die Konstruktion zur Behauptung des Satzes.
-\end{itemize}
+\[
+\log_b(b^E)=E,
+\qquad
+\log_b(b^{E+1})=E+1
+\]
+
+folgt:
+
+\[
+E \leq \log_b(|x|) < E+1.
+\]
+
+\vspace{0.4cm}
+
+Damit muss gelten:
+
+\[
+E=\left\lfloor \log_b(|x|)\right\rfloor.
+\]
+
+\vspace{0.5cm}
+
+\textbf{Grund:}
+
+Für
+
+\[
+a_0=b^{-E}|x|=\frac{|x|}{b^E}
+\]
+
+gilt dann automatisch:
+
+\[
+1 \leq a_0 < b.
+\]
+
+Also liefert
+\[
+E=\left\lfloor \log_b(|x|)\right\rfloor
+\]
+genau den passenden Exponenten für die normierte Darstellung.
+
 \end{frame}
 
 %------------------------------------------------
-\begin{frame}{Beispiel zum Konstruktionsverfahren}
-\small
-\textbf{Satz 4.1:} Für jedes $x\in\R\setminus\{0\}$ existiert eine normalisierte b-adische Darstellung.
+\begin{frame}{Darstellung von \(a_0\) mit Restglied}
 
-\bigskip
+\textbf{Behauptung:} Für alle \(n \in \N \cup \{0\}\) gilt
 
-\textbf{Beispiel in Basis $10$:}
 \[
-a_0=3{,}14
+a_0=
+\sum_{i=0}^{n} z_i b^{-i}
++
+a_{n+1} b^{-\,n-1}.
 \]
 
-Dann:
-\[
-z_0=\lfloor 3{,}14\rfloor=3
-\]
-\[
-a_1=10(3{,}14-3)=1{,}4
-\]
-\[
-z_1=\lfloor 1{,}4\rfloor=1
-\]
-\[
-a_2=10(1{,}4-1)=4
-\]
+\vspace{0.4cm}
 
-\bigskip
+Dabei bedeutet:
 
-Also entstehen Schritt für Schritt die Ziffern
-\[
-3,1,4,\dots
-\]
-
-\textbf{Merke:} Genau so liest man die Ziffern der Mantisse nacheinander ab.
-\end{frame}
-
-%------------------------------------------------
-\begin{frame}{Beweis zu Satz 4.1 -- Schritt 5}
-\small
-\textbf{Satz 4.1:} Für jedes $x\in\R\setminus\{0\}$ existiert eine normalisierte b-adische Darstellung.
-
-\bigskip
-
-\textbf{Entscheidende Behauptung:} Für alle $n\in\N\cup\{0\}$ gilt
-\[
-a_0=\sum_{i=0}^{n} z_i b^{-i}+a_{n+1}b^{-n-1}.
-\]
-
-\bigskip
-
-\textbf{Bedeutung der Formel:}
 \begin{itemize}
-\item \(\sum_{i=0}^{n} z_i b^{-i}\) enthält die schon bekannten Ziffern.
-\item \(a_{n+1}b^{-n-1}\) ist der Rest.
-\item Für großes $n$ wird der Rest immer kleiner.
+    \item \(\displaystyle \sum_{i=0}^{n} z_i b^{-i}\): bekannte Ziffern / Partialsumme
+    
+    \item \(\displaystyle a_{n+1} b^{-n-1}\): Restglied
 \end{itemize}
 
-\bigskip
+\vspace{0.4cm}
 
-\textbf{Idee:} So nähert sich die endliche Teilsumme immer besser an \(a_0\) an.
-\end{frame}
+Der verbleibende Rest wird also ab dem Index \(n+1\) zusammengefasst.
 
-%------------------------------------------------
-\begin{frame}{Beweis zu Satz 4.1 -- Induktion: Anfang}
-\small
-\textbf{Zu zeigen:}
-\[
-a_0=\sum_{i=0}^{n} z_i b^{-i}+a_{n+1}b^{-n-1}
-\quad \text{für alle } n\in\N\cup\{0\}.
-\]
+\vspace{0.5cm}
 
-\bigskip
+\textbf{Ziel der Behauptung:}
 
-\textbf{1. Induktionsanfang:} $n=0$
+Am Ende möchte man zeigen:
 
-Dann lautet die Behauptung:
-\[
-a_0=z_0b^0+a_1b^{-1}.
-\]
-
-Da
-\[
-a_1=b(a_0-z_0)
-\]
-gilt, folgt
-\[
-\frac{a_1}{b}=a_0-z_0.
-\]
-
-Also:
-\[
-z_0+\frac{a_1}{b}=z_0+(a_0-z_0)=a_0.
-\]
-
-Damit stimmt die Formel für $n=0$.
-\end{frame}
-
-%------------------------------------------------
-\begin{frame}{Beweis zu Satz 4.1 -- Induktion: Schritt}
-\small
-\textbf{Induktionsannahme:}
-\[
-a_0=\sum_{i=0}^{n-1} z_i b^{-i}+a_n b^{-n}.
-\]
-
-\bigskip
-
-\textbf{2. Induktionsschritt:} Zeige die Formel für $n$.
-
-Aus der Definition
-\[
-a_{n+1}=b(a_n-z_n)
-\]
-folgt
-\[
-a_n=z_n+\frac{a_{n+1}}{b}.
-\]
-
-Einsetzen in die Induktionsannahme liefert:
-\[
-a_0=\sum_{i=0}^{n-1} z_i b^{-i}+\left(z_n+\frac{a_{n+1}}{b}\right)b^{-n}.
-\]
-
-Ausmultiplizieren:
-\[
-a_0=\sum_{i=0}^{n-1} z_i b^{-i}+z_n b^{-n}+a_{n+1}b^{-n-1}.
-\]
-
-Also:
-\[
-a_0=\sum_{i=0}^{n} z_i b^{-i}+a_{n+1}b^{-n-1}.
-\]
-
-Damit ist die Behauptung bewiesen.
-\end{frame}
-
-%------------------------------------------------
-\begin{frame}{Beweis zu Satz 4.1 -- Schritt 6}
-\small
-\textbf{Wichtige Behauptung:}
-\[
-a_0=\sum_{i=0}^{n} z_i b^{-i}+a_{n+1}b^{-n-1}.
-\]
-
-\bigskip
-
-Wir lassen jetzt $n\to\infty$ gehen.
-
-Dann verschwindet der Restterm
-\[
-a_{n+1}b^{-n-1}\to 0,
-\]
-denn:
-\[
-0\le a_{n+1}<b
-\]
-und daher
-\[
-0\le a_{n+1}b^{-n-1}<b\cdot b^{-n-1}=b^{-n}\to 0.
-\]
-
-Also folgt
 \[
 a_0=\sum_{i=0}^{\infty} z_i b^{-i}.
 \]
 
-Mit
+Das Restglied verschwindet für \(n\to\infty\), sodass die exakte unendliche Darstellung entsteht.
+
+\vspace{0.4cm}
+
+\textbf{Wichtig:}
+
+Falls
+
 \[
-x=\sigma\cdot b^E\cdot a_0
-\]
-erhalten wir schließlich
-\[
-x=\sigma\cdot b^E\cdot \left(\sum_{i=0}^{\infty} z_i b^{-i}\right).
+1 \leq x < b,
 \]
 
-\textbf{Damit ist die Darstellung konstruiert.}
+dann gilt bereits:
+
+\[
+a_0=x,
+\]
+
+also ist keine zusätzliche Normierung notwendig.
+
 \end{frame}
 
 %------------------------------------------------
-\begin{frame}{Beweis zu Satz 4.1 -- Schritt 7: Existenz}
-\small
-\textbf{Noch zu zeigen:}
+\begin{frame}{Induktionsbeweis: Anfang und Voraussetzung}
+
+\textbf{Beweis per Induktion} der Aussage
+
 \[
-\{i\in\N\mid z_i\neq b-1\}\ \text{ist unendlich.}
+a_0=
+\sum_{i=0}^{n} z_i b^{-i}
++
+a_{n+1}b^{-n-1}.
 \]
 
-\bigskip
+\vspace{0.5cm}
 
-Angenommen, das wäre falsch.
+\textbf{Induktionsanfang: \(n=0\)}
 
-Dann gäbe es ein \(n_0\in\N\), so dass für alle \(i>n_0\) gilt:
+Zu zeigen:
+
 \[
-z_i=b-1.
-\]
-
-Dann wäre
-\[
-a_0=\sum_{i=0}^{n_0} z_i b^{-i}+\sum_{i=n_0+1}^{\infty}(b-1)b^{-i}.
-\]
-
-Die zweite Summe kann man ausrechnen zu
-\[
-b^{-n_0}.
+a_0=z_0b^0+a_1b^{-1}.
 \]
 
 Also:
+
 \[
-a_0=\sum_{i=0}^{n_0} z_i b^{-i}+b^{-n_0}.
-\]
-\end{frame}
-
-%------------------------------------------------
-\begin{frame}{Beweis zu Satz 4.1 -- Schritt 8: Widerspruch}
-\small
-\textbf{Annahme zum Widerspruch:} Ab einem Index gilt immer \(z_i=b-1\).
-
-\bigskip
-
-Aus der vorher bewiesenen Behauptung folgt aber auch:
-\[
-a_0=\sum_{i=0}^{n_0} z_i b^{-i}+a_{n_0+1}b^{-n_0-1}.
+a_0=z_0+\frac{a_1}{b}.
 \]
 
-Vergleich mit
+Mit der Rekursion
+
 \[
-a_0=\sum_{i=0}^{n_0} z_i b^{-i}+b^{-n_0}
-\]
-liefert:
-\[
-a_{n_0+1}b^{-n_0-1}=b^{-n_0}.
+a_1=b(a_0-z_0)
 \]
 
-Also:
+folgt:
+
 \[
-a_{n_0+1}=b.
-\]
-
-Das ist unmöglich, denn wir wissen bereits:
-\[
-0\le a_i<b.
-\]
-
-\bigskip
-
-\textbf{Widerspruch.} Also ist
-\[
-\{i\in\N\mid z_i\neq b-1\}
-\]
-unendlich.
-
-Damit ist die \textbf{Existenz} vollständig bewiesen.
-\end{frame}
-
-%------------------------------------------------
-\begin{frame}{Beweis zu Satz 4.1 -- Schritt 9: Eindeutigkeit}
-\small
-\textbf{Nun zur Eindeutigkeit.}
-
-Angenommen, es gäbe zwei Darstellungen:
-\[
-x=\sigma\cdot b^E\cdot \sum_{i=0}^{\infty} y_i b^{-i}
+a_0
 =
-\sigma\cdot b^E\cdot \sum_{i=0}^{\infty} z_i b^{-i}.
+z_0+\frac{b(a_0-z_0)}{b}
+=
+z_0+(a_0-z_0)
+=
+a_0.
 \]
 
-Sei $n$ der kleinste Index mit
+\hfill \(\checkmark\)
+
+\vspace{0.6cm}
+
+\textbf{Induktionsvoraussetzung}
+
+Angenommen, für ein \(n-1\) gilt:
+
 \[
-y_n\neq z_n.
+a_0=
+\sum_{i=0}^{n-1} z_i b^{-i}
++
+a_n b^{-n}.
 \]
 
-Ohne Einschränkung gelte:
-\[
-y_n+1\le z_n.
-\]
-
-Dann ist die zweite Darstellung ab der Stelle $n$ mindestens „größer“ als die erste.
-
-\bigskip
-
-\textbf{Idee:} Daraus folgt am Ende
-\[
-\sum_{i=0}^{\infty} y_i b^{-i}<\sum_{i=0}^{\infty} z_i b^{-i},
-\]
-also ein Widerspruch.
 \end{frame}
 
 %------------------------------------------------
-\begin{frame}{Beweis zu Satz 4.1 -- Schritt 10: Eindeutigkeit}
-\small
-Aus der Annahme \(y_n+1\le z_n\) folgt:
+\begin{frame}{Induktionsschritt}
+
+\textbf{Induktionsschritt: \(n-1 \Rightarrow n\)}
+
+Aus der Rekursionsformel
+
 \[
-\sum_{i=0}^{\infty} y_i b^{-i}
-\le
-\sum_{i=0}^{n-1} y_i b^{-i}+(z_n-1)b^{-n}+\sum_{i=n+1}^{\infty} y_i b^{-i}.
+a_{n+1}=b(a_n-z_n)
 \]
 
-Da alle Ziffern höchstens \(b-1\) sind, gilt weiter:
+folgt durch Umstellen:
+
 \[
-\sum_{i=n+1}^{\infty} y_i b^{-i}
-<
-\sum_{i=n+1}^{\infty}(b-1)b^{-i}.
+a_n=z_n+\frac{a_{n+1}}{b}.
 \]
 
-Zusammen ergibt sich:
+\vspace{0.4cm}
+
+Setze dies in die Induktionsvoraussetzung ein:
+
 \[
-\sum_{i=0}^{\infty} y_i b^{-i}
-<
-\sum_{i=0}^{n-1} z_i b^{-i}+z_n b^{-n}
-\le
+a_0=
+\sum_{i=0}^{n-1} z_i b^{-i}
++
+a_n b^{-n}.
+\]
+
+Dann:
+
+\[
+a_0=
+\sum_{i=0}^{n-1} z_i b^{-i}
++
+\left(z_n+\frac{a_{n+1}}{b}\right)b^{-n}.
+\]
+
+Ausmultiplizieren ergibt:
+
+\[
+a_0=
+\sum_{i=0}^{n-1} z_i b^{-i}
++
+z_n b^{-n}
++
+a_{n+1} b^{-n-1}.
+\]
+
+Also:
+
+\[
+a_0=
+\sum_{i=0}^{n} z_i b^{-i}
++
+a_{n+1} b^{-n-1}.
+\]
+
+\hfill \(\checkmark\)
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Übergang zum Grenzwert}
+
+\textbf{Behauptung:}
+
+Aus
+
+\[
+x=\sigma \cdot b^E \cdot a_0
+\]
+
+und
+
+\[
+a_0=
+\sum_{i=0}^{n} z_i b^{-i}
++
+a_{n+1} b^{-n-1}
+\]
+
+für jedes \(n\in\N\cup\{0\}\) folgt:
+
+\[
+x=
+\sigma \cdot b^E \cdot
+\lim_{n\to\infty}
+\left(
+\sum_{i=0}^{n} z_i b^{-i}
+\right),
+\]
+
+sofern das Restglied verschwindet.
+
+\vspace{0.5cm}
+
+Also müssen wir zeigen:
+
+\[
+a_{n+1} b^{-n-1}\longrightarrow 0
+\qquad (n\to\infty).
+\]
+
+\vspace{0.6cm}
+
+\textbf{Warum?}
+
+Per Induktion wurde die Darstellung bereits für jedes endliche \(n\) gezeigt.
+
+Nun geht man zum Grenzwert \(n\to\infty\) über. Dafür muss der verbleibende Fehlerterm verschwinden.
+
+\vspace{0.4cm}
+
+Dann erhält man:
+
+\[
+a_0=\sum_{i=0}^{\infty} z_i b^{-i}.
+\]
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Verschwinden des Restglieds}
+
+Zu zeigen:
+
+\[
+a_{n+1}b^{-n-1}\longrightarrow 0.
+\]
+
+Dann bleibt im Grenzwert nur:
+
+\[
+a_0=
+\lim_{n\to\infty}\sum_{i=0}^{n} z_i b^{-i}
+=
 \sum_{i=0}^{\infty} z_i b^{-i}.
 \]
 
-Also wären die beiden Darstellungen verschieden.
+\vspace{0.5cm}
 
-Das widerspricht aber der Annahme, dass beide dieselbe Zahl \(x\) darstellen.
+\textbf{Beweis:}
 
-\bigskip
+Es wurde bereits gezeigt:
 
-\textbf{Damit ist auch die Eindeutigkeit bewiesen.}
+\[
+1 \leq a_{n+1} < b.
+\]
+
+Daraus folgt:
+
+\[
+0 \leq a_{n+1}b^{-n-1}
+<
+b\cdot b^{-n-1}
+=
+b^{-n}.
+\]
+
+\vspace{0.4cm}
+
+Da
+
+\[
+b^{-n}\longrightarrow 0
+\qquad (n\to\infty),
+\]
+
+gilt mit dem Sandwichprinzip:
+
+\[
+a_{n+1}b^{-n-1}\longrightarrow 0.
+\]
+
+\vspace{0.5cm}
+
+Damit ist bewiesen:
+
+\[
+a_0=\sum_{i=0}^{\infty} z_i b^{-i}.
+\]
+
 \end{frame}
 
 %------------------------------------------------
-\begin{frame}{Beispiel 4.2}
-\small
-\textbf{Beispiel aus dem Skript für \(b=2\):}
+\begin{frame}{Eindeutigkeit der normalisierten Darstellung}
+
+\textbf{Annahme:}
+
+Angenommen,
+\[
+\{\, i\in\N \mid z_i \neq b-1 \,\}
+\]
+wäre endlich.
+
+Dann gäbe es ein \(n_0\in\N\) mit
 
 \[
-\frac13
+z_i=b-1 \qquad \text{für alle } i>n_0.
+\]
+
+\vspace{0.5cm}
+
+\textbf{Behauptung:}
+
+Für jedes \(x\in\R\setminus\{0\}\) gibt es genau eine eindeutig bestimmte normalisierte \(b\)-adische Darstellung
+
+\[
+x=\sigma \cdot b^E \cdot \sum_{i=0}^{\infty} z_i\, b^{-i},
+\]
+
+mit
+
+\[
+\sigma \in \{-1,1\}, \qquad E\in\Z,
+\]
+
+\[
+z_i\in\{0,1,\dots,b-1\}, \qquad z_0\neq 0,
+\]
+
+und
+
+\[
+\{\, i\in\N \mid z_i \neq b-1 \,\}
+\text{ ist unendlich.}
+\]
+
+\vspace{0.5cm}
+
+\textbf{Beweis:} \\
+Die Bedingung
+\[
+\{\, i\in\N \mid z_i \neq b-1 \,\}\text{ unendlich}
+\]
+verhindert doppelte Darstellungen mit einer „endlosen \(b-1\)-Schwanzdarstellung“.
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{1. Existenz der Darstellung}
+
+\textbf{Existenz:}
+
+Zu jeder Zahl \(x\) lassen sich passende Ziffern \(z_i\) wählen, sodass
+
+\[
+x=\sigma \cdot b^E \cdot \sum_{i=0}^{\infty} z_i b^{-i}
+\]
+
+gilt.
+
+\vspace{0.5cm}
+
+\textbf{Idee des Beweises:}
+
+\begin{itemize}
+    \item Die Zahl wird schrittweise in Basis \(b\) zerlegt.
+    
+    \item Für jede Stelle wird eine passende Ziffer \(z_i\) bestimmt.
+    
+    \item Dadurch entsteht die unendliche Reihe
+    
+    \[
+    \sum_{i=0}^{\infty} z_i b^{-i}.
+    \]
+    
+    \item Würde ab einem gewissen Punkt nur noch \(b-1\) auftreten, entstünde eine alternative Darstellung.
+    
+    \item Deshalb wird dieser Fall ausgeschlossen.
+\end{itemize}
+
+\vspace{0.5cm}
+
+\[
+\Rightarrow \text{Also existiert eine normalisierte Darstellung.}
+\]
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{2. Eindeutigkeit der Darstellung}
+
+\textbf{Beweisidee zur Eindeutigkeit:}
+
+Angenommen, es gäbe zwei verschiedene normalisierte Darstellungen derselben Zahl.
+
+\vspace{0.4cm}
+
+Dann sei \(n\) die erste Stelle, an der sich die Ziffern unterscheiden.
+
+\begin{itemize}
+    \item Vor der Stelle \(n\) sind beide Darstellungen identisch.
+    
+    \item An der Stelle \(n\) ist eine Darstellung größer als die andere.
+    
+    \item Dieser Unterschied besitzt den Stellenwert \(b^{-n}\).
+    
+    \item Die späteren Stellen haben nur kleinere Gewichte
+    \(\left(b^{-n-1}, b^{-n-2}, \dots \right)\)
+    und können den Unterschied nicht mehr vollständig ausgleichen.
+\end{itemize}
+
+\vspace{0.5cm}
+
+Daher können beide Summen nicht gleich sein.
+
+\[
+\Rightarrow \text{Die Darstellung ist eindeutig.}
+\]
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Merksatz und Beispiele}
+
+\textbf{Merksatz:}
+
+Wenn an der ersten unterschiedlichen Stelle eine Ziffer kleiner ist, dann kann der Rest diesen Unterschied nie vollständig aufholen.
+
+\vspace{0.6cm}
+
+\textbf{Beispiele für \(b=2\):}
+
+\[
+\frac{1}{3}
 =
 2^{-2}\left(2^0+2^{-2}+2^{-4}+2^{-6}+\dots\right)
 =
-(0,01)_2
+(0,\overline{01})_2
 \]
 
-\bigskip
+\vspace{0.6cm}
 
-Außerdem:
 \[
 8{,}1
 =
 2^3\left(2^0+2^{-7}+2^{-8}+2^{-11}+2^{-12}+\dots\right)
 =
-(1000,00011\dots)_2
+(1000,0\overline{0011})_2
 \]
 
-\bigskip
-
-\textbf{Wichtig:}
-Auch bekannte Dezimalzahlen können in Basis 2 eine unendliche Darstellung besitzen.
-\end{frame}
-
-%------------------------------------------------
-\begin{frame}{Zusammenfassung zu Satz 4.1}
-\small
-\textbf{Satz 4.1:} Jede reelle Zahl \(x\neq 0\) besitzt eine eindeutig bestimmte normalisierte b-adische Darstellung.
-
-\bigskip
-
-\textbf{Beweisstruktur:}
-\begin{enumerate}
-\item Vorzeichen bestimmen
-\item Zahl normieren
-\item Ziffern rekursiv konstruieren
-\item zentrale Behauptung per Induktion beweisen
-\item Existenz vollständig zeigen
-\item Eindeutigkeit mit Widerspruch zeigen
-\end{enumerate}
-
-\bigskip
-
-\textbf{Bedeutung für das nächste Kapitel:}
-Diese Darstellung ist die Grundlage der Maschinenzahlen.
 \end{frame}
 
 \end{document}
+
 
