@@ -134,112 +134,152 @@ z_0=3,\; z_1=1,\; z_2=4,\; z_3=1,\; z_4=5
 \end{frame}
 
 %------------------------------------------------
-%------------------------------------------------
 \begin{frame}{Behauptung und Beginn des Beweises}
 
-\tiny
+\scriptsize
 
-\textbf{Behauptung:} Es gilt:
+\textbf{Behauptung:} Es gilt
 
 \[
 1 \leq \sum_{i=0}^{\infty} z_i b^{-i}
 <
-\sum_{i=0}^{\infty} (b-1)b^{-i}
-= b,
+\sum_{i=0}^{\infty}(b-1)b^{-i}
+= b
 \]
 
-d.h. der Grenzwert existiert,
+d.h. der Grenzwert existiert, weil die Folge monoton wachsend ist und durch \(b\) nach oben beschränkt.
 
-weil die Folge monoton wachsend ist und durch \(b\) nach oben beschränkt.
-
-\vspace{0.4cm}
+\vspace{0.35cm}
 
 \textbf{Bew. der Aussage:}
 
 \begin{enumerate}
 \item Sei \(x\in\R\setminus\{0\}\).
 
-Offenbar muss \(\sigma=-1\) gelten falls \(x<0\) und
-\(\sigma=1\) falls \(x>0\).
+Dann gilt offensichtlich:
+
+\[
+\sigma=
+\begin{cases}
+-1,& x<0\\[0.2em]
+1,& x>0
+\end{cases}
+\]
 
 Für
 
 \[
-z_i\in\{0,1,\dots,b-1\}
-\qquad (i\in\N\cup\{0\})
+z_i\in\{0,1,\dots,b-1\},
+\qquad i\in\N\cup\{0\}
 \]
 
 mit
 
 \[
 \{\,i\in\N \mid z_i\neq b-1\,\}\neq\emptyset
-\qquad \text{und} \qquad z_0\neq 0
+\qquad\text{und}\qquad
+z_0\neq 0
 \]
 
 gilt.
+
 \end{enumerate}
 
 \end{frame}
-%------------------------------------------------
+
 %------------------------------------------------
 \begin{frame}{Warum gilt \(1 \leq \sum z_i b^{-i}\)?}
 
-\tiny
+\scriptsize
 
 \textbf{(2) Warum ist}
+
 \[
 1 \leq \sum_{i=0}^{\infty} z_i b^{-i}\; ?
 \]
 
-Da \(z_0 \neq 0 \Rightarrow z_0 \geq 1\), da
+\vspace{0.3cm}
+
+Da \(z_0\neq 0\) und \(z_0\in\{0,1,\dots,b-1\}\), folgt:
 
 \[
-z_i \in \{0,1,\dots,b-1\}
+z_0\geq 1.
 \]
+
+\vspace{0.2cm}
+
+Damit gilt:
 
 \[
-\Rightarrow \sum_{i=0}^{\infty} z_i b^{-i} \geq 1
+\sum_{i=0}^{\infty} z_i b^{-i}
+=
+z_0+\sum_{i=1}^{\infty} z_i b^{-i}
+\geq z_0\geq 1.
 \]
 
-und nur falls gilt:
+\vspace{0.3cm}
+
+\textbf{Gleichheit genau dann, wenn}
 
 \[
-\forall i\in\N:\ z_i=0
+\forall i\in\N:\ z_i=0.
 \]
+
+Dann:
 
 \[
-\Rightarrow \sum_{i=0}^{\infty} z_i b^{-i} = 1,
+\sum_{i=0}^{\infty} z_i b^{-i}=1.
 \]
 
-sonst immer größer als \(1\).
+\vspace{0.2cm}
+
+Sonst immer größer als \(1\).
 
 \end{frame}
 
 %------------------------------------------------
 \begin{frame}{Warum ist \(\sum (b-1)b^{-i}=b\)?}
 
-\tiny
+\scriptsize
 
 \textbf{(3) Warum ist}
+
 \[
-\sum_{i=0}^{\infty} (b-1)b^{-i} = b\; ?
+\sum_{i=0}^{\infty}(b-1)b^{-i}=b\; ?
 \]
 
-\begin{itemize}
-\item \((b-1)\): letztes Glied von \(z_i\)
-\end{itemize}
+\vspace{0.4cm}
 
 \[
-= (b-1)\cdot \sum_{i=0}^{\infty} b^{-i}
+\sum_{i=0}^{\infty}(b-1)b^{-i}
+=
+(b-1)\sum_{i=0}^{\infty} b^{-i}
 \]
 
-\[
-= (b-1)\cdot \frac{1}{1-\frac{1}{b}}
-= (b-1)\cdot \left(1-\frac{1}{b}\right)^{-1}
-\]
+\vspace{0.3cm}
+
+Dies ist eine geometrische Reihe mit Quotient
 
 \[
-= (b-1)\cdot \frac{b}{b-1} = b
+q=\frac{1}{b}.
+\]
+
+Daher:
+
+\[
+\sum_{i=0}^{\infty} b^{-i}
+=
+\frac{1}{1-\frac{1}{b}}
+=
+\frac{b}{b-1}.
+\]
+
+\vspace{0.3cm}
+
+Einsetzen ergibt:
+
+\[
+(b-1)\cdot \frac{b}{b-1}=b.
 \]
 
 \end{frame}
@@ -484,11 +524,10 @@ a_n b^{-n}.
 \end{frame}
 
 %------------------------------------------------
-\begin{frame}{Beweis per Induktion: Induktionsschritt}
+%------------------------------------------------
+\begin{frame}{I.S. (Rekursionsformel)}
 
-\small
-
-\textbf{Induktionsschritt (Rekursionsformel):}
+\scriptsize
 
 Aus
 
@@ -496,45 +535,43 @@ Aus
 a_{n+1}=b(a_n-z_n)
 \]
 
-folgt:
+folgt
 
 \[
 a_n=z_n+\frac{a_{n+1}}{b}.
 \]
 
-\vspace{0.4cm}
+\vspace{0.3cm}
 
-Einsetzen in die Induktionsannahme:
+Dann:
 
 \[
 a_0=
 \sum_{i=0}^{n-1} z_i b^{-i}
 +
-\left(z_n+\frac{a_{n+1}}{b}\right)b^{-n}.
+\left(z_n+\frac{a_{n+1}}{b}\right)b^{-n}
 \]
 
-\vspace{0.4cm}
-
-Umformen ergibt:
+\vspace{0.3cm}
 
 \[
+\Longleftrightarrow\quad
 a_0=
 \sum_{i=0}^{n-1} z_i b^{-i}
 +
 z_n b^{-n}
 +
-a_{n+1} b^{-n-1}.
+a_{n+1}b^{-n-1}
 \]
 
-\vspace{0.4cm}
-
-Also:
+\vspace{0.3cm}
 
 \[
+\Longleftrightarrow\quad
 a_0=
 \sum_{i=0}^{n} z_i b^{-i}
 +
-a_{n+1} b^{-n-1}.
+a_{n+1}b^{-n-1}
 \]
 
 \hfill \(\checkmark\)
