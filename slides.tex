@@ -137,116 +137,109 @@ z_0=3,\; z_1=1,\; z_2=4,\; z_3=1,\; z_4=5
 %------------------------------------------------
 \begin{frame}{Behauptung und Beginn des Beweises}
 
-\small
+\tiny
 
-\textbf{Behauptung:} Es gilt
+\textbf{Behauptung:} Es gilt:
 
 \[
 1 \leq \sum_{i=0}^{\infty} z_i b^{-i}
 <
 \sum_{i=0}^{\infty} (b-1)b^{-i}
-= b
+= b,
 \]
 
-\vspace{0.2cm}
+d.h. der Grenzwert existiert,
 
-Der Grenzwert existiert, da die Partialsummen monoton wachsend sind und durch \(b\) nach oben beschränkt sind.
+weil die Folge monoton wachsend ist und durch \(b\) nach oben beschränkt.
 
 \vspace{0.4cm}
 
-\textbf{Beweis der Aussage:}
+\textbf{Bew. der Aussage:}
 
 \begin{enumerate}
-\item Sei \(x \in \R \setminus \{0\}\).
+\item Sei \(x\in\R\setminus\{0\}\).
 
-Dann gilt offensichtlich:
-
-\[
-\sigma =
-\begin{cases}
--1, & x<0,\\
-1, & x>0.
-\end{cases}
-\]
+Offenbar muss \(\sigma=-1\) gelten falls \(x<0\) und
+\(\sigma=1\) falls \(x>0\).
 
 Für
 
 \[
-z_i \in \{0,1,\dots,b-1\},
-\quad i\in\N\cup\{0\},
+z_i\in\{0,1,\dots,b-1\}
+\qquad (i\in\N\cup\{0\})
 \]
 
 mit
 
 \[
-\{\, i\in\N \mid z_i \neq b-1 \,\}\neq\emptyset,
-\qquad z_0\neq 0
+\{\,i\in\N \mid z_i\neq b-1\,\}\neq\emptyset
+\qquad \text{und} \qquad z_0\neq 0
 \]
 
-gilt \dots
+gilt.
 \end{enumerate}
 
 \end{frame}
 %------------------------------------------------
 %------------------------------------------------
-\begin{frame}{Warum gilt die Abschätzung?}
+\begin{frame}{Warum gilt \(1 \leq \sum z_i b^{-i}\)?}
 
-\scriptsize
+\tiny
 
 \textbf{(2) Warum ist}
 \[
 1 \leq \sum_{i=0}^{\infty} z_i b^{-i}\; ?
 \]
 
-Da \(z_0\neq 0\) und \(z_0\in\{0,1,\dots,b-1\}\), gilt:
+Da \(z_0 \neq 0 \Rightarrow z_0 \geq 1\), da
 
 \[
-z_0\geq 1.
+z_i \in \{0,1,\dots,b-1\}
 \]
-
-Also:
 
 \[
-\sum_{i=0}^{\infty} z_i b^{-i}
-=
-z_0+\sum_{i=1}^{\infty} z_i b^{-i}
-\geq z_0\geq 1.
+\Rightarrow \sum_{i=0}^{\infty} z_i b^{-i} \geq 1
 \]
 
-Gleichheit genau dann, wenn
+und nur falls gilt:
 
 \[
-z_i=0 \quad \text{für alle } i\geq 1.
+\forall i\in\N:\ z_i=0
 \]
 
-\vspace{0.3cm}
+\[
+\Rightarrow \sum_{i=0}^{\infty} z_i b^{-i} = 1,
+\]
+
+sonst immer größer als \(1\).
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Warum ist \(\sum (b-1)b^{-i}=b\)?}
+
+\tiny
 
 \textbf{(3) Warum ist}
+\[
+\sum_{i=0}^{\infty} (b-1)b^{-i} = b\; ?
+\]
+
+\begin{itemize}
+\item \((b-1)\): letztes Glied von \(z_i\)
+\end{itemize}
 
 \[
-\sum_{i=0}^{\infty}(b-1)b^{-i}=b\; ?
+= (b-1)\cdot \sum_{i=0}^{\infty} b^{-i}
 \]
 
 \[
-\sum_{i=0}^{\infty}(b-1)b^{-i}
-=
-(b-1)\sum_{i=0}^{\infty} b^{-i}.
+= (b-1)\cdot \frac{1}{1-\frac{1}{b}}
+= (b-1)\cdot \left(1-\frac{1}{b}\right)^{-1}
 \]
 
-Geometrische Reihe mit \(q=\frac1b\):
-
 \[
-\sum_{i=0}^{\infty} b^{-i}
-=
-\frac{1}{1-\frac1b}
-=
-\frac{b}{b-1}.
-\]
-
-Daher:
-
-\[
-(b-1)\cdot \frac{b}{b-1}=b.
+= (b-1)\cdot \frac{b}{b-1} = b
 \]
 
 \end{frame}
@@ -423,9 +416,50 @@ also ist keine zusätzliche Normierung nötig.
 
 %------------------------------------------------
 %------------------------------------------------
-\begin{frame}{Induktionsbeweis: Anfang und Voraussetzung}
+\begin{frame}{Beweis per Induktion: Induktionsanfang}
 
 \small
+
+\textbf{Induktionsanfang: \(n=0\)}
+
+Zu zeigen:
+
+\[
+a_0=z_0 b^{0}+a_1 b^{-1}.
+\]
+
+\[
+a_0=z_0+\frac{a_1}{b}.
+\]
+
+Wir wissen:
+
+\[
+a_1=b(a_0-z_0).
+\]
+
+Einsetzen liefert:
+
+\[
+a_0=
+z_0+\frac{b(a_0-z_0)}{b}.
+\]
+
+\[
+a_0=
+z_0+(a_0-z_0)=a_0.
+\]
+
+\hfill \(\checkmark\)
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Beweis per Induktion: Induktionsvoraussetzung}
+
+\small
+
+\textbf{Induktionsvoraussetzung \((n-1\rightarrow n)\):}
 
 Zu zeigen:
 
@@ -433,42 +467,12 @@ Zu zeigen:
 a_0=
 \sum_{i=0}^{n} z_i b^{-i}
 +
-a_{n+1}b^{-n-1}.
+a_{n+1} b^{-n-1}.
 \]
-
-\vspace{0.4cm}
-
-\textbf{Induktionsanfang: \(n=0\)}
-
-\[
-a_0=z_0b^0+a_1b^{-1}
-=z_0+\frac{a_1}{b}.
-\]
-
-Mit
-
-\[
-a_1=b(a_0-z_0)
-\]
-
-folgt:
-
-\[
-a_0=
-z_0+\frac{b(a_0-z_0)}{b}
-=
-z_0+(a_0-z_0)
-=
-a_0.
-\]
-
-\hfill \(\checkmark\)
 
 \vspace{0.5cm}
 
-\textbf{Induktionsvoraussetzung:}
-
-Für ein \(n-1\in\N\) gelte:
+Also lautet die Induktionsannahme:
 
 \[
 a_0=
@@ -480,22 +484,13 @@ a_n b^{-n}.
 \end{frame}
 
 %------------------------------------------------
-\begin{frame}{Induktionsbeweis: Induktionsschritt}
+\begin{frame}{Beweis per Induktion: Induktionsschritt}
 
 \small
 
-\textbf{Zu zeigen:}
+\textbf{Induktionsschritt (Rekursionsformel):}
 
-\[
-a_0=
-\sum_{i=0}^{n} z_i b^{-i}
-+
-a_{n+1}b^{-n-1}.
-\]
-
-\vspace{0.4cm}
-
-Aus der Rekursionsformel
+Aus
 
 \[
 a_{n+1}=b(a_n-z_n)
@@ -507,14 +502,9 @@ folgt:
 a_n=z_n+\frac{a_{n+1}}{b}.
 \]
 
-Einsetzen in die Induktionsvoraussetzung:
+\vspace{0.4cm}
 
-\[
-a_0=
-\sum_{i=0}^{n-1} z_i b^{-i}
-+
-a_n b^{-n}.
-\]
+Einsetzen in die Induktionsannahme:
 
 \[
 a_0=
@@ -523,18 +513,34 @@ a_0=
 \left(z_n+\frac{a_{n+1}}{b}\right)b^{-n}.
 \]
 
+\vspace{0.4cm}
+
+Umformen ergibt:
+
+\[
+a_0=
+\sum_{i=0}^{n-1} z_i b^{-i}
++
+z_n b^{-n}
++
+a_{n+1} b^{-n-1}.
+\]
+
+\vspace{0.4cm}
+
+Also:
+
 \[
 a_0=
 \sum_{i=0}^{n} z_i b^{-i}
 +
-a_{n+1}b^{-n-1}.
+a_{n+1} b^{-n-1}.
 \]
 
 \hfill \(\checkmark\)
 
 \end{frame}
 
-%------------------------------------------------
 %------------------------------------------------
 \begin{frame}{Übergang zum Grenzwert}
 
