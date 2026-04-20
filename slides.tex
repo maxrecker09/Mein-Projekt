@@ -1242,13 +1242,963 @@ das kleinste Intervall, in dem alle darstellbaren positiven Zahlen liegen.
 \end{frame}
 
 
+%------------------------------------------------
+\begin{frame}{4.3 Rundungen}
 
+\small
 
+Da es nur endlich viele Maschinenzahlen gibt,
+muss man sich mit gerundeten Darstellungen
+von reellen Zahlen zufrieden geben.
 
+\end{frame}
 
+%------------------------------------------------
+\begin{frame}{Definition 4.5: Rundung}
 
+\small
 
+Sei
 
+\[
+F=F(b,m,E_{\min},E_{\max})
+\]
+
+ein Maschinenzahlbereich.
+
+\vspace{0.4cm}
+
+Eine Abbildung
+
+\[
+\operatorname{rd}:\mathbb{R}\to F
+\]
+
+heißt \textbf{Rundung} (zu \(F\)), wenn für alle \(x\in\mathbb{R}\) gilt:
+
+\[
+|x-\operatorname{rd}(x)|
+=
+\min_{a\in F}|x-a|.
+\]
+
+\vspace{0.6cm}
+
+\textbf{Bedeutung:}
+
+\begin{itemize}
+\item \(x\): reelle Zahl
+\item \(\operatorname{rd}(x)\): gerundete Maschinenzahl
+\item gewählt wird die Zahl aus \(F\), die am nächsten an \(x\) liegt
+\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Mehrere mögliche Rundungen}
+
+\small
+
+Man beachte, dass es mehrere Rundungen gibt.
+
+\vspace{0.2cm}
+
+Zum Beispiel kann in
+
+\[
+F(10,2,0,2)
+\]
+
+die Zahl
+
+\[
+12{,}5
+\]
+
+auf \(12\) oder \(13\) gerundet werden.
+
+\vspace{0.5cm}
+
+\textbf{Sonderfall:} \(x\) liegt genau zwischen zwei Zahlen.
+
+\vspace{0.4cm}
+
+Bei kaufmännischer Rechnung wird \(x\) im Zweifel zur betragsmäßig größeren Zahl gerundet.
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{IEEE 754: Runden zur geraden Zahl}
+
+\small
+
+IEEE 754 fordert:
+
+\begin{center}
+$x$ wird so gerundet, dass die letzte Stelle gerade wird.
+\end{center}
+
+\vspace{0.2cm}
+
+Also zum Beispiel:
+
+\[
+\operatorname{rd}(12{,}5)=12
+\qquad\text{und}\qquad
+\operatorname{rd}(13{,}5)=14
+\]
+
+\vspace{0.5cm}
+
+Ein Grund dafür ist, dass bei Rechnungen wie
+
+\[
+(\dots(((12+0{,}5)-0{,}5)+0{,}5)-\dots)
+\]
+
+sonst abwechselnd auf- und abgerundet wird.
+
+\vspace{0.2cm}
+
+Bei kaufmännischer Rundung divergiert diese Reihe.
+
+\vspace{0.5cm}
+
+\textbf{Vorteil der Regel:}
+
+Die Regel ,,zur geraden Zahl runden`` wurde gewählt, weil sich Rundungsfehler statistisch besser ausgleichen.
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Definition 4.6: Absoluter und relativer Fehler}
+
+\small
+
+\textbf{Definition 4.6.}
+Es seien \(x,\tilde{x}\in\mathbb{R}\), wobei \(\tilde{x}\) eine Näherung von \(x\) sei.
+
+\vspace{0.5cm}
+
+Dann heißt
+
+\[
+|x-\tilde{x}|
+\]
+
+der \textbf{absolute Fehler}.
+
+\vspace{0.6cm}
+
+Falls \(x\neq 0\), heißt
+
+\[
+\left|\frac{x-\tilde{x}}{x}\right|
+\]
+
+der \textbf{relative Fehler}.
+
+\vspace{0.5cm}
+
+\begin{itemize}
+\item Absoluter Fehler = tatsächliche Differenz.
+\item Relativer Fehler = proportionale Abweichung bezogen auf \(x\).
+\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Beispiel: Absoluter und relativer Fehler}
+
+\small
+
+\textbf{Beispiel:}
+
+\[
+x=3{,}145
+\qquad\text{und}\qquad
+\tilde{x}=3{,}14
+\]
+
+\vspace{0.5cm}
+
+\textbf{Absoluter Fehler:}
+
+\[
+|x-\tilde{x}|
+=
+|3{,}145-3{,}14|
+=
+0{,}005
+\]
+
+\vspace{0.5cm}
+
+\textbf{Relativer Fehler:}
+
+\[
+\left|\frac{x-\tilde{x}}{x}\right|
+=
+\frac{0{,}005}{3{,}145}
+\approx
+0{,}0016
+\]
+
+\vspace{0.5cm}
+
+\textbf{Als Prozentwert:}
+
+\[
+100\cdot 0{,}0016 = 0{,}16\%
+\]
+
+Das ist die prozentuale Abweichung von \(\tilde{x}\) zu \(x\).
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Maschinengenauigkeit}
+
+\small
+
+Die \textbf{Maschinengenauigkeit} ist der maximale relative Fehler,  
+der bei einer Rundung von Zahlen im darstellbaren Bereich auftreten kann.
+
+\vspace{0.6cm}
+
+Also:
+
+\begin{center}
+größte relative Abweichung, die durch Rundung entstehen kann
+\end{center}
+
+\vspace{0.6cm}
+
+Bedeutung:
+
+\begin{center}
+schlimmste prozentuale Ungenauigkeit,  
+die dein Zahlensystem noch verursacht
+\end{center}
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Definition: \(\varepsilon(F)\)}
+
+\scriptsize
+
+\textbf{Definition:} Sei \(F\) ein Maschinenzahlbereich.  
+Die Maschinengenauigkeit von \(F\) wird mit \(\varepsilon(F)\) bezeichnet und ist definiert durch
+
+\vspace{0.4cm}
+
+\[
+\varepsilon(F):=
+\sup \left\{
+\left|\frac{x-\operatorname{rd}(x)}{x}\right|
+\;\middle|\;
+x\in\mathbb{R},\;
+|x|\in \operatorname{range}(F),\;
+\operatorname{rd}\text{ Rundung zu }F
+\right\}.
+\]
+
+\vspace{0.5cm}
+
+\small
+
+\begin{itemize}
+\item \(\sup\) = kleinste obere Schranke / größter möglicher Grenzwert.
+\item Das ist der größte relative Fehler, der passieren kann.
+\item Genau dieser Wert beschreibt die Maschinengenauigkeit.
+\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Bedeutung von \(\operatorname{range}(F)\)}
+
+\small
+
+\[
+\operatorname{range}(F)
+=
+\{x\in\mathbb{R}\;|\;x \text{ liegt im darstellbaren Grenzbereich}\}
+\]
+
+\vspace{0.6cm}
+
+\textbf{Anschaulich bedeutet das:}
+
+\begin{itemize}
+\item darstellbarer Zahlenbereich als reelle Werte
+\item alle Zahlen zwischen der kleinsten und größten darstellbaren Zahl
+\item nur in diesem Bereich wird der Rundungsfehler betrachtet
+\end{itemize}
+
+\vspace{0.5cm}
+
+\textbf{Beispiel:}
+
+Wenn ein System nur Zahlen von \(10^{-5}\) bis \(10^{5}\) speichern kann, dann liegt genau dieses Intervall in \(\operatorname{range}(F)\).
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Satz 4.8}
+
+\small
+
+\textbf{Satz 4.8}
+
+Für jeden Maschinenzahlbereich
+
+\[
+F = F(b,m,E_{\min},E_{\max})
+\qquad\text{mit}\qquad
+E_{\min}<E_{\max}
+\]
+
+gilt:
+
+\vspace{0.6cm}
+
+\[
+\varepsilon(F)=\frac{1}{1+2b^{\,m-1}}
+\]
+
+\vspace{0.6cm}
+
+\textbf{Das hängt ab von:}
+
+\begin{itemize}
+\item Basis \(b\)
+\item Mantissenlänge \(m\)
+\end{itemize}
+
+\vspace{0.3cm}
+
+Je größer \(m\), desto genauer das System.
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Beweis zu Satz 4.8}
+
+\scriptsize
+
+\textbf{Beweis:}
+
+Für
+
+\[
+x=b^{E_{\min}}\left(1+\frac12\,b^{-m+1}\right)
+\]
+
+ist \(x\in \operatorname{range}(F)\) und für jede Rundung \(\operatorname{rd}\) zu \(F\) gilt:
+
+\vspace{0.4cm}
+
+\[
+\left|\frac{x-\operatorname{rd}(x)}{x}\right|
+=
+\frac{|x-\operatorname{rd}(x)|}{x}
+\]
+
+\vspace{0.3cm}
+
+\[
+=
+\frac{b^{E_{\min}}\cdot \frac12\, b^{-m+1}}
+{b^{E_{\min}}\left(1+\frac12\,b^{-m+1}\right)}
+\]
+
+\vspace{0.3cm}
+
+\[
+=
+\frac{\frac12\,b^{-m+1}}
+{1+\frac12\,b^{-m+1}}
+\]
+
+\vspace{0.3cm}
+
+\[
+=
+\frac{1}{1+2b^{m-1}}
+\]
+
+\vspace{0.5cm}
+
+\textbf{Idee:}
+
+\begin{itemize}
+\item Genau in der Mitte ist der absolute Fehler maximal.
+\item Bei kleinem \(x\) wird der relative Fehler am größten.
+\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Folgerung zu \(\varepsilon(F)\)}
+
+\small
+
+Woraus
+
+\[
+\varepsilon(F)\;\geq\;\frac{1}{1+2b^{\,m-1}}
+\]
+
+folgt.
+
+\vspace{0.6cm}
+
+\textbf{Interpretation:}
+
+\begin{itemize}
+\item \(\varepsilon(F)\) ist der größte relative Fehler, der auftreten kann.
+\item Wir haben bereits einen konkreten Fehler gefunden.
+\item Deshalb muss \(\varepsilon(F)\) mindestens so groß sein.
+\end{itemize}
+
+\vspace{0.5cm}
+
+\textbf{Anschaulich:}
+
+\begin{center}
+Der schlimmste mögliche Rundungsfehler ist mindestens  
+so groß wie der gefundene Fehler.
+\end{center}
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Beweis (andere Richtung)}
+
+\small
+
+Für die andere Richtung genügt es, positive Zahlen \(x\) zu betrachten.
+
+\vspace{0.3cm}
+
+\textit{Warum?}  
+Negative Zahlen haben denselben relativen Fehler.
+
+\vspace{0.5cm}
+
+Sei also
+
+\[
+x \in \operatorname{range}(F)
+\quad \text{und} \quad
+x \notin F
+\]
+
+(sonst gibt es keinen Rundungsfehler).
+
+\vspace{0.5cm}
+
+Dann hat \(x\) die normalisierte \(b\)-adische Darstellung
+
+\[
+x = b^{E}\cdot \sum_{i=0}^{\infty} z_i\, b^{-i}.
+\]
+
+\vspace{0.3cm}
+
+\textit{(unendliche \(b\)-adische Darstellung)}
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Beweis: Nachbarzahlen in \(F\)}
+
+\scriptsize
+
+Dann sind
+
+\[
+x' = b^{E}\sum_{i=0}^{m-1} z_i b^{-i}
+\]
+
+und
+
+\[
+x'' = b^{E}\left(\sum_{i=0}^{m-1} z_i b^{-i} + b^{-m+1}\right)
+\]
+
+in \(F\).
+
+\vspace{0.5cm}
+
+Es gilt:
+
+\[
+x' < x < x''
+\]
+
+\vspace{0.5cm}
+
+\textbf{Bedeutung:}
+
+\begin{itemize}
+\item \(x'\): Abschneiden nach den ersten \(m\) Stellen.
+\item \(x''\): dieselben ersten \(m\) Stellen, dann ein Schritt nach oben.
+\item Das sind die beiden benachbarten Maschinenzahlen um \(x\).
+\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Beweis: Abschätzung des Rundungsfehlers}
+
+\small
+
+Für jede Rundung \(\operatorname{rd}\) zu \(F\) gilt:
+
+\[
+|x-\operatorname{rd}(x)|
+\leq
+\frac12\,(x''-x')
+\]
+
+\vspace{0.4cm}
+
+\[
+=
+\frac12 \, b^{E}\, b^{-m+1}
+\]
+
+\vspace{0.6cm}
+
+\textbf{Warum?}
+
+Der Rundungsfehler ist höchstens halb so groß wie der Abstand  
+der beiden benachbarten Maschinenzahlen.
+
+\vspace{0.5cm}
+
+\textbf{Anschaulich:}
+
+\begin{center}
+In der Mitte zwischen zwei Maschinenzahlen ist der Fehler am größten.
+\end{center}
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Beweis: Untere Schranke für \(x\)}
+
+\scriptsize
+
+Wegen \(z_0>0\) gilt:
+
+\[
+x=b^{E}\sum_{i=0}^{\infty} z_i b^{-i}\geq b^{E}.
+\]
+
+\vspace{0.5cm}
+
+Denn \(z_0\geq 1\), also ist die Summe mindestens \(1\).
+
+\vspace{0.6cm}
+
+Damit folgt:
+
+\[
+x
+=
+b^{E}+|x-b^{E}|
+\geq
+b^{E}+|x-\operatorname{rd}(x)|.
+\]
+
+\vspace{0.6cm}
+
+Und somit wie gefordert.
+
+\vspace{0.5cm}
+
+\textbf{Idee:}
+
+\begin{itemize}
+\item \(x\) liegt rechts von \(b^{E}\).
+\item Der Abstand zu \(b^{E}\) ist daher mindestens so groß wie der Rundungsfehler.
+\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Beweis: Abschluss der Abschätzung}
+
+\scriptsize
+
+\[
+\left|\frac{x-\operatorname{rd}(x)}{x}\right|
+\leq
+\frac{|x-\operatorname{rd}(x)|}{b^{E}+|x-\operatorname{rd}(x)|}
+\]
+
+\vspace{0.4cm}
+
+\[
+=
+\frac{1}{1+\dfrac{b^{E}}{|x-\operatorname{rd}(x)|}}
+\]
+
+\vspace{0.4cm}
+
+\[
+\leq
+\frac{1}{1+\dfrac{b^{E}}{\frac12\,b^{E}\,b^{-m+1}}}
+\]
+
+\vspace{0.4cm}
+
+\[
+=
+\frac{1}{1+2b^{m-1}}
+\]
+
+\vspace{0.5cm}
+
+\[
+\Box
+\]
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Beispiel 4.9}
+
+\large
+
+Für den durch IEEE 754 definierten Typ \texttt{double} gilt:
+
+\vspace{0.6cm}
+
+\[
+\varepsilon(F_{\text{double}})
+=
+\frac{1}{1+2^{53}}
+\approx
+1{,}11\cdot 10^{-16}
+\]
+
+\vspace{0.6cm}
+
+Das ist die Maschinengenauigkeit vom Typ \texttt{double}.
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Hinweis zu \texttt{epsilon()} in C++}
+
+\scriptsize
+
+Man beachte, dass
+
+\[
+\texttt{std::numeric\_limits<double>::epsilon()}
+\]
+
+die kleinste Zahl \(x\) liefert mit
+
+\[
+x>0
+\qquad\text{und}\qquad
+1+x\in F_{\text{double}}.
+\]
+
+\vspace{0.5cm}
+
+Es gilt daher:
+
+\[
+x=2^{-52}
+\approx
+2\cdot \varepsilon(F_{\text{double}})
+\]
+
+\vspace{0.6cm}
+
+\textbf{Wichtig:}
+
+\begin{itemize}
+\item Das ist der Abstand von \(1\) zur nächsten größeren darstellbaren \texttt{double}-Zahl.
+\item Nicht exakt dieselbe Definition wie die theoretische Maschinengenauigkeit \(\varepsilon(F)\).
+\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Definition 4.10: Signifikante Stellen}
+
+\scriptsize
+
+Sei \(F\) ein Maschinenzahlbereich und \(s\in\mathbb{N}\).
+
+Eine Maschinenzahl \(f\in F\) hat \emph{(mindestens) \(s\) signifikante Stellen}
+in der \(b\)-adischen Gleitkommadarstellung, falls \(f\neq 0\) und für jede
+Rundung \(rd\) sowie jede Zahl \(x\in\mathbb{R}\) mit \(rd(x)=f\) gilt:
+
+\[
+|x-f|
+\le
+\frac{1}{2}\, b^{\lfloor \log_b |f| \rfloor +1-s}
+\]
+
+\vspace{0.4cm}
+
+\textbf{Bedeutung:}
+
+\begin{itemize}
+\item Der Rundungsfehler darf höchstens so groß sein,
+      dass \(s\) Stellen zuverlässig korrekt bleiben.
+\item Je größer \(s\), desto genauer ist \(f\).
+\item \(\lfloor\cdot\rfloor\) bezeichnet die Gaußklammer
+      (Abrunden auf ganze Zahl).
+\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Definition 4.10: Signifikante Stellen}
+
+\scriptsize
+
+Sei \(F\) ein Maschinenzahlbereich und \(s\in\mathbb{N}\).
+
+Eine Maschinenzahl \(f\in F\) hat \emph{(mindestens) \(s\) signifikante Stellen}
+in der \(b\)-adischen Gleitkommadarstellung, falls \(f\neq 0\) und für jede
+Rundung \(rd\) sowie jede Zahl \(x\in\mathbb{R}\) mit \(rd(x)=f\) gilt:
+
+\[
+|x-f|
+\le
+\frac{1}{2}\, b^{\lfloor \log_b |f| \rfloor +1-s}
+\]
+
+\vspace{0.2cm}
+
+\textbf{Wie liest man den Exponenten?}
+
+\[
+\lfloor \log_b |f| \rfloor +1-s
+\]
+
+\begin{itemize}
+\item \(\lfloor \log_b |f| \rfloor\): Größenordnung von \(f\)
+      (wo die führende Ziffer liegt)
+\item \(+1\): Verschiebung auf die erste signifikante Stelle
+\item \(-s\): gehe \(s\) Stellen nach rechts
+\item Dadurch trifft man genau die Stelle,
+      bis zu der die Zahl sicher korrekt ist.
+\end{itemize}
+
+\vspace{0.2cm}
+
+\textbf{Bedeutung:}
+
+Dies ist das mathematische Kriterium dafür, dass die gespeicherte Zahl \(f\)
+auf mindestens \(s\) signifikante Stellen genau ist.
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Definition 4.10: Signifikante Stellen mit Beispiel}
+
+\scriptsize
+
+Eine Maschinenzahl \(f\in F\) hat mindestens \(s\) signifikante Stellen, wenn
+
+\[
+|x-f|\leq \frac12\, b^{\lfloor \log_b|f|\rfloor+1-s}
+\]
+
+gilt.
+
+\vspace{0.2cm}
+\textbf{Beispiel:} \(f=1234,\; s=3,\; b=10\)
+
+\[
+\lfloor \log_{10}(1234)\rfloor +1-s
+=
+3+1-3=1
+\]
+
+\[
+10^1=10
+\qquad\Rightarrow\qquad
+\frac12\cdot 10=5
+\]
+
+Also darf der Fehler höchstens \(5\) sein:
+
+\[
+|x-1234|\leq 5
+\]
+
+\[
+x\in[1229,1239]
+\]
+
+\vspace{0.2cm}
+
+\textbf{Interpretation:}
+
+Die ersten \(3\) signifikanten Stellen (\(1,2,3\)) bleiben stabil im
+praktischen Sinn.
+
+\vspace{0.2cm}
+
+\textbf{Was sind signifikante Stellen?}
+
+\begin{itemize}
+\item \(1234{,}56\) hat \(6\) signifikante Stellen.
+\item \(0{,}00452\) hat \(3\) signifikante Stellen (\(4,5,2\)).
+\item Führende Nullen zählen nicht.
+\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Beispiel 4.11: Signifikante Stellen bei double}
+
+\scriptsize
+
+Jede Maschinenzahl \(f \in F_{\text{double}} \setminus \{-\max F_{\text{double}},\,0,\,\max F_{\text{double}}\}\)
+hat mindestens
+
+\[
+\left\lfloor 52 \cdot \log_{10}(2) \right\rfloor = 15
+\]
+
+signifikante Stellen in der Dezimaldarstellung.
+
+\vspace{0.3cm}
+
+\textbf{Erklärung:}
+
+\begin{itemize}
+\item Double hat \(52\) Bits in der Mantisse (plus hidden bit).
+\item Umrechnung Binär \(\rightarrow\) Dezimal:
+\[
+\log_{10}(2) \approx 0{,}301
+\]
+\item Daher:
+\[
+52 \cdot 0{,}301 \approx 15{,}65 \;\Rightarrow\; \lfloor \cdot \rfloor = 15
+\]
+\end{itemize}
+
+\vspace{0.3cm}
+
+\textbf{Bedeutung:}
+
+Ein double kann etwa \(15\)–\(16\) signifikante Dezimalstellen darstellen.
+
+\end{frame}
+
+ %------------------------------------------------
+\begin{frame}{Beispiel 4.11: Fehlerabschätzung bei double}
+
+\scriptsize
+
+Für \(x\in\mathbb{R}\) mit normalisierter Gleitkommadarstellung
+
+\[
+x = \sigma \cdot 2^E \cdot \sum_{i=0}^{\infty} z_i\,2^{-i}
+\quad \text{und} \quad rd(x)=f
+\]
+
+gilt wegen \(2^E \le |f|\):
+
+\[
+|x-f|
+\le
+\frac12 \cdot 2^E \cdot 2^{-52}
+=
+2^{-53}\,|f|
+\]
+
+\vspace{0.3cm}
+
+Umrechnung in Dezimaldarstellung:
+
+\[
+2^{-53}
+=
+10^{-53\log_{10}2}
+\approx 10^{-15{,}95}
+\]
+
+\[
+\Rightarrow\quad
+|x-f|
+\lesssim
+\frac12 \cdot 10^{\lfloor \log_{10}|f|\rfloor +1 - 52\log_{10}2}
+\]
+
+\vspace{0.3cm}
+
+\textbf{Schlussfolgerung:}
+
+Der Rundungsfehler eines \texttt{double} ist klein genug,
+um etwa \(15\) signifikante Dezimalstellen zu garantieren.
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{C++: Ausgabe mit \texttt{setprecision}}
+
+\scriptsize
+
+Nach
+
+\[
+\texttt{\#include <iomanip>}
+\]
+
+kann man mit
+
+\[
+\texttt{std::cout << std::setprecision(15);}
+\]
+
+festlegen, dass bei nachfolgenden Ausgaben vom Typ
+\texttt{double} etwa \(15\) signifikante Stellen
+ausgegeben werden.
+
+\vspace{0.4cm}
+
+\textbf{Beispiel:}
+
+\begin{verbatim}
+#include <iostream>
+#include <iomanip>
+
+int main() {
+    double x = 1.0 / 3.0;
+
+    std::cout << std::setprecision(15)
+              << x << std::endl;
+}
+\end{verbatim}
+
+\vspace{0.2cm}
+
+\textbf{Bedeutung:}
+
+\begin{itemize}
+\item Nur Anzeigeformat wird geändert.
+\item Der gespeicherte Wert bleibt derselbe.
+\item Nützlich, um Genauigkeit sichtbar zu machen.
+\end{itemize}
+
+\end{frame}
 
 
 %------------------------------------------------
