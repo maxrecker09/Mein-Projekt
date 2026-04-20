@@ -40,7 +40,1295 @@
 \end{prop}
 \section{}
 
+\section{4.1 b-adische Darstellung reeller Zahlen}
 
+In diesem Abschnitt geht es um die grundlegende Frage, wie man reelle Zahlen in einem Zahlensystem zur Basis \(b\) darstellen kann. Das Dezimalsystem entspricht dabei der Basis \(b=10\), das Binärsystem der Basis \(b=2\).
+
+Die folgende Aussage zeigt, dass jede von Null verschiedene reelle Zahl eine eindeutig bestimmte Darstellung dieser Form besitzt.
+
+\begin{thm}
+Sei \(b\in\mathbb{N}\) mit \(b\geq 2\). Sei ferner \(x\in\mathbb{R}\setminus\{0\}\). Dann existieren eindeutig bestimmte Zahlen
+
+\[
+E\in\mathbb{Z}, \qquad \sigma\in\{-1,1\}, \qquad z_i\in\{0,1,\dots,b-1\}
+\]
+
+für alle \(i\in\mathbb{N}\cup\{0\}\), so dass gilt:
+
+\[
+\{\, i\in\mathbb{N}\mid z_i\neq b-1 \,\}
+\text{ ist unendlich},
+\qquad z_0\neq 0,
+\]
+
+und
+
+\[
+x=\sigma\cdot b^E \cdot \left(\sum_{i=0}^{\infty} z_i\, b^{-i}\right).
+\]
+
+Diese Darstellung heißt die \emph{(normalisierte) b-adische Darstellung} von \(x\).
+\end{thm}
+
+\subsection*{Bedeutung der einzelnen Bestandteile}
+
+Die Formel
+
+\[
+x=\sigma\cdot b^E \cdot \left(\sum_{i=0}^{\infty} z_i\, b^{-i}\right)
+\]
+
+setzt sich aus mehreren Teilen zusammen:
+
+\begin{itemize}
+    \item \(x\): die darzustellende reelle Zahl.
+    
+    \item \(\sigma\in\{-1,1\}\): das Vorzeichen der Zahl.  
+    Dabei gilt:
+    \[
+    \sigma=1 \text{ für positive Zahlen}, \qquad \sigma=-1 \text{ für negative Zahlen}.
+    \]
+
+    \item \(b\): die Basis des verwendeten Zahlensystems.
+
+    \item \(E\in\mathbb{Z}\): der Exponent. Er bestimmt die Größenordnung der Zahl.
+
+    \item \(z_i\): die Ziffern der Darstellung. Jede Ziffer liegt zwischen \(0\) und \(b-1\).
+
+    \item 
+    \[
+    \sum_{i=0}^{\infty} z_i b^{-i}
+    \]
+    ist die eigentliche Zifferndarstellung (Mantisse) der Zahl.
+\end{itemize}
+
+\subsection*{Warum fordert man \(z_0\neq 0\)?}
+
+Die Bedingung \(z_0\neq 0\) sorgt dafür, dass die Darstellung normalisiert ist. Das bedeutet: Die erste Ziffer darf nicht Null sein. Dadurch wird verhindert, dass dieselbe Zahl mehrere verschiedene Darstellungen besitzt.
+
+\subsection*{Warum muss die Menge \(\{i\in\mathbb{N}\mid z_i\neq b-1\}\) unendlich sein?}
+
+Diese Bedingung verhindert Doppeldarstellungen wie im Dezimalsystem:
+
+\[
+1{,}0000\ldots = 0{,}9999\ldots
+\]
+
+Durch die Forderung, dass nicht ab irgendeinem Punkt nur noch Ziffern \(b-1\) auftreten, wird die Darstellung eindeutig gemacht.
+
+\subsection*{Anschauliche Interpretation}
+
+Jede Zahl besteht also aus drei Bausteinen:
+
+\[
+\text{Zahl} = \text{Vorzeichen} \cdot \text{Größenordnung} \cdot \text{Zifferndarstellung}
+\]
+
+Das ist genau das Prinzip, das später auch bei Maschinenzahlen und Gleitkommazahlen auf dem Computer verwendet wird.
+
+\subsection*{Wichtige Beispiele für Basen}
+
+Die Basis \(b\) bestimmt, mit welchen Ziffern eine Zahl dargestellt wird. Es muss stets gelten:
+
+\[
+b\in\mathbb{N}, \qquad b\geq 2.
+\]
+
+Typische Beispiele sind:
+
+\begin{align*}
+b=10 &\quad \text{: Dezimalsystem} \\
+b=2  &\quad \text{: Binärsystem} \\
+b=8  &\quad \text{: Oktalsystem} \\
+b=16 &\quad \text{: Hexadezimalsystem}
+\end{align*}
+
+\vspace{0.3cm}
+
+Das im Alltag verwendete Zahlensystem ist das Dezimalsystem. Computer arbeiten intern dagegen hauptsächlich mit dem Binärsystem.
+
+\subsection*{Die Bedeutung der Ziffern \(z_i\)}
+
+Die Zahl \(z_i\) ist die \(i\)-te Ziffer der Darstellung von \(x\).
+
+Beispielsweise bei der Zahl
+
+\[
+3{,}1415
+\]
+
+gilt:
+
+\[
+z_0=3,\qquad z_1=1,\qquad z_2=4,\qquad z_3=1,\qquad z_4=5.
+\]
+
+Jede Ziffer darf nur aus den erlaubten Symbolen der Basis stammen, also:
+
+\[
+z_i\in\{0,1,\dots,b-1\}.
+\]
+
+Beispiele:
+
+\begin{align*}
+b=10 &\Rightarrow z_i\in\{0,1,\dots,9\},\\
+b=2  &\Rightarrow z_i\in\{0,1\}.
+\end{align*}
+
+\subsection*{Die Bedeutung von \(b^{-i}\)}
+
+Der Ausdruck \(b^{-i}\) gibt den Stellenwert der jeweiligen Ziffer an. Er bestimmt also, wie stark die Ziffer \(z_i\) in die Zahl eingeht.
+
+Es gilt:
+
+\[
+b^{-i}=\frac{1}{b^i}.
+\]
+
+Im Dezimalsystem (\(b=10\)) bedeutet das:
+
+\begin{align*}
+10^0 &= 1 \qquad\text{(Einerstelle)}\\
+10^{-1} &= 0{,}1 \qquad\text{(Zehntelstelle)}\\
+10^{-2} &= 0{,}01 \qquad\text{(Hundertstelstelle)}\\
+10^{-3} &= 0{,}001 \qquad\text{usw.}
+\end{align*}
+
+\subsection*{Zusammenspiel von Ziffer und Stellenwert}
+
+Jeder Summand
+
+\[
+z_i\cdot b^{-i}
+\]
+
+besteht aus:
+
+\[
+\text{Ziffer} \cdot \text{Stellenwert}.
+\]
+
+Er beschreibt also den Beitrag der \(i\)-ten Stelle zur gesamten Zahl.
+
+Die komplette Zahl entsteht dann durch das Addieren aller dieser Beiträge:
+
+\[
+\sum_{i=0}^{\infty} z_i\,b^{-i}.
+\]
+
+\subsection*{Bemerkung zur Reihennotation}
+
+Wir verwenden im Folgenden die übliche Schreibweise für unendliche Summen (Reihen):
+
+\[
+\sum_{i=0}^{\infty} a_i
+:=
+\lim_{n\to\infty}\sum_{i=0}^{n} a_i.
+\]
+
+Das bedeutet:
+
+\begin{itemize}
+    \item Zunächst betrachtet man die endlichen Partialsummen
+    \[
+    \sum_{i=0}^{n} a_i.
+    \]
+
+    \item Anschließend lässt man \(n\to\infty\) gehen.
+
+    \item Existiert dabei ein Grenzwert, so nennt man diesen Wert die Summe der Reihe.
+\end{itemize}
+
+\vspace{0.4cm}
+
+Im vorliegenden Zusammenhang existiert dieser Grenzwert tatsächlich. Der Grund ist:
+
+\begin{itemize}
+    \item Die Folge der Partialsummen ist monoton wachsend.
+    
+    \item Gleichzeitig ist sie nach oben durch \(b\) beschränkt.
+\end{itemize}
+
+Nach dem Monotoniekriterium für Folgen besitzt die Folge daher einen Grenzwert.
+
+\vspace{0.3cm}
+
+Somit ist der Ausdruck
+
+\[
+\sum_{i=0}^{\infty} z_i b^{-i}
+\]
+
+wohldefiniert.
+
+\subsection*{Beweis der Aussage}
+
+Sei \(x\in\R\setminus\{0\}\).
+
+Offensichtlich muss für das Vorzeichen gelten:
+
+\[
+\sigma=
+\begin{cases}
+-1,& \text{falls } x<0,\\[0.3em]
+1,& \text{falls } x>0.
+\end{cases}
+\]
+
+Für Ziffern
+
+\[
+z_i\in\{0,1,\dots,b-1\}
+\qquad (i\in\N\cup\{0\})
+\]
+
+mit
+
+\[
+\{\,i\in\N \mid z_i\neq b-1\,\}\neq\emptyset
+\qquad\text{und}\qquad
+z_0\neq 0
+\]
+
+zeigen wir nun:
+
+\[
+1\leq \sum_{i=0}^{\infty} z_i b^{-i}
+<
+\sum_{i=0}^{\infty}(b-1)b^{-i}=b.
+\]
+
+\subsubsection*{1. Untere Schranke}
+
+Da \(z_0\neq 0\) und \(z_0\in\{0,1,\dots,b-1\}\), folgt:
+
+\[
+z_0\geq 1.
+\]
+
+Somit gilt:
+
+\[
+\sum_{i=0}^{\infty} z_i b^{-i}
+=
+z_0+\sum_{i=1}^{\infty} z_i b^{-i}
+\geq z_0\geq 1.
+\]
+
+Also:
+
+\[
+1\leq \sum_{i=0}^{\infty} z_i b^{-i}.
+\]
+
+Gleichheit gilt genau dann, wenn alle weiteren Ziffern verschwinden, also
+
+\[
+z_i=0 \quad \text{für alle } i\geq 1.
+\]
+
+\subsubsection*{2. Obere Schranke}
+
+Da jede Ziffer höchstens \(b-1\) ist, gilt für alle \(i\):
+
+\[
+z_i\leq b-1.
+\]
+
+Daher folgt:
+
+\[
+\sum_{i=0}^{\infty} z_i b^{-i}
+\leq
+\sum_{i=0}^{\infty}(b-1)b^{-i}.
+\]
+
+Nun berechnen wir die rechte Seite:
+
+\[
+\sum_{i=0}^{\infty}(b-1)b^{-i}
+=
+(b-1)\sum_{i=0}^{\infty}b^{-i}.
+\]
+
+Dies ist eine geometrische Reihe mit Quotienten \(q=\frac1b\). Also:
+
+\[
+\sum_{i=0}^{\infty}b^{-i}
+=
+\frac{1}{1-\frac1b}
+=
+\frac{b}{b-1}.
+\]
+
+Somit:
+
+\[
+(b-1)\sum_{i=0}^{\infty}b^{-i}
+=
+(b-1)\frac{b}{b-1}
+=
+b.
+\]
+
+Also gilt:
+
+\[
+\sum_{i=0}^{\infty} z_i b^{-i}\leq b.
+\]
+
+Wegen der Zusatzbedingung
+
+\[
+\{\,i\in\N\mid z_i\neq b-1\,\}\neq\emptyset
+\]
+
+ist jedoch mindestens eine Ziffer echt kleiner als \(b-1\). Daher kann die Summe den Wert \(b\) nicht erreichen. Also sogar:
+
+\[
+\sum_{i=0}^{\infty} z_i b^{-i}<b.
+\]
+
+\subsubsection*{3. Ergebnis}
+
+Insgesamt folgt:
+
+\[
+1\leq \sum_{i=0}^{\infty} z_i b^{-i}<b.
+\]
+
+Damit liegt die Mantisse stets im Intervall \([1,b)\).
+
+\subsection*{Bestimmung des Exponenten und Rekursion für die Ziffern}
+
+Aus der Normierungsbedingung
+
+\[
+1\leq a_0<b
+\qquad\text{mit}\qquad
+a_0=b^{-E}|x|
+\]
+
+hatten wir bereits gefolgert, dass \(E\) so gewählt werden muss, dass
+
+\[
+b^E\leq |x|<b^{E+1}.
+\]
+
+Daraus folgt unmittelbar:
+
+\[
+E=\left\lfloor \log_b |x| \right\rfloor.
+\]
+
+Somit ist der Exponent eindeutig festgelegt.
+
+\vspace{0.5cm}
+
+Nun setzen wir
+
+\[
+a_0:=b^{-E}|x|
+\]
+
+und definieren rekursiv für alle \(i\in\mathbb{N}\cup\{0\}\):
+
+\[
+z_i:=\lfloor a_i\rfloor
+\qquad\text{und}\qquad
+a_{i+1}:=b(a_i-z_i).
+\]
+
+\subsubsection*{Bedeutung dieser Definition}
+
+Dabei ist
+
+\begin{itemize}
+    \item \(z_i=\lfloor a_i\rfloor\) der ganzzahlige Anteil von \(a_i\), also die nächste Ziffer der Darstellung,
+
+    \item \(a_i-z_i\) der verbleibende Nachkommateil,
+
+    \item und durch Multiplikation mit \(b\) wird dieser Rest so verschoben, dass die nächste Ziffer wieder vorne erscheint.
+\end{itemize}
+
+Gerade deshalb ist die Rekursion so sinnvoll:  
+Mit jedem Schritt „holen“ wir genau eine weitere Ziffer der \(b\)-adischen Darstellung nach vorne.
+
+\subsubsection*{Warum ist \(z_i\) tatsächlich eine erlaubte Ziffer?}
+
+Da stets
+
+\[
+1\leq a_i<b
+\qquad\text{bzw.}\qquad
+0\leq a_i<b
+\]
+
+je nach Rekursionsschritt gilt, liegt der ganzzahlige Anteil automatisch in der Menge
+
+\[
+z_i\in\{0,1,\dots,b-1\}.
+\]
+
+Damit ist sichergestellt, dass jede so gewonnene Ziffer wirklich eine zulässige Ziffer des Zahlensystems zur Basis \(b\) ist.
+
+\subsubsection*{Anschauliches Beispiel im Dezimalsystem}
+
+Betrachten wir zur Veranschaulichung die Zahl
+
+\[
+a_0=3{,}14.
+\]
+
+Dann erhält man:
+
+\[
+z_0=\lfloor 3{,}14\rfloor =3.
+\]
+
+Der Rest ist:
+
+\[
+3{,}14-3=0{,}14.
+\]
+
+Nun wird mit \(b=10\) multipliziert:
+
+\[
+a_1=10\cdot 0{,}14=1{,}4.
+\]
+
+Also:
+
+\[
+z_1=\lfloor 1{,}4\rfloor =1.
+\]
+
+Wieder bleibt ein Rest:
+
+\[
+1{,}4-1=0{,}4.
+\]
+
+Dann folgt:
+
+\[
+a_2=10\cdot 0{,}4=4,
+\qquad
+z_2=\lfloor 4\rfloor =4.
+\]
+
+Man erkennt: Die Ziffern \(3,1,4\) werden Schritt für Schritt aus der Zahl herausgelesen.
+
+\vspace{0.4cm}
+
+Genau dieses Verfahren liefert allgemein die Ziffern \(z_0,z_1,z_2,\dots\) der \(b\)-adischen Darstellung.
+
+\subsection*{Eigenschaften der rekursiv definierten Zahlen \(a_i\) und \(z_i\)}
+
+Man beachte:
+
+\[
+1\leq a_0<b
+\qquad\text{und}\qquad
+0\leq a_i<b \quad \text{für alle } i\in\mathbb{N}.
+\]
+
+Daraus folgt unmittelbar:
+
+\[
+z_i=\lfloor a_i\rfloor \in \{0,1,\dots,b-1\}
+\quad \text{für alle } i,
+\]
+
+sowie insbesondere
+
+\[
+z_0\neq 0.
+\]
+
+Denn aus \(1\leq a_0<b\) folgt:
+
+\[
+1\leq \lfloor a_0\rfloor \leq b-1.
+\]
+
+Also ist die erste Ziffer stets von Null verschieden.
+
+\subsubsection*{Warum ist die Normierung wichtig?}
+
+Ziel ist es, jede Zahl \(x\neq 0\) in der Form
+
+\[
+x=\sigma\cdot b^E\cdot(\text{Mantisse})
+\]
+
+darzustellen, wobei die Mantisse die Bedingung
+
+\[
+1\leq \text{Mantisse}<b
+\]
+
+erfüllt.
+
+Diese Bedingung nennt man \emph{Normalisierung}.  
+Sie sorgt dafür, dass die Darstellung eindeutig und systematisch wird.
+
+\vspace{0.4cm}
+
+\textbf{Beispiel im Dezimalsystem:}
+
+\[
+314 = 3{,}14\cdot 10^2.
+\]
+
+Hier gilt:
+
+\[
+\sigma=1,\qquad b=10,\qquad E=2,\qquad \text{Mantisse}=3{,}14.
+\]
+
+Die Mantisse liegt tatsächlich im gewünschten Bereich:
+
+\[
+1\leq 3{,}14<10.
+\]
+
+\subsubsection*{Wie findet man \(E\)?}
+
+Man sucht einen Exponenten \(E\), sodass
+
+\[
+1\leq \frac{|x|}{b^E}<b.
+\]
+
+Dann kann man setzen:
+
+\[
+\text{Mantisse}=\frac{|x|}{b^E}.
+\]
+
+Somit erhält man:
+
+\[
+x=\sigma\cdot b^E\cdot \frac{|x|}{b^E}
+=\sigma\cdot |x|
+=x.
+\]
+
+Die Darstellung ist also korrekt.
+
+\subsubsection*{Warum wird dadurch \(z_0\) automatisch gültig?}
+
+Da die Mantisse im Intervall \([1,b)\) liegt, befindet sich ihr ganzzahliger Anteil automatisch in der Menge
+
+\[
+\{1,2,\dots,b-1\}.
+\]
+
+Dieser ganzzahlige Anteil ist genau
+
+\[
+z_0=\lfloor a_0\rfloor.
+\]
+
+Damit ist die erste Ziffer stets eine erlaubte Ziffer und niemals Null.
+
+\subsubsection*{Bedeutung von \(a_0\)}
+
+Man setzt
+
+\[
+a_0:=b^{-E}|x|=\frac{|x|}{b^E}.
+\]
+
+Die Zahl \(a_0\) ist also nichts anderes als die normierte Form von \(x\), also die Mantisse, aus der anschließend alle Ziffern \(z_0,z_1,z_2,\dots\) gewonnen werden.
+
+\subsection*{Darstellung von \(a_0\) durch Partialsummen und Restglied}
+
+Wir behaupten:
+
+\[
+a_0=
+\sum_{i=0}^{n} z_i b^{-i}
++
+a_{n+1}b^{-n-1}
+\qquad
+\text{für alle } n\in\mathbb{N}\cup\{0\}.
+\]
+
+\subsubsection*{Bedeutung der Formel}
+
+Diese Gleichung zerlegt \(a_0\) in zwei Teile:
+
+\[
+a_0=
+\underbrace{\sum_{i=0}^{n} z_i b^{-i}}_{\text{bereits bestimmte Ziffern}}
++
+\underbrace{a_{n+1}b^{-n-1}}_{\text{Restglied}}.
+\]
+
+\begin{itemize}
+    \item Die Summe enthält alle bisher berechneten Ziffern \(z_0,\dots,z_n\).
+    \item Das Restglied enthält den noch nicht ausgeschriebenen Teil der Zahl.
+    \item Mit wachsendem \(n\) wird dieser Rest immer kleiner.
+\end{itemize}
+
+Am Ende wollen wir daraus erhalten:
+
+\[
+a_0=\sum_{i=0}^{\infty} z_i b^{-i}.
+\]
+
+Die unendliche Reihe ist also die exakte Darstellung von \(a_0\).
+
+\vspace{0.4cm}
+
+\textbf{Hinweis:} Falls bereits
+
+\[
+1\leq x<b
+\]
+
+gilt, dann ist keine zusätzliche Normierung nötig und es gilt direkt:
+
+\[
+a_0=x.
+\]
+
+\subsubsection*{Beweis durch vollständige Induktion über \(n\)}
+
+\paragraph{Induktionsanfang: \(n=0\)}
+
+Zu zeigen ist:
+
+\[
+a_0=z_0b^{0}+a_1b^{-1}.
+\]
+
+Da \(b^0=1\), ist dies gleichbedeutend mit:
+
+\[
+a_0=z_0+\frac{a_1}{b}.
+\]
+
+Aus der Rekursionsvorschrift
+
+\[
+a_1=b(a_0-z_0)
+\]
+
+folgt:
+
+\[
+\frac{a_1}{b}=a_0-z_0.
+\]
+
+Einsetzen ergibt:
+
+\[
+a_0=z_0+(a_0-z_0)=a_0.
+\]
+
+Damit stimmt die Behauptung für \(n=0\).
+
+\hfill\(\checkmark\)
+
+\paragraph{Induktionsschritt}
+
+Sei nun \(n\in\mathbb{N}\).
+
+Wir nehmen an, die Behauptung gelte bereits für \(n-1\), also:
+
+\[
+a_0=
+\sum_{i=0}^{n-1} z_i b^{-i}
++
+a_n b^{-n}.
+\]
+
+Zu zeigen ist:
+
+\[
+a_0=
+\sum_{i=0}^{n} z_i b^{-i}
++
+a_{n+1} b^{-n-1}.
+\]
+
+\vspace{0.4cm}
+
+Aus der Rekursionsvorschrift
+
+\[
+a_{n+1}=b(a_n-z_n)
+\]
+
+folgt durch Umformen:
+
+\[
+\frac{a_{n+1}}{b}=a_n-z_n
+\]
+
+und damit
+
+\[
+a_n=z_n+\frac{a_{n+1}}{b}.
+\]
+
+Nun setzen wir dies in die Induktionsannahme ein:
+
+\[
+a_0=
+\sum_{i=0}^{n-1} z_i b^{-i}
++
+\left(z_n+\frac{a_{n+1}}{b}\right)b^{-n}.
+\]
+
+Ausmultiplizieren liefert:
+
+\[
+a_0=
+\sum_{i=0}^{n-1} z_i b^{-i}
++
+z_n b^{-n}
++
+\frac{a_{n+1}}{b}b^{-n}.
+\]
+
+Wegen
+
+\[
+\frac{1}{b}b^{-n}=b^{-n-1}
+\]
+
+erhält man:
+
+\[
+a_0=
+\sum_{i=0}^{n-1} z_i b^{-i}
++
+z_n b^{-n}
++
+a_{n+1}b^{-n-1}.
+\]
+
+Die ersten beiden Summanden lassen sich zusammenfassen zu:
+
+\[
+\sum_{i=0}^{n} z_i b^{-i}.
+\]
+
+Somit folgt:
+
+\[
+a_0=
+\sum_{i=0}^{n} z_i b^{-i}
++
+a_{n+1}b^{-n-1}.
+\]
+
+Damit ist der Induktionsschritt gezeigt.
+
+\hfill\(\checkmark\)
+
+\subsubsection*{Schlussfolgerung}
+
+Nach dem Prinzip der vollständigen Induktion gilt somit für alle
+\(n\in\mathbb{N}\cup\{0\}\):
+
+\[
+a_0=
+\sum_{i=0}^{n} z_i b^{-i}
++
+a_{n+1}b^{-n-1}.
+\]
+
+\subsubsection*{Übergang zur unendlichen Darstellung}
+
+Aus der bereits bewiesenen Gleichung
+
+\[
+a_0=
+\sum_{i=0}^{n} z_i b^{-i}
++
+a_{n+1}b^{-n-1}
+\qquad\text{für alle } n\in\mathbb{N}\cup\{0\}
+\]
+
+folgt nun durch Grenzübergang \(n\to\infty\):
+
+\[
+a_0=\lim_{n\to\infty}\left(\sum_{i=0}^{n} z_i b^{-i}+a_{n+1}b^{-n-1}\right).
+\]
+
+Um daraus die gewünschte unendliche Darstellung zu erhalten, müssen wir zeigen, dass das Restglied verschwindet, also:
+
+\[
+a_{n+1}b^{-n-1}\to 0
+\qquad (n\to\infty).
+\]
+
+Dann bleibt im Grenzwert nur noch:
+
+\[
+a_0=\lim_{n\to\infty}\sum_{i=0}^{n} z_i b^{-i}
+=
+\sum_{i=0}^{\infty} z_i b^{-i}.
+\]
+
+Damit ergibt sich schließlich:
+
+\[
+x=\sigma\cdot b^E\cdot a_0
+=
+\sigma\cdot b^E\cdot \sum_{i=0}^{\infty} z_i b^{-i}.
+\]
+
+\subsubsection*{Warum verschwindet das Restglied?}
+
+Es wurde bereits gezeigt, dass für alle Indizes gilt:
+
+\[
+1\leq a_{n+1}<b.
+\]
+
+Daraus folgt:
+
+\[
+0\leq a_{n+1}b^{-n-1}<b\cdot b^{-n-1}=b^{-n}.
+\]
+
+Da \(b\geq 2\) ist, gilt:
+
+\[
+b^{-n}\to 0
+\qquad (n\to\infty).
+\]
+
+Somit liegt die Folge \(\bigl(a_{n+1}b^{-n-1}\bigr)\) zwischen \(0\) und einer Folge, die gegen \(0\) konvergiert. Nach dem Sandwichprinzip folgt daher:
+
+\[
+a_{n+1}b^{-n-1}\to 0.
+\]
+
+\subsubsection*{Schluss}
+
+Damit ist gezeigt:
+
+\[
+a_0=\sum_{i=0}^{\infty} z_i b^{-i}
+\]
+
+und somit insgesamt
+
+\[
+x=\sigma\cdot b^E\cdot \left(\sum_{i=0}^{\infty} z_i b^{-i}\right).
+\]
+
+Das ist genau die behauptete normalisierte \(b\)-adische Darstellung von \(x\).
+
+\subsection*{Eindeutigkeit der Darstellung}
+
+Nun bleibt noch zu zeigen, dass die Darstellung eindeutig ist.
+
+\vspace{0.4cm}
+
+Die Zusatzbedingung
+
+\[
+\{\,i\in\mathbb{N}\mid z_i\neq b-1\,\}
+\text{ ist unendlich}
+\]
+
+verhindert Mehrfachdarstellungen wie im Dezimalsystem
+
+\[
+1{,}0000\ldots = 0{,}9999\ldots
+\]
+
+oder allgemein das Auftreten eines unendlichen \((b-1)\)-Schwanzes.
+
+\subsubsection*{Warum ist diese Bedingung nötig?}
+
+Angenommen,
+
+\[
+\{\,i\in\mathbb{N}\mid z_i\neq b-1\,\}
+\]
+
+wäre endlich. Dann gäbe es also ein \(n_0\in\mathbb{N}\), sodass
+
+\[
+z_i=b-1
+\qquad \text{für alle } i>n_0.
+\]
+
+Dann hätte die Mantisse die Form
+
+\[
+a_0=
+\sum_{i=0}^{n_0} z_i b^{-i}
++
+\sum_{i=n_0+1}^{\infty}(b-1)b^{-i}.
+\]
+
+Wir berechnen den zweiten Summanden:
+
+\[
+\sum_{i=n_0+1}^{\infty}(b-1)b^{-i}
+=
+(b-1)\sum_{i=n_0+1}^{\infty} b^{-i}.
+\]
+
+Dies ist wieder eine geometrische Reihe. Ausklammern von \(b^{-(n_0+1)}\) ergibt:
+
+\[
+(b-1)b^{-(n_0+1)}
+\sum_{k=0}^{\infty} b^{-k}.
+\]
+
+Mit
+
+\[
+\sum_{k=0}^{\infty} b^{-k}=\frac{1}{1-\frac1b}=\frac{b}{b-1}
+\]
+
+folgt:
+
+\[
+(b-1)b^{-(n_0+1)}\frac{b}{b-1}
+=
+b^{-n_0}.
+\]
+
+Also gilt:
+
+\[
+\sum_{i=n_0+1}^{\infty}(b-1)b^{-i}=b^{-n_0}.
+\]
+
+Damit wäre
+
+\[
+a_0=
+\sum_{i=0}^{n_0} z_i b^{-i}+b^{-n_0}.
+\]
+
+Das bedeutet: Man könnte die Ziffer an Stelle \(n_0\) um \(1\) erhöhen und danach nur noch Nullen schreiben. Es gäbe also eine zweite Darstellung derselben Zahl.
+
+\vspace{0.4cm}
+
+Genau deshalb wird der Fall eines endlosen \((b-1)\)-Schwanzes ausgeschlossen.
+
+\subsubsection*{Der eigentliche Widerspruch}
+
+Aus der Annahme, dass ab einem gewissen Index nur noch Ziffern \(b-1\) auftreten, folgt nach der obigen Rechnung:
+
+\[
+a_{n_0+1}=b.
+\]
+
+Dies ist jedoch unmöglich.
+
+Denn aus der Rekursion wurde bereits gezeigt, dass für alle Restzahlen gilt:
+
+\[
+1\leq a_n<b
+\qquad\text{bzw.}\qquad
+0\leq a_n<b.
+\]
+
+Insbesondere darf also niemals
+
+\[
+a_{n_0+1}=b
+\]
+
+gelten.
+
+Damit entsteht ein Widerspruch zur Annahme, dass ab irgendeinem Punkt nur noch die Ziffer \(b-1\) vorkommt.
+
+\vspace{0.4cm}
+
+Also muss die Annahme falsch sein. Folglich ist die Menge
+
+\[
+\{\,i\in\mathbb{N}\mid z_i\neq b-1\,\}
+\]
+
+nicht endlich, sondern unendlich.
+
+\subsubsection*{Bedeutung}
+
+Es gibt also unendlich viele Stellen, an denen die Ziffer nicht gleich \(b-1\) ist. Genau diese Bedingung verhindert doppelte Darstellungen und macht die normalisierte \(b\)-adische Darstellung eindeutig.
+
+\subsubsection*{2. Eindeutigkeit der Darstellung}
+
+Es bleibt die Eindeutigkeit der Ziffernfolge zu zeigen.  
+Die Eindeutigkeit von Vorzeichen \(\sigma\) und Exponent \(E\) wurde bereits gezeigt.
+
+Angenommen, eine Zahl \(x\neq 0\) besitze zwei verschiedene normalisierte \(b\)-adische Darstellungen:
+
+\[
+x=\sigma\cdot b^E\sum_{i=0}^{\infty} y_i b^{-i}
+=
+\sigma\cdot b^E\sum_{i=0}^{\infty} z_i b^{-i},
+\]
+
+wobei beide Ziffernfolgen dieselben Bedingungen erfüllen.
+
+Das bedeutet: Dieselbe Zahl hätte zwei verschiedene Folgen von Ziffern.
+
+\vspace{0.4cm}
+
+Da die Folgen verschieden sind, gibt es einen ersten Index, an dem sie sich unterscheiden.  
+Sei also
+
+\[
+n:=\min\{i\in\mathbb{N}_0\mid y_i\neq z_i\}.
+\]
+
+Dann gilt für alle \(i<n\):
+
+\[
+y_i=z_i.
+\]
+
+Ohne Beschränkung der Allgemeinheit dürfen wir annehmen:
+
+\[
+y_n<z_n.
+\]
+
+Da \(y_n\) und \(z_n\) ganze Ziffern sind, folgt sogar:
+
+\[
+y_n+1\leq z_n.
+\]
+
+Damit beginnt an der Stelle \(n\) der eigentliche Unterschied der beiden Darstellungen.
+
+Da beide Darstellungen gleich sind, können wir durch den gemeinsamen Faktor
+\(\sigma\cdot b^E\neq 0\) teilen. Somit folgt:
+
+\[
+\sum_{i=0}^{\infty} y_i b^{-i}
+=
+\sum_{i=0}^{\infty} z_i b^{-i}.
+\]
+
+Nun zerlegen wir beide Reihen an der ersten unterschiedlichen Stelle \(n\).
+
+Für die linke Seite gilt:
+
+\[
+\sum_{i=0}^{\infty} y_i b^{-i}
+=
+\sum_{i=0}^{n-1} y_i b^{-i}
++
+y_n b^{-n}
++
+\sum_{i=n+1}^{\infty} y_i b^{-i}.
+\]
+
+Für die rechte Seite entsprechend:
+
+\[
+\sum_{i=0}^{\infty} z_i b^{-i}
+=
+\sum_{i=0}^{n-1} z_i b^{-i}
++
+z_n b^{-n}
++
+\sum_{i=n+1}^{\infty} z_i b^{-i}.
+\]
+
+Da für alle \(i<n\) bereits \(y_i=z_i\) gilt, sind die ersten Summen identisch und heben sich weg.
+
+Es bleibt also:
+
+\[
+y_n b^{-n}
++
+\sum_{i=n+1}^{\infty} y_i b^{-i}
+=
+z_n b^{-n}
++
+\sum_{i=n+1}^{\infty} z_i b^{-i}.
+\]
+
+Wegen \(y_n+1\leq z_n\) gilt insbesondere
+
+\[
+y_n\leq z_n-1.
+\]
+
+Damit ist die linke Seite an der Stelle \(n\) mindestens um eine Einheit kleiner als die rechte Seite.  
+Im nächsten Schritt zeigen wir, dass die restlichen Nachkommastellen diesen Unterschied nicht mehr ausgleichen können.
+
+Da jede Ziffer höchstens \(b-1\) ist, gilt für den Rest der linken Darstellung:
+
+\[
+\sum_{i=n+1}^{\infty} y_i b^{-i}
+\leq
+\sum_{i=n+1}^{\infty} (b-1)b^{-i}.
+\]
+
+Außerdem hatten wir bereits
+
+\[
+y_n\leq z_n-1
+\]
+
+gezeigt, also
+
+\[
+y_n b^{-n}\leq (z_n-1)b^{-n}.
+\]
+
+Daher ist die gesamte linke Seite höchstens
+
+\[
+\sum_{i=0}^{n-1} y_i b^{-i}
++
+(z_n-1)b^{-n}
++
+\sum_{i=n+1}^{\infty}(b-1)b^{-i}.
+\]
+
+Nun berechnen wir wieder die geometrische Reihe:
+
+\[
+\sum_{i=n+1}^{\infty}(b-1)b^{-i}
+=
+b^{-n}.
+\]
+
+Somit wird der obige Ausdruck zu
+
+\[
+\sum_{i=0}^{n-1} y_i b^{-i}
++
+(z_n-1)b^{-n}
++
+b^{-n}.
+\]
+
+Die letzten beiden Summanden vereinfachen sich zu
+
+\[
+(z_n-1)b^{-n}+b^{-n}=z_n b^{-n}.
+\]
+
+Also folgt insgesamt:
+
+\[
+\sum_{i=0}^{\infty} y_i b^{-i}
+\leq
+\sum_{i=0}^{n-1} y_i b^{-i}+z_n b^{-n}.
+\]
+
+Da für \(i<n\) gilt \(y_i=z_i\), erhalten wir:
+
+\[
+\sum_{i=0}^{\infty} y_i b^{-i}
+\leq
+\sum_{i=0}^{n-1} z_i b^{-i}+z_n b^{-n}.
+\]
+
+Andererseits ist wegen \(z_i\geq 0\) für alle \(i>n\):
+
+\[
+\sum_{i=0}^{n-1} z_i b^{-i}+z_n b^{-n}
+\leq
+\sum_{i=0}^{\infty} z_i b^{-i}.
+\]
+
+Zusammen also:
+
+\[
+\sum_{i=0}^{\infty} y_i b^{-i}
+\leq
+\sum_{i=0}^{\infty} z_i b^{-i}.
+\]
+
+Tatsächlich gilt sogar strikte Ungleichung. Denn Gleichheit könnte nur dann eintreten, wenn in der linken Darstellung ab der Stelle \(n+1\) nur noch Ziffern \(b-1\) auftreten würden. Genau dieser Fall ist jedoch durch die Bedingung ausgeschlossen, dass es unendlich viele Indizes mit Ziffern ungleich \(b-1\) gibt.
+
+Also folgt:
+
+\[
+\sum_{i=0}^{\infty} y_i b^{-i}
+<
+\sum_{i=0}^{\infty} z_i b^{-i}.
+\]
+
+Das ist ein Widerspruch zur Annahme, dass beide Reihen dieselbe Zahl darstellen.
+
+\vspace{0.4cm}
+
+Folglich können zwei verschiedene Ziffernfolgen nicht dieselbe normalisierte \(b\)-adische Darstellung erzeugen. Die Ziffernfolge ist also eindeutig bestimmt.
+
+\vspace{0.4cm}
+
+Damit ist insgesamt gezeigt:
+
+\begin{itemize}
+    \item Die normalisierte \(b\)-adische Darstellung existiert.
+    \item Sie ist eindeutig.
+\end{itemize}
+
+Damit ist Satz 4.1 vollständig bewiesen.
+
+\subsubsection*{Merksatz und Beispiele}
+
+\textbf{Merksatz:}
+
+Wenn an der ersten unterschiedlichen Stelle eine Ziffer kleiner ist,
+dann kann der restliche unendliche Teil diesen Unterschied nie mehr vollständig ausgleichen.
+
+\vspace{0.6cm}
+
+\textbf{Beispiele für \(b=2\):}
+
+\paragraph{1. Darstellung von \(\frac13\)}
+
+\[
+\frac13
+=
+2^{-2}\left(2^0+2^{-2}+2^{-4}+2^{-6}+\dots\right)
+=
+(0,\overline{01})_2
+\]
+
+Das bedeutet: In der Binärdarstellung wiederholt sich das Muster \(01\) unendlich oft.
+
+\vspace{0.6cm}
+
+\paragraph{2. Darstellung von \(8{,}1\)}
+
+\[
+8{,}1
+=
+2^3\left(2^0+2^{-7}+2^{-8}+2^{-11}+2^{-12}+\dots\right)
+=
+(1000,0\overline{0011})_2
+\]
+
+Hier wiederholt sich nach dem Komma periodisch das Muster \(0011\).
+
+\vspace{0.6cm}
+
+\textbf{Hinweis:}
+
+Solche periodischen Darstellungen kennt man auch aus dem Dezimalsystem, z.\,B.
+
+\[
+\frac13=0,\overline{3}.
+\]
+
+Je nach Basis entstehen also endliche oder unendliche periodische Darstellungen.
 
 
 \end{document}
