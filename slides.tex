@@ -837,7 +837,7 @@ die folgende Darstellung.
 \end{frame}
 
 %------------------------------------------------
-\begin{frame}{Definition 4.3: Maschinenzahl}
+\begin{frame}{Definition 4.2.1: Maschinenzahl}
 
 \tiny
 
@@ -1484,17 +1484,17 @@ die dein Zahlensystem noch verursacht
 \end{frame}
 
 %------------------------------------------------
-\begin{frame}{Definition: \(\varepsilon(F)\)}
+\begin{frame}{eps-Definition}
 
 \scriptsize
 
 \textbf{Definition:} Sei \(F\) ein Maschinenzahlbereich.  
-Die Maschinengenauigkeit von \(F\) wird mit \(\varepsilon(F)\) bezeichnet und ist definiert durch
+Die Maschinengenauigkeit von \(F\) wird mit \(\operatorname{eps}(F)\) bezeichnet und ist definiert durch
 
 \vspace{0.4cm}
 
 \[
-\varepsilon(F):=
+\operatorname{eps}(F):=
 \sup \left\{
 \left|\frac{x-\operatorname{rd}(x)}{x}\right|
 \;\middle|\;
@@ -1510,12 +1510,11 @@ x\in\mathbb{R},\;
 
 \begin{itemize}
 \item \(\sup\) = kleinste obere Schranke / größter möglicher Grenzwert.
-\item Das ist der größte relative Fehler, der passieren kann.
+\item Das ist der größte relative Fehler, der auftreten kann.
 \item Genau dieser Wert beschreibt die Maschinengenauigkeit.
 \end{itemize}
 
 \end{frame}
-
 %------------------------------------------------
 \begin{frame}{Bedeutung von \(\operatorname{range}(F)\)}
 
@@ -1565,7 +1564,7 @@ gilt:
 \vspace{0.6cm}
 
 \[
-\varepsilon(F)=\frac{1}{1+2b^{\,m-1}}
+\operatorname{eps}(F)=\frac{1}{1+2b^{\,m-1}}
 \]
 
 \vspace{0.6cm}
@@ -1582,7 +1581,6 @@ gilt:
 Je größer \(m\), desto genauer das System.
 
 \end{frame}
-
 %------------------------------------------------
 \begin{frame}{Beweis zu Satz 4.8}
 
@@ -1641,14 +1639,14 @@ ist \(x\in \operatorname{range}(F)\) und für jede Rundung \(\operatorname{rd}\)
 \end{frame}
 
 %------------------------------------------------
-\begin{frame}{Folgerung zu \(\varepsilon(F)\)}
+\begin{frame}{Folgerung zu \(\operatorname{eps}(F)\)}
 
 \small
 
 Woraus
 
 \[
-\varepsilon(F)\;\geq\;\frac{1}{1+2b^{\,m-1}}
+\operatorname{eps}(F)\;\geq\;\frac{1}{1+2b^{\,m-1}}
 \]
 
 folgt.
@@ -1658,9 +1656,9 @@ folgt.
 \textbf{Interpretation:}
 
 \begin{itemize}
-\item \(\varepsilon(F)\) ist der größte relative Fehler, der auftreten kann.
+\item \(\operatorname{eps}(F)\) ist der größte relative Fehler, der auftreten kann.
 \item Wir haben bereits einen konkreten Fehler gefunden.
-\item Deshalb muss \(\varepsilon(F)\) mindestens so groß sein.
+\item Deshalb muss \(\operatorname{eps}(F)\) mindestens so groß sein.
 \end{itemize}
 
 \vspace{0.5cm}
@@ -1673,7 +1671,6 @@ so groß wie der gefundene Fehler.
 \end{center}
 
 \end{frame}
-
 %------------------------------------------------
 \begin{frame}{Beweis (andere Richtung)}
 
@@ -1880,7 +1877,7 @@ Für den durch IEEE 754 definierten Typ \texttt{double} gilt:
 \vspace{0.6cm}
 
 \[
-\varepsilon(F_{\text{double}})
+\operatorname{eps}(F_{\text{double}})
 =
 \frac{1}{1+2^{53}}
 \approx
@@ -1892,7 +1889,6 @@ Für den durch IEEE 754 definierten Typ \texttt{double} gilt:
 Das ist die Maschinengenauigkeit vom Typ \texttt{double}.
 
 \end{frame}
-
 %------------------------------------------------
 \begin{frame}{Hinweis zu \texttt{epsilon()} in C++}
 
