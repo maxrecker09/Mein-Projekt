@@ -1332,19 +1332,798 @@ Solche periodischen Darstellungen kennt man auch aus dem Dezimalsystem, z.\,B.
 
 Je nach Basis entstehen also endliche oder unendliche periodische Darstellungen.
 
+\section{4.2 Maschinenzahlen}
+
+Da in einem Rechner nur endlich viele Stellen einer reellen Zahl dargestellt werden können, verwendet man in Anlehnung an Satz 4.1 (normalisierte \(b\)-adische Darstellung) eine endliche, auf Maschinen darstellbare Form.
+
+Während bei reellen Zahlen im Allgemeinen unendlich viele Ziffern auftreten können, muss ein Computer diese Darstellung auf endlich viele Stellen begrenzen. Genau daraus entsteht der Begriff der \emph{Maschinenzahl}.
+
+Man benutzt also dieselbe Grundidee wie bei der \(b\)-adischen Darstellung, speichert jedoch nur endlich viele Ziffern der Mantisse.
+
+Die folgende Definition formalisiert diesen Gedanken.
+
+\begin{defn}
+Seien \(b,m\in\N\) mit \(b\geq 2\).
+
+Eine \(b\)-adische, \(m\)-stellige, normalisierte Gleitkommazahl hat die Form
+
+\[
+x=\sigma\cdot b^E \left(\sum_{i=0}^{m-1} z_i b^{-i}\right),
+\]
+
+wobei gilt:
+
+\begin{itemize}
+    \item \(\sigma\in\{-1,1\}\) ist das Vorzeichen,
+    \item \(E\in\Z\) ist der Exponent,
+    \item \(z_i\in\{0,1,\dots,b-1\}\) für alle \(i\in\{0,1,\dots,m-1\}\),
+    \item \(z_0\neq 0\).
+\end{itemize}
+
+Die Summe
+
+\[
+\sum_{i=0}^{m-1} z_i b^{-i}
+\]
+
+heißt die Mantisse der Zahl.
+\end{defn}
+
+\subsection*{Erläuterung}
+
+Im Vergleich zur Darstellung reeller Zahlen aus Satz 4.1 besteht der einzige wesentliche Unterschied darin, dass die Zifferndarstellung nicht mehr unendlich viele Stellen besitzt, sondern nach genau \(m\) Stellen endet.
+
+Es werden also nur die Ziffern
+
+\[
+z_0,z_1,\dots,z_{m-1}
+\]
+
+gespeichert.
+
+Warum endet die Summe bei \(m-1\)?
+
+Da bei \(i=0\) bereits die erste Stelle beginnt, ist:
+
+\[
+i=0 \text{ erste Stelle},\quad
+i=1 \text{ zweite Stelle},\quad \dots,\quad
+i=m-1 \text{ m-te Stelle}.
+\]
+
+Genau deshalb läuft der Index bis \(m-1\) und nicht bis \(m\).
+
+Der Grundgedanke lautet: Ein Rechner kann nur endlich viele Stellen speichern. Deshalb arbeitet man mit endlich vielen Mantissenziffern.
+
+\subsection*{Beispiele}
+
+\textbf{1. Beispiel: Dezimalsystem mit \(b=10\)}
+
+Für \(b=10\) besitzt die Zahl
+
+\[
+136{,}5
+\]
+
+die normalisierte \(5\)-stellige Darstellung
+
+\[
+136{,}5 = 1{,}3650 \cdot 10^2.
+\]
+
+Die Mantisse hat hier genau fünf Stellen:
+
+\[
+1,\;3,\;6,\;5,\;0.
+\]
+
+In der wissenschaftlichen Schreibweise bzw. in C++-Notation schreibt man dies oft als:
+
+\[
+1.3650\texttt{e+2}
+\]
+
+Dabei bedeutet \texttt{e+2} genau den Faktor \(10^2\).
+
+\vspace{0.5cm}
+
+\textbf{2. Beispiel: Die Zahl \(\frac13\)}
+
+Die Zahl
+
+\[
+\frac13=0{,}3333\dots
+\]
+
+besitzt für \(b=10\) und beliebiges \(m\in\N\) keine exakte Darstellung als \(m\)-stellige normalisierte Gleitkommazahl.
+
+Der Grund ist:
+
+\begin{itemize}
+    \item Die Dezimaldarstellung ist unendlich periodisch.
+    \item Eine Maschinenzahl besitzt aber nur endlich viele Mantissenziffern.
+    \item Daher kann \(\frac13\) nicht exakt gespeichert, sondern nur angenähert werden.
+\end{itemize}
+
+Zum Beispiel:
+
+\[
+\frac13 \approx 0{,}33333
+\]
+
+bei einer \(5\)-stelligen Mantisse.
+
+\vspace{0.5cm}
+
+\textbf{3. Beispiel: Die Zahl \(0\)}
+
+Die Zahl
+
+\[
+0
+\]
+
+besitzt keine Darstellung als normalisierte Gleitkommazahl in obiger Form.
+
+Der Grund ist die Bedingung
+
+\[
+z_0\neq 0.
+\]
+
+Bei \(x=0\) wäre jedoch jede Mantisse gleich \(0\), also wäre insbesondere die erste Ziffer ebenfalls \(0\). Das widerspricht der Normalisierung.
+
+Deshalb wird die Zahl \(0\) in realen Computersystemen separat behandelt.
+
+\subsection*{Maschinenzahlbereich}
+
+Für die Darstellung von Zahlen im Rechner müssen geeignete Werte für
+
+\[
+b,\quad m,\quad E_{\min},\quad E_{\max}
+\]
+
+gewählt werden.
+
+Dabei bedeuten:
+
+\begin{itemize}
+    \item \(b\): Basis des Zahlensystems,
+    \item \(m\): Anzahl der Mantissenstellen,
+    \item \(E_{\min}\): kleinster erlaubter Exponent,
+    \item \(E_{\max}\): größter erlaubter Exponent.
+\end{itemize}
+
+Der zulässige Exponentenbereich ist also:
+
+\[
+E\in\{E_{\min},E_{\min}+1,\dots,E_{\max}\}.
+\]
+
+Diese Wahl bestimmt den sogenannten Maschinenzahlbereich
+
+\[
+F(b,m,E_{\min},E_{\max}).
+\]
+
+\vspace{0.4cm}
+
+\textbf{Definition:}
+
+Der Maschinenzahlbereich ist die Menge aller \(b\)-adischen, \(m\)-stelligen, normalisierten Gleitkommazahlen mit Exponenten
+
+\[
+E\in\{E_{\min},\dots,E_{\max}\},
+\]
+
+zusätzlich der Zahl \(0\).
+
+Formal also:
+
+\[
+F(b,m,E_{\min},E_{\max})
+=
+\{0\}\cup
+\left\{
+\sigma\cdot b^E
+\left(\sum_{i=0}^{m-1} z_i b^{-i}\right)
+\;\middle|\;
+\begin{array}{l}
+\sigma\in\{-1,1\},\\
+E_{\min}\leq E\leq E_{\max},\\
+z_0\neq 0,\\
+z_i\in\{0,\dots,b-1\}
+\end{array}
+\right\}.
+\]
+
+\vspace{0.5cm}
+
+Die Elemente eines solchen (endlichen) Maschinenzahlbereichs heißen \emph{Maschinenzahlen}.
+
+\subsection*{Beispiel}
+
+Wählt man etwa
+
+\[
+b=10,\qquad m=3,\qquad E\in\{-1,0,1\},
+\]
+
+so enthält der Maschinenzahlbereich genau alle normalisierten Dezimalzahlen mit drei Mantissenstellen und diesen erlaubten Exponenten, sowie zusätzlich die Zahl \(0\).
+
+\subsection*{Weitere Beispiele für Maschinenzahlen}
+
+Für das Beispiel
+
+\[
+b=10,\qquad m=3,\qquad E\in\{-1,0,1\}
+\]
+
+sind unter anderem folgende Zahlen im Maschinenzahlbereich enthalten:
+
+\[
+1{,}23\cdot 10^1 = 12{,}3,
+\]
+
+\[
+9{,}99\cdot 10^{-1}=0{,}999,
+\]
+
+\[
+-4{,}56\cdot 10^0=-4{,}56,
+\]
+
+sowie natürlich auch
+
+\[
+0.
+\]
+
+\vspace{0.6cm}
+
+\subsection*{Der IEEE-754-Standard}
+
+Im Jahr 1985 wurde der IEEE-754-Standard veröffentlicht.  
+Er ist bis heute der wichtigste Standard zur Darstellung von Gleitkommazahlen auf Computern.
+
+IEEE steht für:
+
+\begin{center}
+\textit{Institute of Electrical and Electronics Engineers}
+\end{center}
+
+\vspace{0.4cm}
+
+Darin wird beispielsweise der Datentyp \texttt{double} beschrieben.
+
+Für diesen Typ gilt:
+
+\[
+b=2,\qquad m=53,\qquad E\in\{-1022,\dots,1023\}.
+\]
+
+Man schreibt dafür kurz:
+
+\[
+F_{\text{double}}:=F(2,53,-1022,1023).
+\]
+
+\vspace{0.5cm}
+
+\subsection*{Bedeutung dieser Werte}
+
+\begin{itemize}
+    \item \(b=2\): Der Rechner arbeitet binär, also mit den Ziffern \(0\) und \(1\).
+    
+    \item \(m=53\): Es stehen 53 signifikante Binärstellen für die Genauigkeit zur Verfügung.
+    
+    \item Großer Exponentenbereich: Dadurch können sowohl sehr kleine als auch sehr große Zahlen dargestellt werden.
+\end{itemize}
+
+\vspace{0.5cm}
+
+\subsection*{Speicherbedarf von \texttt{double}}
+
+Zur Darstellung einer \texttt{double}-Zahl genügen 64 Bit:
+
+\begin{itemize}
+    \item 1 Bit für das Vorzeichen,
+    \item 52 gespeicherte Bits für die Mantisse,
+    \item 11 Bits für den Exponenten.
+\end{itemize}
+
+(Intern kommt durch eine spezielle Normalisierung effektiv eine Präzision von 53 Binärstellen zustande.)
+
+\subsection*{Das sogenannte Hidden Bit}
+
+Bei normalisierten Binärzahlen gilt wegen der Normierung stets:
+
+\[
+z_0=1.
+\]
+
+Das erste Bit der Mantisse ist also immer gleich \(1\) und muss daher nicht extra gespeichert werden.
+
+Man lässt dieses führende Bit weg.  
+Deshalb nennt man es das \emph{hidden bit} (verstecktes Bit).
+
+\vspace{0.5cm}
+
+Dadurch erklärt sich auch, warum beim Datentyp \texttt{double}
+
+\[
+m=53
+\]
+
+gilt, aber nur 52 Bits für die Mantisse gespeichert werden:
+
+\begin{itemize}
+    \item 1 führendes Bit ist immer bekannt (\(=1\)),
+    \item nur die restlichen 52 Bits müssen tatsächlich gespeichert werden.
+\end{itemize}
+
+\vspace{0.6cm}
+
+\subsection*{Warum ist das wichtig?}
+
+Die endliche Speicherung von Zahlen erklärt viele typische Phänomene der Computerarithmetik:
+
+\begin{itemize}
+    \item Rundungsfehler,
+    \item manche Zahlen (z.\,B. \(0{,}1\)) sind nicht exakt darstellbar,
+    \item sehr große Zahlen können zu Overflow führen,
+    \item sehr kleine Zahlen können zu Underflow führen.
+\end{itemize}
+
+\vspace{0.4cm}
+
+Wenn eine Zahl nicht exakt dargestellt werden kann, wird sie durch eine nahegelegene Maschinenzahl ersetzt.
+
+Diese Themen werden in der numerischen Mathematik ausführlich untersucht.
+
+\subsection*{Bias-Darstellung des Exponenten}
+
+Für den Exponenten wird in vielen Computersystemen nicht direkt der mathematische Wert \(E\) gespeichert, sondern die sogenannte \emph{Bias-Darstellung} verwendet.
+
+Dabei wird eine feste Konstante (der Bias) zum Exponenten addiert.
+
+\[
+\text{gespeicherter Wert} = E + \text{Bias}.
+\]
+
+Der Vorteil ist, dass dadurch nur nichtnegative Bitmuster gespeichert werden müssen.
+
+\vspace{0.5cm}
+
+\subsection*{Warum macht man das?}
+
+Der mathematische Exponent kann sowohl negativ als auch positiv sein:
+
+\[
+E\in\{-1022,\dots,1023\}.
+\]
+
+Beispiele:
+
+\[
+2^{-3},\qquad 2^5.
+\]
+
+Bits bestehen jedoch nur aus \(0\) und \(1\).  
+Mit der Bias-Darstellung lässt sich der gesamte Exponentenbereich bequem als nichtnegative Zahl codieren.
+
+\vspace{0.6cm}
+
+\subsection*{Beispiel beim Typ \texttt{double}}
+
+Beim IEEE-754-\texttt{double} stehen 11 Bits für den Exponenten zur Verfügung.
+
+Damit lassen sich die Werte
+
+\[
+0,\dots,2047
+\]
+
+speichern.
+
+Der verwendete Bias ist:
+
+\[
+1023.
+\]
+
+Das liegt genau in der Mitte des Bereichs und erlaubt die Codierung negativer und positiver Exponenten.
+
+\vspace{0.5cm}
+
+Gespeichert wird also nicht \(E\), sondern:
+
+\[
+E+1023.
+\]
+
+Beispiele:
+
+\[
+E=0 \quad\longrightarrow\quad 1023
+\]
+
+\[
+E=5 \quad\longrightarrow\quad 1028
+\]
+
+\[
+E=-3 \quad\longrightarrow\quad 1020
+\]
+
+\vspace{0.6cm}
+
+\subsection*{Zusammenfassung}
+
+Die Bias-Darstellung ist ein technischer Trick, um Exponenten mit normalen Bitmustern speichern zu können, ohne separate Vorzeichenbits für den Exponenten zu benötigen.
+
+\subsection*{Hinweis zu C++ und \texttt{double}}
+
+Für den C++-Datentyp \texttt{double} schreibt der C++-Standard nicht exakt vor, wie die interne Speicherung technisch umgesetzt werden muss.
+
+In der Praxis wird \texttt{double} jedoch auf den meisten Systemen gemäß dem IEEE-754-Standard implementiert.
+
+Davon gehen wir im Folgenden aus.
+
+\vspace{0.6cm}
+
+\subsection*{Bitaufbau einer normalisierten \texttt{double}-Zahl}
+
+Die Speicherung in Bits sieht dann wie folgt aus:
+
+\[
+\boxed{\text{1 Bit}}
+\qquad
+\boxed{\text{11 Bits}}
+\qquad
+\boxed{\text{52 Bits}}
+\]
+
+\[
+\underbrace{\hspace{2.2cm}}_{\text{Vorzeichen}}
+\underbrace{\hspace{3cm}}_{\text{Exponent}}
+\underbrace{\hspace{4cm}}_{\text{Mantisse}}
+\]
+
+\vspace{0.4cm}
+
+Inhalt der drei Bereiche:
+
+\begin{align*}
+\text{Vorzeichenbit:} &\quad \frac{1-\sigma}{2} \\[0.4em]
+\text{Exponentbits:} &\quad E+1023 \\[0.4em]
+\text{Mantissenbits:} &\quad z_1,z_2,\dots,z_{52}
+\end{align*}
+
+\vspace{0.6cm}
+
+\subsection*{Bedeutung des Vorzeichenbits}
+
+Da
+
+\[
+\sigma\in\{-1,1\}
+\]
+
+gilt:
+
+\[
+\sigma=1
+\quad\Longrightarrow\quad
+\frac{1-\sigma}{2}=0
+\]
+
+\[
+\sigma=-1
+\quad\Longrightarrow\quad
+\frac{1-\sigma}{2}=1
+\]
+
+Also bedeutet:
+
+\begin{itemize}
+    \item Bit \(0\): positive Zahl
+    \item Bit \(1\): negative Zahl
+\end{itemize}
+
+\vspace{0.6cm}
+
+\subsection*{Zusammenfassung}
+
+Eine normalisierte \texttt{double}-Zahl wird also gespeichert als:
+
+\[
+\text{Vorzeichen}
+\;|\;
+\text{Exponent mit Bias}
+\;|\;
+\text{Mantissenbits}.
+\]
+
+Das ergibt insgesamt:
+
+\[
+1+11+52=64 \text{ Bit}.
+\]
+
+\subsection*{Spezielle Exponentenwerte bei \texttt{double}}
+
+Die beiden freien Exponentenwerte
+
+\[
+-1023 \quad\text{und}\quad 1024
+\]
+
+(entsprechend den gespeicherten Bitmustern \(0\) und \(2047\) in Bias-Darstellung)
+
+werden nicht für normale Zahlen verwendet.
+
+Stattdessen dienen sie zur Darstellung spezieller Werte.
+
+\vspace{0.6cm}
+
+\subsection*{1. Unendlichkeit \(\pm\infty\)}
+
+Wenn das Ergebnis einer Rechnung größer ist als die größte darstellbare Zahl, entsteht:
+
+\[
++\infty \quad\text{oder}\quad -\infty
+\]
+
+je nach Vorzeichen.
+
+Beispiel:
+
+\[
+10^{5000}
+\]
+
+ist für den Typ \texttt{double} viel zu groß.
+
+Das Ergebnis wird daher als Unendlichkeit gespeichert.
+
+Dies nennt man \emph{Overflow}.
+
+\vspace{0.6cm}
+
+\subsection*{2. Sehr kleine Zahlen}
+
+Sehr kleine Zahlen, deren Betrag kleiner ist als die kleinste normalisierte Zahl, werden zunächst als sogenannte \emph{subnormale Zahlen} dargestellt.
+
+Sind Zahlen noch kleiner, entsteht schließlich:
+
+\[
+0.
+\]
+
+Dieser Effekt heißt \emph{Underflow}.
+
+\vspace{0.6cm}
+
+\subsection*{3. NaN (Not a Number)}
+
+Manche Rechenoperationen liefern kein sinnvolles reelles Ergebnis.
+
+Beispiel:
+
+\[
+\log(-1)
+\]
+
+(im Bereich der reellen Zahlen).
+
+Dann verwendet das System den speziellen Wert:
+
+\[
+\text{NaN}
+\]
+
+Das steht für \emph{Not a Number}.
+
+\vspace{0.5cm}
+
+Der Vorteil: Programme können weiterlaufen, ohne sofort abzustürzen.
+
+\vspace{0.6cm}
+
+\subsection*{Zusammenfassung}
+
+Die reservierten Exponentenwerte werden also verwendet für:
+
+\begin{itemize}
+    \item \(+\infty\) und \(-\infty\),
+    \item subnormale Zahlen,
+    \item Underflow,
+    \item NaN.
+\end{itemize}
+
+\subsection*{Größte darstellbare Zahl vom Typ \texttt{double}}
+
+Die größte endlich darstellbare Zahl im Bereich \(F_{\text{double}}\) ist
+
+\[
+\max F_{\text{double}}
+=
+\texttt{std::numeric\_limits<double>::max()}.
+\]
+
+Sie entsteht durch:
+
+\begin{itemize}
+    \item größtmöglichen Exponenten \(E=1023\),
+    \item größtmögliche Mantisse.
+\end{itemize}
+
+Die größte Mantisse ist:
+
+\[
+1,\underbrace{11\dots1}_{52\text{ Einsen}}_2
+=
+2-2^{-52}.
+\]
+
+Daher gilt:
+
+\[
+\max F_{\text{double}}
+=
+(2-2^{-52})\cdot 2^{1023}.
+\]
+
+Ausmultipliziert:
+
+\[
+(2-2^{-52})2^{1023}
+=
+2^{1024}-2^{971}.
+\]
+
+Numerisch ergibt sich:
+
+\[
+\max F_{\text{double}}
+\approx
+1{,}797693\cdot 10^{308}.
+\]
+
+\vspace{0.8cm}
+
+\subsection*{Kleinste positive normalisierte Zahl}
+
+Die kleinste positive normalisierte Maschinenzahl in \(F_{\text{double}}\) ist
+
+\[
+\min\{f\in F_{\text{double}}\mid f>0\}
+=
+\texttt{std::numeric\_limits<double>::min()}.
+\]
+
+Sie entsteht durch:
+
+\begin{itemize}
+    \item kleinsten normalen Exponenten \(E=-1022\),
+    \item kleinste normierte Mantisse \(1{,}0_2\).
+\end{itemize}
+
+Also:
+
+\[
+\min = 1{,}0\cdot 2^{-1022}.
+\]
+
+Numerisch:
+
+\[
+\min
+\approx
+2{,}225074\cdot 10^{-308}.
+\]
+
+\vspace{0.6cm}
+
+\textbf{Wichtig:}  
+Dies ist die kleinste \emph{normalisierte} positive Zahl.  
+Durch subnormale Zahlen können noch kleinere positive Werte dargestellt werden.
+
+\subsection*{Der Darstellungsbereich \(\operatorname{range}(F)\)}
+
+Wir bezeichnen mit
+
+\[
+\operatorname{range}(F)
+:=
+\left[
+\min\{f\in F\mid f>0\},
+\max F
+\right]
+\]
+
+das kleinste Intervall, in dem alle darstellbaren positiven Zahlen liegen.
+
+\vspace{0.6cm}
+
+Es beschreibt also den Größenbereich der positiven Maschinenzahlen eines Zahlensystems.
+
+\vspace{0.8cm}
+
+\subsection*{Vergleich wichtiger C++-Datentypen}
+
+\subsubsection*{1. \texttt{float}}
+
+Der C++-Datentyp \texttt{float} (von \emph{floating point}) verwendet meist nur 32 Bit.
+
+Dadurch besitzt er:
+
+\begin{itemize}
+    \item einen kleineren Darstellungsbereich,
+    \item eine geringere Genauigkeit,
+    \item dafür oft weniger Speicherverbrauch.
+\end{itemize}
+
+Er ist deshalb für numerische Berechnungen häufig weniger geeignet als \texttt{double}.
+
+\vspace{0.8cm}
+
+\subsubsection*{2. \texttt{double}}
+
+Der Datentyp \texttt{double} ist in C++ der Standardtyp für die approximative Darstellung reeller Zahlen.
+
+Er bietet einen guten Kompromiss aus:
+
+\begin{itemize}
+    \item Genauigkeit,
+    \item großem Wertebereich,
+    \item Rechengeschwindigkeit.
+\end{itemize}
+
+Darum wird er in wissenschaftlichen Programmen sehr häufig verwendet.
+
+\vspace{0.8cm}
+
+\subsubsection*{3. \texttt{long double}}
+
+Der Datentyp \texttt{long double} besitzt auf vielen Systemen eine höhere Genauigkeit als \texttt{double}.
+
+Häufig werden intern 80 Bit verwendet, zum Beispiel:
+
+\begin{itemize}
+    \item 64 Bit für die Mantisse,
+    \item 16 Bit für den Exponenten.
+\end{itemize}
+
+(Die genaue Implementierung hängt jedoch vom System und Compiler ab.)
+
+\vspace{0.8cm}
+
+\subsection*{Rolle der FPU}
+
+Viele Prozessoren besitzen eine FPU (\emph{Floating Point Unit}).
+
+Das ist eine spezielle Recheneinheit für Gleitkommaoperationen.
+
+Sie kann elementare Operationen wie
+
+\[
++,\quad -,\quad \cdot,\quad /
+\]
+
+auf Gleitkommazahlen sehr schnell ausführen.
+
+\vspace{0.8cm}
+
+\subsection*{Merksatz}
+
+Für die meisten numerischen Anwendungen ist \texttt{double} die beste Standardwahl.
 
 
 
 
 
-
-
-
-
-
-
-
-hier geht es weiter
 
 
 
