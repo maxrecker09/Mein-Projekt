@@ -1,0 +1,578 @@
+\documentclass{article}
+
+\usepackage{graphicx}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{url}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+
+\newtheorem{thm}{Satz}
+\newtheorem{cor}[thm]{Korollar}
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{defn}[thm]{Definition}
+
+\title{Approximative Darstellung reeller Zahlen}
+\date{5.5.2026}
+\author{Max Recker\\ \url{max.recker@uni-bielefeld.de}}
+
+\begin{document}
+
+\maketitle
+
+\section{4.1 b-adische Darstellung reeller Zahlen}
+
+\begin{thm}
+Sei \(b\in\N\) mit \(b\geq 2\) und \(x\in\R\setminus\{0\}\). Dann existieren eindeutig bestimmte Zahlen
+\[
+E\in\Z,\qquad \sigma\in\{-1,1\},\qquad z_i\in\{0,1,\dots,b-1\}
+\]
+für alle \(i\in\N\cup\{0\}\), so dass
+\[
+\{\,i\in\N\mid z_i\neq b-1\,\}
+\text{ ist unendlich},
+\qquad z_0\neq 0,
+\]
+und
+\[
+x=\sigma b^E\left(\sum_{i=0}^{\infty}z_i b^{-i}\right).
+\]
+Diese Darstellung heißt die \emph{normalisierte \(b\)-adische Darstellung} von \(x\).
+\end{thm}
+
+\subsection*{Beweis der Aussage}
+
+Sei \(x\in\R\setminus\{0\}\). Das Vorzeichen ist eindeutig durch
+\[
+\sigma=
+\begin{cases}
+-1,&x<0,\\
+1,&x>0
+\end{cases}
+\]
+festgelegt.
+
+\subsubsection*{Normierung der Mantisse}
+
+Für Ziffern \(z_i\in\{0,\dots,b-1\}\) mit \(z_0\neq 0\) gilt \(z_0\geq 1\). Daher folgt
+\[
+\sum_{i=0}^{\infty}z_i b^{-i}
+=
+z_0+\sum_{i=1}^{\infty}z_i b^{-i}
+\geq z_0\geq 1.
+\]
+Andererseits gilt wegen \(z_i\leq b-1\)
+\[
+\sum_{i=0}^{\infty}z_i b^{-i}
+\leq
+\sum_{i=0}^{\infty}(b-1)b^{-i}
+=
+(b-1)\frac{1}{1-\frac1b}
+=b.
+\]
+Da zusätzlich unendlich viele Indizes \(i\in\N\) mit \(z_i\neq b-1\) existieren, kann der Wert \(b\) nicht erreicht werden. Also gilt
+\[
+1\leq \sum_{i=0}^{\infty}z_i b^{-i}<b.
+\]
+
+\subsection*{Bestimmung des Exponenten und Rekursion für die Ziffern}
+
+Aus der Normierungsbedingung
+\[
+1\leq a_0<b,
+\qquad
+a_0=b^{-E}|x|
+\]
+folgt
+\[
+b^E\leq |x|<b^{E+1}.
+\]
+Damit ist
+\[
+E=\left\lfloor\log_b |x|\right\rfloor
+\]
+eindeutig festgelegt. Nun setzen wir
+\[
+a_0:=b^{-E}|x|
+\]
+und definieren rekursiv
+\[
+z_i:=\lfloor a_i\rfloor,
+\qquad
+a_{i+1}:=b(a_i-z_i).
+\]
+
+Da \(1\leq a_0<b\), gilt \(z_0\neq 0\) und \(z_0\in\{1,\dots,b-1\}\). Außerdem folgt aus \(0\leq a_i-z_i<1\), dass
+\[
+0\leq a_{i+1}<b.
+\]
+Also gilt für alle \(i\geq 1\):
+\[
+z_i=\lfloor a_i\rfloor\in\{0,\dots,b-1\}.
+\]
+
+\subsection*{Darstellung von \(a_0\) durch Partialsummen und Restglied}
+
+Wir behaupten:
+\[
+a_0=
+\sum_{i=0}^{n}z_i b^{-i}
++
+a_{n+1}b^{-n-1}
+\qquad
+(n\in\N\cup\{0\}).
+\]
+
+\subsubsection*{Beweis durch vollständige Induktion}
+
+Für \(n=0\) gilt wegen \(a_1=b(a_0-z_0)\):
+\[
+z_0+\frac{a_1}{b}
+=
+z_0+(a_0-z_0)
+=a_0.
+\]
+Damit ist der Induktionsanfang gezeigt.
+
+Sei nun \(n\in\N\) und die Aussage gelte für \(n-1\), also
+\[
+a_0=
+\sum_{i=0}^{n-1}z_i b^{-i}
++
+a_n b^{-n}.
+\]
+Aus \(a_{n+1}=b(a_n-z_n)\) folgt
+\[
+a_n=z_n+\frac{a_{n+1}}{b}.
+\]
+Einsetzen liefert
+\[
+a_0=
+\sum_{i=0}^{n-1}z_i b^{-i}
++
+\left(z_n+\frac{a_{n+1}}{b}\right)b^{-n}
+=
+\sum_{i=0}^{n}z_i b^{-i}
++
+a_{n+1}b^{-n-1}.
+\]
+Damit ist der Induktionsschritt gezeigt.
+
+\subsubsection*{Übergang zur unendlichen Darstellung}
+
+Aus
+\[
+a_0=
+\sum_{i=0}^{n}z_i b^{-i}
++
+a_{n+1}b^{-n-1}
+\]
+folgt durch Grenzübergang \(n\to\infty\), dass
+\[
+a_0=\sum_{i=0}^{\infty}z_i b^{-i},
+\]
+denn wegen \(0\leq a_{n+1}<b\) gilt
+\[
+0\leq a_{n+1}b^{-n-1}<b^{-n}\to 0.
+\]
+
+\subsection*{Eindeutigkeit der Darstellung}
+
+Die Bedingung, dass unendlich viele Indizes \(i\) mit \(z_i\neq b-1\) existieren, verhindert Darstellungen wie
+\[
+1{,}0000\ldots=0{,}9999\ldots.
+\]
+Wäre die Menge
+\[
+\{\,i\in\N\mid z_i\neq b-1\,\}
+\]
+endlich, dann gäbe es ein \(n_0\), so dass \(z_i=b-1\) für alle \(i>n_0\). Dann wäre
+\[
+\sum_{i=n_0+1}^{\infty}(b-1)b^{-i}=b^{-n_0}.
+\]
+Man könnte also die Ziffer an Stelle \(n_0\) um \(1\) erhöhen und danach nur noch Nullen schreiben, sofern \(z_{n_0}<b-1\). Genau solche Doppeldarstellungen werden durch die Zusatzbedingung ausgeschlossen.
+
+Angenommen, es gäbe zwei verschiedene normalisierte Darstellungen
+\[
+\sum_{i=0}^{\infty}y_i b^{-i}
+=
+\sum_{i=0}^{\infty}z_i b^{-i}.
+\]
+Sei
+\[
+n:=\min\{i\in\N_0\mid y_i\neq z_i\}.
+\]
+Ohne Einschränkung sei \(y_n<z_n\). Dann gilt \(y_n\leq z_n-1\). Für den Rest der linken Darstellung erhält man
+\[
+\sum_{i=n+1}^{\infty}y_i b^{-i}
+\leq
+\sum_{i=n+1}^{\infty}(b-1)b^{-i}
+=
+b^{-n}.
+\]
+Damit folgt
+\[
+\sum_{i=0}^{\infty}y_i b^{-i}
+\leq
+\sum_{i=0}^{n-1}z_i b^{-i}
++
+(z_n-1)b^{-n}
++
+b^{-n}
+=
+\sum_{i=0}^{n-1}z_i b^{-i}
++
+z_n b^{-n}.
+\]
+Da die rechte Darstellung wegen der Ziffern nach \(n\) mindestens diesen Wert besitzt, gilt zunächst
+\[
+\sum_{i=0}^{\infty}y_i b^{-i}
+\leq
+\sum_{i=0}^{\infty}z_i b^{-i}.
+\]
+Gleichheit könnte nur eintreten, wenn in der linken Darstellung ab Stelle \(n+1\) nur noch Ziffern \(b-1\) auftreten. Dies ist durch die Normalisierungsbedingung ausgeschlossen. Also gilt sogar
+\[
+\sum_{i=0}^{\infty}y_i b^{-i}
+<
+\sum_{i=0}^{\infty}z_i b^{-i},
+\]
+ein Widerspruch. Damit ist die Darstellung eindeutig.
+
+\section{4.2 Maschinenzahlen}
+
+\begin{defn}
+Seien \(b,m\in\N\) mit \(b\geq 2\). Eine \(b\)-adische, \(m\)-stellige, normalisierte Gleitkommazahl hat die Form
+\[
+x=\sigma b^E\left(\sum_{i=0}^{m-1}z_i b^{-i}\right),
+\]
+wobei \(\sigma\in\{-1,1\}\), \(E\in\Z\), \(z_0\neq 0\) und \(z_i\in\{0,\dots,b-1\}\) gilt.
+\end{defn}
+
+Der Grundgedanke lautet: Ein Rechner kann nur endlich viele Stellen speichern. Deshalb arbeitet man mit endlich vielen Mantissenziffern.
+
+\subsection*{Maschinenzahlbereich}
+
+Für die Darstellung von Zahlen im Rechner müssen Werte für \(b,m,E_{\min},E_{\max}\) gewählt werden. Diese Wahl bestimmt den Maschinenzahlbereich
+\[
+F(b,m,E_{\min},E_{\max}).
+\]
+Dieser ist definiert durch
+\[
+F(b,m,E_{\min},E_{\max})
+=
+\{0\}\cup
+\left\{
+\sigma b^E
+\left(\sum_{i=0}^{m-1}z_i b^{-i}\right)
+\;\middle|\;
+\begin{array}{l}
+\sigma\in\{-1,1\},\\
+E_{\min}\leq E\leq E_{\max},\\
+z_0\neq 0,\\
+z_i\in\{0,\dots,b-1\}
+\end{array}
+\right\}.
+\]
+Die Elemente eines solchen endlichen Maschinenzahlbereichs heißen \emph{Maschinenzahlen}.
+
+\subsection*{Der IEEE-754-Standard}
+
+Im Jahr 1985 wurde der IEEE-754-Standard veröffentlicht. Die normalisierten endlichen \texttt{double}-Zahlen entsprechen im Wesentlichen
+\[
+F_{\text{double}}:=F(2,53,-1022,1023).
+\]
+
+\subsection*{Speicherbedarf von \texttt{double}}
+
+Zur Darstellung einer normalisierten \texttt{double}-Zahl genügen 64 Bit: 1 Bit für das Vorzeichen, 11 Bits für den Exponenten und 52 gespeicherte Bits für die Mantisse.
+
+\subsection*{Das sogenannte Hidden Bit}
+
+Bei normalisierten Binärzahlen gilt stets \(z_0=1\). Dieses erste Mantissenbit muss daher nicht explizit gespeichert werden.
+
+\subsection*{Bitaufbau einer normalisierten \texttt{double}-Zahl}
+
+Die 64 Bits zerfallen in
+\[
+\boxed{\text{1 Bit}}
+\qquad
+\boxed{\text{11 Bits}}
+\qquad
+\boxed{\text{52 Bits}}
+\]
+für Vorzeichen, Exponent und Mantisse.
+
+Dabei codiert das Vorzeichenbit den Wert \(\frac{1-\sigma}{2}\), die Exponentbits codieren den verschobenen Exponenten \(E+1023\), und die Mantissenbits speichern die Ziffern \(z_1,z_2,\dots,z_{52}\).
+
+Reservierte Exponentenwerte werden für \(0\), subnormale Zahlen, \(+\infty\), \(-\infty\) und NaN verwendet.
+
+\subsection*{Der Darstellungsbereich \(\operatorname{range}(F)\)}
+
+Wir bezeichnen mit
+\[
+\operatorname{range}(F)
+:=
+\left[
+\min\{f\in F\mid f>0\},
+\max F
+\right]
+\]
+das kleinste Intervall, in dem alle positiven Maschinenzahlen liegen.
+
+\section{4.3 Rundungen}
+
+\begin{defn}
+Sei
+\[
+F=F(b,m,E_{\min},E_{\max})
+\]
+ein Maschinenzahlbereich. Eine Rundung auf \(F\) ist eine Abbildung
+\[
+\operatorname{rd}:\R\to F,
+\]
+die jeder Zahl \(x\) eine nächstgelegene Maschinenzahl zuordnet, also
+\[
+|x-\operatorname{rd}(x)|
+=
+\min_{a\in F}|x-a|.
+\]
+\end{defn}
+
+\subsection*{Mehrdeutige Rundungen}
+
+Eine Rundung muss nicht eindeutig sein. Liegt eine Zahl genau in der Mitte zwischen zwei Maschinenzahlen, so haben beide denselben Abstand zu dieser Zahl.
+
+\subsection*{Beispiel}
+
+Im Maschinenzahlbereich \(F(10,2,0,2)\) liegt \(12{,}5\) genau zwischen \(12\) und \(13\). Daher könnte man sowohl auf \(12\) als auch auf \(13\) runden.
+
+\subsection*{IEEE-754-Regel: Runden zur geraden Zahl}
+
+Der IEEE-754-Standard verwendet im Zweifelsfall die Regel, dass so gerundet wird, dass die letzte gespeicherte Stelle gerade ist.
+
+\subsection*{Absolute und relative Fehler}
+
+\begin{defn}
+Seien \(x,\tilde{x}\in\R\), wobei \(\tilde{x}\) eine Näherung von \(x\) sei. Dann heißt
+\[
+|x-\tilde{x}|
+\]
+der \emph{absolute Fehler}. Falls \(x\neq 0\), heißt
+\[
+\left|\frac{x-\tilde{x}}{x}\right|
+\]
+der \emph{relative Fehler}.
+\end{defn}
+
+\subsection*{Definition der Maschinengenauigkeit}
+
+\begin{defn}
+Sei \(F\) ein Maschinenzahlbereich. Die Maschinengenauigkeit von \(F\) wird definiert durch
+\[
+\varepsilon(F)
+:=
+\sup\left\{
+\left|\frac{x-\operatorname{rd}(x)}{x}\right|
+\;\middle|\;
+x\in\R,\ |x|\in\operatorname{range}(F)
+\right\}.
+\]
+Dabei bezeichnet \(\operatorname{rd}\) eine Rundung auf den Maschinenzahlbereich \(F\).
+\end{defn}
+
+\subsection*{Satz zur Maschinengenauigkeit}
+
+\begin{thm}
+Für jeden Maschinenzahlbereich
+\[
+F=F(b,m,E_{\min},E_{\max})
+\qquad (E_{\min}<E_{\max})
+\]
+gilt
+\[
+\varepsilon(F)=\frac{1}{1+2b^{m-1}}.
+\]
+\end{thm}
+
+\subsection*{Interpretation}
+
+Größeres \(m\) bedeutet kleinere Rundungsfehler und damit genaueres Rechnen. Die Basis \(b\) beeinflusst den Abstand benachbarter Maschinenzahlen.
+
+\subsection*{Beweisidee}
+
+Der größte relative Rundungsfehler entsteht genau zwischen zwei benachbarten Maschinenzahlen bei der kleinsten Größenordnung \(b^{E_{\min}}\). Dort beträgt der Abstand benachbarter Zahlen
+\[
+b^{E_{\min}}b^{-m+1},
+\]
+also ist der maximale absolute Fehler
+\[
+\frac12 b^{E_{\min}}b^{-m+1}.
+\]
+Für
+\[
+x=b^{E_{\min}}\left(1+\frac12 b^{-m+1}\right)
+\]
+liegt \(x\) genau in der Mitte zwischen
+\[
+b^{E_{\min}}
+\quad\text{und}\quad
+b^{E_{\min}}\left(1+b^{-m+1}\right).
+\]
+Damit darf man etwa \(\operatorname{rd}(x)=b^{E_{\min}}\) wählen und erhält
+\[
+\left|\frac{x-\operatorname{rd}(x)}{x}\right|
+=
+\frac{\frac12 b^{-m+1}}{1+\frac12 b^{-m+1}}
+=
+\frac{1}{1+2b^{m-1}}.
+\]
+Folglich gilt
+\[
+\varepsilon(F)\geq \frac{1}{1+2b^{m-1}}.
+\]
+
+Für die umgekehrte Abschätzung sei \(x\in\operatorname{range}(F)\setminus F\). Zwischen den beiden benachbarten Maschinenzahlen
+\[
+x'=b^E\sum_{i=0}^{m-1}z_i b^{-i},
+\qquad
+x''=x'+b^E b^{-m+1}
+\]
+liegt \(x\). Daher gilt
+\[
+|x-\operatorname{rd}(x)|
+\leq
+\frac12 b^E b^{-m+1}.
+\]
+Da wegen der Normierung \(x\geq b^E\) gilt, folgt
+\[
+\left|\frac{x-\operatorname{rd}(x)}{x}\right|
+\leq
+\frac{\frac12 b^E b^{-m+1}}
+{b^E+\frac12 b^E b^{-m+1}}
+=
+\frac{1}{1+2b^{m-1}}.
+\]
+Also gilt auch
+\[
+\varepsilon(F)\leq \frac{1}{1+2b^{m-1}}.
+\]
+Zusammen ergibt sich
+\[
+\varepsilon(F)=\frac{1}{1+2b^{m-1}}.
+\]
+
+\begin{defn}
+Sei \(F\) ein Maschinenzahlbereich und \(s\in\N\). Eine Maschinenzahl \(f\in F\) besitzt mindestens \(s\) signifikante Stellen in der \(b\)-adischen Gleitkommadarstellung, falls \(f\neq 0\) gilt und für jede Rundung \(\operatorname{rd}\) sowie jede Zahl \(x\in\R\) mit
+\[
+\operatorname{rd}(x)=f
+\]
+die Abschätzung
+\[
+|x-f|
+\leq
+\frac12 b^{\lfloor\log_b |f|\rfloor+1-s}
+\]
+erfüllt ist.
+\end{defn}
+
+\section{4.4 Maschinenzahlarithmetik}
+
+Sei \(\circ\) eine der vier Operationen
+\[
+\{+,-,\cdot,/\}.
+\]
+Für \(x,y\in F\) gilt im Allgemeinen nicht
+\[
+x\circ y\in F.
+\]
+Das exakte mathematische Ergebnis ist also oft keine darstellbare Maschinenzahl.
+
+\subsection*{Beispiel}
+
+\[
+10^{300}\cdot 10^{300}=10^{600}
+\]
+kann außerhalb des Wertebereichs liegen.
+
+\subsection*{Ersatzoperation auf dem Rechner}
+
+Darum verwendet ein Computer nicht die exakte Operation, sondern rechnet mit Rundung zurück in den Maschinenzahlbereich. Wir schreiben dafür:
+\[
+x\odot y\in F.
+\]
+
+\subsection*{Annahme 4.12}
+
+Für eine Rundung \(\operatorname{rd}\) zu \(F\) und alle \(x,y\in F\) gelte
+\[
+x\odot y=\operatorname{rd}(x\circ y).
+\]
+Korrektes Runden ist daher wesentlich komplizierter.
+
+\subsection*{Beispiel 4.13}
+
+Sei \(F=F(10,2,-5,5)\) sowie
+\[
+x=4{,}5\cdot 10^1=45,
+\qquad
+y=1{,}1\cdot 10^0=1{,}1.
+\]
+Es werde jeweils auf zwei Mantissenstellen gerundet.
+
+\begin{align*}
+x\oplus y
+&=\operatorname{rd}(x+y)
+=\operatorname{rd}(46{,}1)
+=4{,}6\cdot 10^1,\\
+x\ominus y
+&=\operatorname{rd}(x-y)
+=\operatorname{rd}(43{,}9)
+=4{,}4\cdot 10^1,\\
+x\otimes y
+&=\operatorname{rd}(x\cdot y)
+=\operatorname{rd}(49{,}5)
+\in \{\,4{,}9\cdot 10^1,\;5{,}0\cdot 10^1\,\},\\
+x\oslash y
+&=\operatorname{rd}\!\left(\frac{x}{y}\right)
+=\operatorname{rd}(40{,}9090\ldots)
+=4{,}1\cdot 10^1.
+\end{align*}
+
+Bei IEEE-Rundung zur geraden Endziffer entsteht im Multiplikationsbeispiel \(50\).
+
+\subsection*{Relativer Fehler einer Rechenoperation}
+
+Gemäß Annahme 4.12 gilt
+\[
+x\odot y=\operatorname{rd}(x\circ y).
+\]
+Damit erhält man
+\[
+\left|
+\frac{x\circ y-x\odot y}{x\circ y}
+\right|
+=
+\left|
+\frac{x\circ y-\operatorname{rd}(x\circ y)}{x\circ y}
+\right|.
+\]
+Falls
+\[
+|x\circ y|\in\operatorname{range}(F),
+\]
+also das exakte Ergebnis im darstellbaren Bereich liegt, folgt aus der Definition der Maschinengenauigkeit:
+\[
+\left|
+\frac{x\circ y-x\odot y}{x\circ y}
+\right|
+\leq \varepsilon(F).
+\]
+
+\end{document}
