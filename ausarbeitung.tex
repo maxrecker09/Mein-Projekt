@@ -865,12 +865,6 @@ Es beschreibt also den Größenbereich der positiven Maschinenzahlen eines Zahle
 
 \section{4.3 Rundungen}
 
-Da es nur endlich viele Maschinenzahlen gibt, können reelle Zahlen im Allgemeinen nicht immer exakt dargestellt werden.
-
-Man muss sich daher mit gerundeten Darstellungen zufriedengeben.
-
-Die folgende Definition beschreibt mathematisch, was unter einer Rundung auf einen Maschinenzahlbereich verstanden wird.
-
 \begin{defn}
 Sei
 
@@ -895,47 +889,6 @@ heißt \emph{Rundung (zu \(F\))}, wenn für alle \(x\in\R\) gilt:
 \]
 \end{defn}
 
-\subsection*{Bedeutung der Definition}
-
-Die Rundungsfunktion \(\operatorname{rd}\) ordnet jeder reellen Zahl \(x\) eine Maschinenzahl aus \(F\) zu.
-
-Dabei wird genau diejenige Maschinenzahl gewählt, die den kleinsten Abstand zu \(x\) besitzt.
-
-Mit anderen Worten:
-
-\[
-\operatorname{rd}(x)
-\]
-
-ist die darstellbare Zahl, die am nächsten bei \(x\) liegt.
-
-\subsection*{Interpretation der Formel}
-
-Die Gleichung
-
-\[
-|x-\operatorname{rd}(x)|
-=
-\min_{a\in F}|x-a|
-\]
-
-bedeutet:
-
-\begin{itemize}
-    \item Links steht der Abstand zwischen der echten Zahl \(x\) und ihrer gerundeten Darstellung.
-    
-    \item Rechts steht der kleinste mögliche Abstand zu irgendeiner Maschinenzahl \(a\in F\).
-    
-    \item Die Rundung liefert also stets die bestmögliche Approximation innerhalb von \(F\).
-\end{itemize}
-
-\subsection*{Warum ist das wichtig?}
-
-Diese Definition ist besonders wichtig, wenn eine Zahl nicht selbst im Maschinenzahlbereich liegt.
-
-Dann muss sie durch eine nahegelegene Maschinenzahl ersetzt werden.
-
-Genau dieser Vorgang passiert bei numerischen Berechnungen auf dem Computer ständig.
 
 \subsection*{Mehrdeutige Rundungen}
 
@@ -979,15 +932,6 @@ als auch auf
 
 runden.
 
-\subsection*{Kaufmännisches Runden}
-
-Beim üblichen kaufmännischen Runden wird im Zweifelsfall auf die betragsmäßig größere Zahl gerundet.
-
-Also zum Beispiel:
-
-\[
-12{,}5 \mapsto 13.
-\]
 
 \subsection*{IEEE-754-Regel: Runden zur geraden Zahl}
 
@@ -995,37 +939,6 @@ Der IEEE-754-Standard verwendet jedoch eine andere Regel:
 
 Im Zweifelsfall wird so gerundet, dass die letzte gespeicherte Stelle gerade ist.
 
-Man nennt dies auch:
-
-\begin{center}
-\emph{Round to nearest, ties to even}
-\end{center}
-
-Beispiele:
-
-\[
-\operatorname{rd}(12{,}5)=12,
-\qquad
-\operatorname{rd}(13{,}5)=14.
-\]
-
-Ebenso:
-
-\[
-2{,}25\mapsto 2{,}2,
-\qquad
-2{,}35\mapsto 2{,}4.
-\]
-
-Denn die Endziffern \(2\) und \(4\) sind gerade.
-
-\subsection*{Warum macht man das?}
-
-Diese Regel wurde gewählt, weil sie Rundungsfehler langfristig besser ausgleicht.
-
-Bei vielen aufeinanderfolgenden Rechnungen entsteht dadurch im Mittel ein kleinerer systematischer Fehler als beim ständigen Aufrunden.
-
-Das ist besonders wichtig in numerischen Verfahren und bei sehr vielen Berechnungen.
 \subsection*{Absolute und relative Fehler}
 
 Bei Näherungen möchte man messen, wie stark ein approximierter Wert vom exakten Wert abweicht.
@@ -1058,61 +971,7 @@ Falls \(x\neq 0\) heißt
 der \emph{relative Fehler}.
 \end{defn}
 
-\subsection*{Bedeutung}
-
-\begin{itemize}
-    \item Der absolute Fehler misst die direkte Differenz zwischen exaktem Wert und Näherung.
-    
-    \item Der relative Fehler setzt diese Abweichung ins Verhältnis zur Größe von \(x\).
-    
-    \item Dadurch erkennt man die prozentuale bzw. proportionale Abweichung.
-\end{itemize}
-
-\subsection*{Beispiel}
-
-Sei
-
-\[
-x=3{,}145,
-\qquad
-\tilde{x}=3{,}14.
-\]
-
-Dann gilt:
-
-\[
-|x-\tilde{x}|=|3{,}145-3{,}14|=0{,}005.
-\]
-
-Der absolute Fehler beträgt also:
-
-\[
-0{,}005.
-\]
-
-Weiter:
-
-\[
-\left|\frac{x-\tilde{x}}{x}\right|
-=
-\frac{0{,}005}{3{,}145}
-\approx
-0{,}00159.
-\]
-
-Der relative Fehler beträgt also ungefähr:
-
-\[
-0{,}159\%.
-\]
-
-\subsection*{Bezug zur Maschinenarithmetik}
-
-Die Maschinengenauigkeit beschreibt den maximalen relativen Fehler, der beim Runden von Zahlen im darstellbaren Bereich auftreten kann.
-
 \subsection*{Definition der Maschinengenauigkeit}
-
-Nun präzisieren wir den Begriff der Maschinengenauigkeit mathematisch.
 
 \begin{defn}
 Sei \(F\) ein Maschinenzahlbereich.
@@ -1138,35 +997,6 @@ x\in\R,\ |x|\in\operatorname{range}(F)
 Dabei bezeichnet \(\operatorname{rd}\) eine Rundung auf den Maschinenzahlbereich \(F\).
 \end{defn}
 
-\subsection*{Bedeutung der Formel}
-
-Die Definition beschreibt:
-
-\begin{itemize}
-    \item Man betrachtet alle reellen Zahlen \(x\), deren Betrag im darstellbaren Größenbereich liegt.
-    
-    \item Jede dieser Zahlen wird auf eine Maschinenzahl \(\operatorname{rd}(x)\) gerundet.
-    
-    \item Dann berechnet man den relativen Fehler
-    \[
-    \left|\frac{x-\operatorname{rd}(x)}{x}\right|.
-    \]
-    
-    \item Das Supremum ist der größtmögliche relative Fehler, der auftreten kann.
-\end{itemize}
-
-\subsection*{Anschaulich}
-
-Die Maschinengenauigkeit ist also der schlechteste relative Rundungsfehler, den das Zahlensystem im normalen Darstellungsbereich verursachen kann.
-
-\subsection*{Warum ist das wichtig?}
-
-\begin{itemize}
-    \item Sie misst die numerische Präzision eines Zahlensystems.
-    \item Je kleiner \(\varepsilon(F)\), desto genauer kann gerechnet werden.
-    \item Viele Fehlerabschätzungen in der Numerik hängen direkt von \(\varepsilon(F)\) ab.
-\end{itemize}
-
 \subsection*{Satz zur Maschinengenauigkeit}
 
 \begin{thm}
@@ -1184,22 +1014,6 @@ gilt:
 \varepsilon(F)=\frac{1}{1+2b^{\,m-1}}.
 \]
 \end{thm}
-
-\subsection*{Bedeutung}
-
-Die Maschinengenauigkeit hängt nur ab von:
-
-\begin{itemize}
-    \item der Basis \(b\),
-    \item der Mantissenlänge \(m\).
-\end{itemize}
-
-Sie hängt nicht direkt vom Exponentenbereich ab.
-
-\subsection*{Warum ist \(E_{\min}<E_{\max}\) sinnvoll?}
-
-Dann gibt es mindestens mehrere Größenordnungen von Zahlen.  
-Der Maschinenzahlbereich ist also nicht degeneriert, sondern enthält einen echten Wertebereich.
 
 \subsection*{Interpretation der Formel}
 
@@ -1508,59 +1322,6 @@ erhält man schließlich:
 
 Damit ist Satz 4.8 bewiesen.
 
-\subsection*{Beispiel: Maschinengenauigkeit von \texttt{double}}
-
-Für den IEEE-754-Typ \texttt{double} gilt:
-
-\[
-b=2,\qquad m=53.
-\]
-
-Mit Satz 4.8 folgt:
-
-\[
-\varepsilon(F_{\text{double}})
-=
-\frac{1}{1+2\cdot 2^{52}}
-=
-\frac{1}{1+2^{53}}
-\approx
-1{,}11\cdot 10^{-16}.
-\]
-
-Das ist die Maschinengenauigkeit des Typs \texttt{double}.
-
-\subsection*{Bedeutung}
-
-Bei korrekt gerundeten Operationen liegt der relative Rundungsfehler typischerweise höchstens in dieser Größenordnung.
-
-Das entspricht ungefähr einer Genauigkeit von \(15\) bis \(16\) Dezimalstellen.
-
-\subsection*{Unterschied zu \texttt{std::numeric\_limits<double>::epsilon()}}
-
-In C++ bezeichnet
-
-\[
-\texttt{std::numeric\_limits<double>::epsilon()}
-\]
-
-den Abstand von \(1\) zur nächsten darstellbaren Zahl größer als \(1\).
-
-Für \texttt{double} ist das:
-
-\[
-2^{-52}\approx 2{,}22\cdot 10^{-16}.
-\]
-
-Also gilt:
-
-\[
-2^{-52}=2\cdot \varepsilon(F_{\text{double}}).
-\]
-
-Die C++-Epsilon-Konstante ist also doppelt so groß wie die hier definierte Maschinengenauigkeit.
-\subsection*{Definition signifikanter Stellen}
-
 \begin{defn}
 Sei \(F\) ein Maschinenzahlbereich und \(s\in\N\).
 
@@ -1580,153 +1341,6 @@ die Abschätzung
 
 erfüllt ist.
 \end{defn}
-
-\subsection*{Bedeutung}
-
-Die Zahl \(f\) approximiert jede auf \(f\) gerundete Zahl \(x\) so genau, dass mindestens \(s\) führende Ziffern korrekt sind.
-
-\[
-\lfloor \log_b |f| \rfloor
-\]
-
-bestimmt dabei die Größenordnung von \(f\), und der Exponent
-
-\[
-\lfloor \log_b |f| \rfloor+1-s
-\]
-
-markiert die Stelle der \(s\)-ten signifikanten Ziffer.
-\subsection*{Beispiel zu signifikanten Stellen}
-
-Im Dezimalsystem (\(b=10\)) sei eine gespeicherte Zahl
-
-\[
-f=1234
-\]
-
-gegeben und es sollen \(s=3\) signifikante Stellen garantiert sein.
-
-Dann gilt:
-
-\[
-\lfloor \log_{10}(1234)\rfloor =3.
-\]
-
-Also ist der Exponent in der Fehlerabschätzung:
-
-\[
-3+1-3=1.
-\]
-
-Damit fordert die Definition:
-
-\[
-|x-f|
-\leq
-\frac12\cdot 10^1
-=
-5.
-\]
-
-Also dürfen alle Zahlen \(x\) im Intervall
-
-\[
-[1229,1239]
-\]
-
-auf \(f=1234\) gerundet werden, ohne dass die ersten drei signifikanten Stellen verloren gehen.
-
-Denn in diesem Bereich bleiben die führenden drei Ziffern gleich:
-
-\[
-1,\ 2,\ 3.
-\]
-
-\subsection*{Anschaulich}
-
-Die Definition gibt also eine klare Fehlergrenze an, sodass mindestens \(s\) signifikante Stellen zuverlässig korrekt bleiben.
-\subsection*{Beispiel 4.11: Signifikante Stellen bei \texttt{double}}
-
-Jede Maschinenzahl
-
-\[
-f\in F_{\text{double}}\setminus\{-\max F_{\text{double}},\,0,\,\max F_{\text{double}}\}
-\]
-
-besitzt mindestens
-
-\[
-\left\lfloor 52\log_{10}(2)\right\rfloor = 15
-\]
-
-signifikante Stellen in der Dezimaldarstellung.
-
-\subsubsection*{Begründung}
-
-Der Datentyp \texttt{double} arbeitet binär mit 52 gespeicherten Mantissenbits
-(plus hidden bit). Die Binärpräzision lässt sich in Dezimalstellen umrechnen über:
-
-\[
-\text{Dezimalstellen} \approx 52\log_{10}(2).
-\]
-
-Da
-
-\[
-52\log_{10}(2)\approx 15{,}65,
-\]
-
-sind mindestens 15 sichere signifikante Dezimalstellen garantiert.
-
-\subsubsection*{Bedeutung}
-
-Das heißt:
-
-\begin{itemize}
-    \item Ein korrekt gespeicherter \texttt{double}-Wert ist in der Regel auf etwa 15 signifikante Dezimalstellen genau.
-    \item Deshalb sieht man oft die Aussage: \texttt{double} hat ca. 15--16 Stellen Genauigkeit.
-    \item Die 16.\ Stelle kann stimmen, muss aber nicht immer garantiert sein.
-\end{itemize}
-
-\subsubsection*{Beispiel}
-
-Für
-
-\[
-f=3{,}14159265358979
-\]
-
-sind die ersten 15 signifikanten Stellen zuverlässig korrekt gespeichert.
-
-\subsubsection*{Ausgabe in C++ mit 15 Stellen}
-
-Mit
-
-\begin{verbatim}
-#include <iomanip>
-std::cout << std::setprecision(15);
-\end{verbatim}
-
-kann man festlegen, dass bei der Ausgabe von Werten vom Typ
-\texttt{double} bis zu 15 signifikante Stellen angezeigt werden.
-
-\subsubsection*{Bedeutung}
-
-Damit nutzt man die ungefähr garantierte Genauigkeit eines
-\texttt{double}-Werts sinnvoll aus.
-
-\subsubsection*{Beispiel}
-
-\begin{verbatim}
-double x = 3.141592653589793;
-std::cout << std::setprecision(15) << x;
-\end{verbatim}
-
-Ausgabe:
-
-\begin{verbatim}
-3.14159265358979
-\end{verbatim}
 
 \section{4.4 Maschinenzahlarithmetik}
 
