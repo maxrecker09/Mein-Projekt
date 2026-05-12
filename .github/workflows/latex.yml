@@ -14,9 +14,9 @@ jobs:
 
       - uses: xu-cheng/latex-action@v3
         with:
-          root_file: ausarbeitung.tex
+          root_file: ausarbeitung2.tex
 
       - uses: actions/upload-artifact@v4
         with:
-          name: ausarbeitung-pdf
-          path: ausarbeitung.pdf
+          name: ausarbeitung2-pdf
+          path: ausarbeitung2.pdf
