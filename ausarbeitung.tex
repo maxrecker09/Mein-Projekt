@@ -2572,33 +2572,8 @@ x\circ y \in F.
 Das exakte mathematische Ergebnis ist also oft keine darstellbare
 Maschinenzahl.
 
-\subsection*{Warum?}
 
-Gründe dafür sind zum Beispiel:
-
-\begin{itemize}
-    \item Das Ergebnis besitzt unendlich viele Stellen  
-    (z.\,B. \(1/3 = 0{,}333\ldots\)).
-    
-    \item Die Zahl liegt außerhalb des darstellbaren Bereichs  
-    (Overflow / Underflow).
-    
-    \item Es wären mehr Mantissenstellen nötig als gespeichert werden können.
-\end{itemize}
-
-\subsection*{Beispiele}
-
-\[
-0{,}1+0{,}2
-\]
-
-ist binär nicht exakt darstellbar.
-
-\[
-\frac13 = 0{,}333\ldots
-\]
-
-hat unendlich viele Stellen.
+\subsection*{Beispiel}
 
 \[
 10^{300}\cdot 10^{300}=10^{600}
@@ -2625,105 +2600,8 @@ Es gelte für eine Rundung \(rd\) zu \(F\) und alle \(x,y\in F\):
 x\odot y = rd(x\circ y).
 \]
 
-\subsection*{Bedeutung}
-
-Der Rechner berechnet also:
-
-\begin{enumerate}
-    \item exaktes Ergebnis \(x\circ y\),
-    \item anschließend Rundung auf eine darstellbare Zahl.
-\end{enumerate}
-
-Das gerundete Resultat ist dann wieder eine Maschinenzahl.
-
-\subsection*{Hinweis zum IEEE-754-Standard}
-
-Die Eigenschaft
-
-\[
-x\odot y = rd(x\circ y)
-\]
-
-wird beispielsweise für die Grundoperationen des IEEE-754-Standards
-gefordert.
-
-Dazu gehören insbesondere:
-
-\begin{itemize}
-    \item Addition
-    \item Subtraktion
-    \item Multiplikation
-    \item Division
-    \item Quadratwurzel
-\end{itemize}
-
-Das bedeutet: Auch \(\sqrt{x}\) soll korrekt gerundet als Maschinenzahl
-zurückgegeben werden.
-
-\subsection*{Warum nicht für alle Funktionen?}
-
-Für Funktionen wie
-
-\[
-\sin(x),\quad \cos(x),\quad \exp(x),\quad \log(x)
-\]
-
-ist dies deutlich aufwendiger.
-
-Sie werden meist nicht durch eine einzelne Hardware-Operation berechnet,
-sondern durch numerische Algorithmen, zum Beispiel:
-
-\begin{itemize}
-    \item Polynomapproximationen
-    \item Reihenentwicklungen
-    \item Tabellenverfahren
-    \item Bereichsreduktion
-\end{itemize}
-
 Darum ist korrektes Runden dort wesentlich komplizierter.
 
-\subsection*{Praktischer Hinweis}
-
-Annahme 4.12 bedeutet, dass als Ergebnis einer Rechenoperation
-die gerundete nächstgelegene Maschinenzahl zum exakten Wert
-\(x\circ y\) geliefert wird.
-
-\[
-x\odot y = rd(x\circ y)
-\]
-
-\subsubsection*{Wichtig}
-
-Das heißt jedoch nicht, dass der Rechner zuerst das exakte Ergebnis mit
-unendlich vielen Stellen vollständig berechnen muss.
-
-In der Praxis genügt es, so viele Stellen zu berechnen, bis sicher
-entschieden werden kann, auf welche Maschinenzahl gerundet werden muss.
-
-Dann kann die Berechnung abgebrochen werden.
-
-\subsubsection*{Beispiel}
-
-Angenommen, nur zwei Dezimalstellen sind speicherbar und es ergibt sich:
-
-\[
-x\circ y = 4{,}613728\ldots
-\]
-
-Benachbarte Maschinenzahlen sind dann:
-
-\[
-4{,}6 \qquad \text{und} \qquad 4{,}7.
-\]
-
-Sobald klar ist, dass das Ergebnis näher an \(4{,}6\) liegt,
-muss nicht weitergerechnet werden.
-
-Der Rechner kann direkt ausgeben:
-
-\[
-x\odot y = 4{,}6.
-\]
 
 \subsection*{Beispiel 4.13}
 
@@ -2777,10 +2655,6 @@ x\oslash y = rd\!\left(\frac{x}{y}\right)
 =4{,}1\cdot 10^1.
 \]
 
-\subsubsection*{Bedeutung}
-
-Obwohl \(x,y\in F\) gilt, liegen die exakten Ergebnisse meist nicht in
-\(F\). Erst durch Rundung entstehen wieder Maschinenzahlen.
 
 \subsection*{Relativer Fehler einer Rechenoperation}
 
@@ -2817,146 +2691,5 @@ Definition der Maschinengenauigkeit:
 \right|
 \leq \varepsilon(F).
 \]
-
-\subsubsection*{Bedeutung}
-
-Der relative Rundungsfehler einer einzelnen Rechenoperation ist also
-höchstens so groß wie die Maschinengenauigkeit.
-
-Je kleiner \(\varepsilon(F)\), desto genauer rechnet das Zahlensystem.
-
-\subsubsection*{Warum die Bedingung wichtig ist}
-
-Liegt \(x\circ y\) nicht im Bereich \(\operatorname{range}(F)\), kann
-Overflow oder Underflow auftreten. Dann gilt diese Abschätzung nicht
-mehr direkt.
-
-\subsection*{Rechengesetze in der Maschinenzahlarithmetik}
-
-Das Kommutativgesetz für Addition und Multiplikation gilt auch in der Maschinenzahlarithmetik.
-
-Das Assoziativgesetz und das Distributivgesetz gelten im Allgemeinen jedoch nicht.
-
-Der Grund ist, dass nach jedem Rechenschritt wieder auf eine Maschinenzahl gerundet wird. Dadurch verändern sich die Zwischenwerte, und mathematisch äquivalente Umformungen können zu unterschiedlichen Ergebnissen führen.
-
-\subsection*{Beispiel 4.14}
-
-Im Maschinenzahlbereich
-
-\[
-F=F(10,2,-5,5)
-\]
-
-seien
-
-\[
-x=4{,}1\cdot 10^0,\qquad
-y=8{,}2\cdot 10^{-1},\qquad
-z=1{,}4\cdot 10^{-1}.
-\]
-
-Dann gilt:
-
-\[
-(x\oplus y)\oplus z
-=
-4{,}9\oplus 0{,}14
-=
-5{,}0
-\]
-
-\[
-x\oplus (y\oplus z)
-=
-4{,}1\oplus 0{,}96
-=
-5{,}1
-\]
-
-also ist die Addition nicht assoziativ.
-
-Außerdem:
-
-\[
-x\otimes (y\oplus z)
-=
-4{,}1\otimes 0{,}96
-=
-3{,}9
-\]
-
-und
-
-\[
-(x\otimes y)\oplus (x\otimes z)
-=
-3{,}4\oplus 0{,}57
-=
-4{,}0.
-\]
-
-Damit ist auch das Distributivgesetz im Allgemeinen verletzt.
-
-\subsection*{Erklärung}
-
-Warum passiert das?
-
-Nach jedem einzelnen Rechenschritt wird gerundet:
-
-\[
-\text{Rechnen} \;\longrightarrow\; \text{Runden} \;\longrightarrow\; \text{Weiterrechnen}.
-\]
-
-Dadurch werden die Zwischenwerte verändert, und spätere Rechnungen laufen mit anderen Zahlen weiter als in der exakten Mathematik.
-
-\subsection*{Folgerung für die Praxis}
-
-Mathematisch äquivalente Ausdrücke können in der
-Maschinenzahlarithmetik zu deutlich unterschiedlichen Ergebnissen führen,
-selbst wenn alle Eingabewerte darstellbare Maschinenzahlen sind.
-
-\subsubsection*{Warum?}
-
-Ursachen sind insbesondere:
-
-\begin{itemize}
-    \item Rundungsfehler,
-    \item Reihenfolge der Rechenschritte,
-    \item Auslöschungseffekte,
-    \item Overflow / Underflow,
-    \item Verlust signifikanter Stellen.
-\end{itemize}
-
-\subsubsection*{Bedeutung}
-
-Zwei Formeln können mathematisch exakt dasselbe bedeuten, aber auf dem
-Computer verschiedene Resultate liefern.
-
-\subsubsection*{Mögliche Folgen}
-
-Dies kann in der Praxis ernste Auswirkungen haben, zum Beispiel:
-
-\begin{itemize}
-    \item fehlerhafte Simulationen,
-    \item ungenaue wissenschaftliche Ergebnisse,
-    \item falsche Finanzberechnungen,
-    \item Probleme in Technik oder Navigation,
-    \item Fehler in medizinischer Software.
-\end{itemize}
-
-Darum spielt numerisch stabiles Rechnen eine zentrale Rolle.
-
-\subsection*{Wichtigste Erkenntnis des Kapitels}
-
-In der numerischen Mathematik zählt nicht nur,
-\emph{ob} eine Formel mathematisch richtig ist,
-sondern auch,
-\emph{wie} sie auf dem Computer berechnet wird.
-
-\subsubsection*{Warum?}
-
-Durch endliche Genauigkeit, Rundungen und Reihenfolge der Rechenschritte
-kann dieselbe mathematische Formel zu unterschiedlichen numerischen
-Ergebnissen führen.
 
 \end{document}
