@@ -33,10 +33,6 @@
 
 \section{4.1 b-adische Darstellung reeller Zahlen}
 
-In diesem Abschnitt geht es um die grundlegende Frage, wie man reelle Zahlen in einem Zahlensystem zur Basis \(b\) darstellen kann. Das Dezimalsystem entspricht dabei der Basis \(b=10\), das Binärsystem der Basis \(b=2\).
-
-Die folgende Aussage zeigt, dass jede von Null verschiedene reelle Zahl eine eindeutig bestimmte Darstellung dieser Form besitzt.
-
 \begin{thm}
 Sei \(b\in\mathbb{N}\) mit \(b\geq 2\). Sei ferner \(x\in\mathbb{R}\setminus\{0\}\). Dann existieren eindeutig bestimmte Zahlen
 
@@ -67,32 +63,7 @@ Diese Darstellung heißt die \emph{(normalisierte) b-adische Darstellung} von \(
 
 Sei \(x\in\R\setminus\{0\}\).
 
-Offensichtlich muss für das Vorzeichen gelten:
-
-\[
-\sigma=
-\begin{cases}
--1,& \text{falls } x<0,\\[0.3em]
-1,& \text{falls } x>0.
-\end{cases}
-\]
-
-Für Ziffern
-
-\[
-z_i\in\{0,1,\dots,b-1\}
-\qquad (i\in\N\cup\{0\})
-\]
-
-mit
-
-\[
-\{\,i\in\N \mid z_i\neq b-1\,\}\neq\emptyset
-\qquad\text{und}\qquad
-z_0\neq 0
-\]
-
-zeigen wir nun:
+Zu zeigen:
 
 \[
 1\leq \sum_{i=0}^{\infty} z_i b^{-i}
@@ -285,8 +256,6 @@ a_0=z_0+(a_0-z_0)=a_0.
 
 Damit stimmt die Behauptung für \(n=0\).
 
-\hfill\(\checkmark\)
-
 \paragraph{Induktionsschritt}
 
 Sei nun \(n\in\mathbb{N}\).
@@ -315,17 +284,6 @@ Aus der Rekursionsvorschrift
 a_{n+1}=b(a_n-z_n)
 \]
 
-folgt durch Umformen:
-
-\[
-\frac{a_{n+1}}{b}=a_n-z_n
-\]
-
-und damit
-
-\[
-a_n=z_n+\frac{a_{n+1}}{b}.
-\]
 
 Nun setzen wir dies in die Induktionsannahme ein:
 
@@ -364,11 +322,6 @@ z_n b^{-n}
 a_{n+1}b^{-n-1}.
 \]
 
-Die ersten beiden Summanden lassen sich zusammenfassen zu:
-
-\[
-\sum_{i=0}^{n} z_i b^{-i}.
-\]
 
 Somit folgt:
 
@@ -380,9 +333,6 @@ a_{n+1}b^{-n-1}.
 \]
 
 Damit ist der Induktionsschritt gezeigt.
-
-\hfill\(\checkmark\)
-
 
 \subsubsection*{Übergang zur unendlichen Darstellung}
 
@@ -540,17 +490,8 @@ y_n b^{-n}
 \sum_{i=n+1}^{\infty} y_i b^{-i}.
 \]
 
-Für die rechte Seite entsprechend:
+Für die rechte Seite analog
 
-\[
-\sum_{i=0}^{\infty} z_i b^{-i}
-=
-\sum_{i=0}^{n-1} z_i b^{-i}
-+
-z_n b^{-n}
-+
-\sum_{i=n+1}^{\infty} z_i b^{-i}.
-\]
 
 Da für alle \(i<n\) bereits \(y_i=z_i\) gilt, sind die ersten Summen identisch und heben sich weg.
 
@@ -580,19 +521,11 @@ Da jede Ziffer höchstens \(b-1\) ist, gilt für den Rest der linken Darstellung
 \sum_{i=n+1}^{\infty} (b-1)b^{-i}.
 \]
 
-Außerdem hatten wir bereits
-
-\[
-y_n\leq z_n-1
-\]
-
-gezeigt, also
+Wir setzen folgenden Term in die linke Seite ein
 
 \[
 y_n b^{-n}\leq (z_n-1)b^{-n}.
 \]
-
-Daher ist die gesamte linke Seite höchstens
 
 \[
 \sum_{i=0}^{n-1} y_i b^{-i}
@@ -854,37 +787,7 @@ Dann besitzen beide Zahlen denselben Abstand zu \(x\).
 
 \subsection*{Beispiel}
 
-Im Maschinenzahlbereich
-
-\[
-F(10,2,0,2)
-\]
-
-liegt die Zahl
-
-\[
-12{,}5
-\]
-
-genau zwischen
-
-\[
-12 \quad \text{und} \quad 13.
-\]
-
-Daher könnte man sowohl auf
-
-\[
-12
-\]
-
-als auch auf
-
-\[
-13
-\]
-
-runden.
+Im Maschinenzahlbereich \(F(10,2,0,2)\) liegt die Zahl \(12{,}5\) genau zwischen \(12\) und \(13\). Daher könnte man sowohl auf \(12\) als auch auf \(13\) runden.
 
 \subsection*{IEEE-754-Regel: Runden zur geraden Zahl}
 
@@ -1334,66 +1237,32 @@ x \odot y \in F.
 
 \subsection*{Annahme 4.12}
 
-Es gelte für eine Rundung \(rd\) zu \(F\) und alle \(x,y\in F\):
-
+Für eine Rundung \(rd\) zu \(F\) und alle \(x,y\in F\) gelte
 \[
 x\odot y = rd(x\circ y).
 \]
-
-Darum ist korrektes Runden dort wesentlich komplizierter.
-
+Korrektes Runden ist daher wesentlich komplizierter.
 
 \subsection*{Beispiel 4.13}
 
-Sei
-
+Sei \(F=F(10,2,-5,5)\) sowie
 \[
-F = F(10,2,-5,5).
-\]
-
-Wir wählen
-
-\[
-x = 4{,}5\cdot 10^1 = 45,
+x=4{,}5\cdot 10^1=45,
 \qquad
-y = 1{,}1\cdot 10^0 = 1{,}1.
+y=1{,}1\cdot 10^0=1{,}1.
 \]
+Es werde jeweils auf zwei Mantissenstellen gerundet.
 
-Es wird jeweils auf zwei Mantissenstellen gerundet.
+\begin{align*}
+x\oplus y &= rd(x+y)=rd(46{,}1)=4{,}6\cdot 10^1,\\
+x\ominus y &= rd(x-y)=rd(43{,}9)=4{,}4\cdot 10^1,\\
+x\otimes y &= rd(x\cdot y)=rd(49{,}5)
+\in \{\,4{,}9\cdot 10^1,\;5{,}0\cdot 10^1\,\},\\
+x\oslash y &= rd\!\left(\frac{x}{y}\right)
+=rd(40{,}9090\ldots)=4{,}1\cdot 10^1.
+\end{align*}
 
-\subsubsection*{Addition}
-
-\[
-x\oplus y = rd(x+y)=rd(46{,}1)=4{,}6\cdot 10^1.
-\]
-
-\subsubsection*{Subtraktion}
-
-\[
-x\ominus y = rd(x-y)=rd(43{,}9)=4{,}4\cdot 10^1.
-\]
-
-\subsubsection*{Multiplikation}
-
-\[
-x\otimes y = rd(x\cdot y)=rd(49{,}5).
-\]
-
-Also je nach Rundungsregel:
-
-\[
-x\otimes y \in \{\,4{,}9\cdot 10^1,\;5{,}0\cdot 10^1\,\}.
-\]
-
-(Bei IEEE-Rundung zur geraden Endziffer würde \(50\) entstehen.)
-
-\subsubsection*{Division}
-
-\[
-x\oslash y = rd\!\left(\frac{x}{y}\right)
-= rd(40{,}9090\ldots)
-=4{,}1\cdot 10^1.
-\]
+Bei IEEE-Rundung zur geraden Endziffer entsteht im Multiplikationsbeispiel \(50\).
 
 
 \subsection*{Relativer Fehler einer Rechenoperation}
