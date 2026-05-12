@@ -73,95 +73,53 @@ Zu zeigen:
 
 \subsubsection*{1. Untere Schranke}
 
-Da \(z_0\neq 0\) und \(z_0\in\{0,1,\dots,b-1\}\), folgt:
-
-\[
-z_0\geq 1.
-\]
-
-Somit gilt:
-
+Da \(z_0\neq 0\) und \(z_0\in\{0,1,\dots,b-1\}\), gilt \(z_0\geq 1\). Daher folgt
 \[
 \sum_{i=0}^{\infty} z_i b^{-i}
 =
 z_0+\sum_{i=1}^{\infty} z_i b^{-i}
-\geq z_0\geq 1.
+\geq z_0\geq 1,
 \]
-
-Also:
-
+also
 \[
 1\leq \sum_{i=0}^{\infty} z_i b^{-i}.
 \]
-
-Gleichheit gilt genau dann, wenn alle weiteren Ziffern verschwinden, also
-
-\[
-z_i=0 \quad \text{für alle } i\geq 1.
-\]
+Gleichheit gilt genau dann, wenn \(z_i=0\) für alle \(i\geq 1\).
 
 \subsubsection*{2. Obere Schranke}
 
-Da jede Ziffer höchstens \(b-1\) ist, gilt für alle \(i\):
-
-\[
-z_i\leq b-1.
-\]
-
-Daher folgt:
-
+Da \(z_i\leq b-1\) für alle \(i\) gilt, erhält man
 \[
 \sum_{i=0}^{\infty} z_i b^{-i}
 \leq
-\sum_{i=0}^{\infty}(b-1)b^{-i}.
-\]
-
-Nun berechnen wir die rechte Seite:
-
-\[
 \sum_{i=0}^{\infty}(b-1)b^{-i}
 =
 (b-1)\sum_{i=0}^{\infty}b^{-i}.
 \]
-
-Dies ist eine geometrische Reihe mit Quotienten \(q=\frac1b\). Also:
-
+Mit der geometrischen Reihe
 \[
 \sum_{i=0}^{\infty}b^{-i}
 =
 \frac{1}{1-\frac1b}
 =
-\frac{b}{b-1}.
+\frac{b}{b-1}
 \]
-
-Somit:
-
+folgt
 \[
-(b-1)\sum_{i=0}^{\infty}b^{-i}
-=
-(b-1)\frac{b}{b-1}
-=
-b.
+\sum_{i=0}^{\infty}(b-1)b^{-i}=b.
 \]
-
-Also gilt:
-
+Somit gilt
 \[
 \sum_{i=0}^{\infty} z_i b^{-i}\leq b.
 \]
-
-Wegen der Zusatzbedingung
-
+Da wegen
 \[
 \{\,i\in\N\mid z_i\neq b-1\,\}\neq\emptyset
 \]
-
-ist jedoch mindestens eine Ziffer echt kleiner als \(b-1\). Daher kann die Summe den Wert \(b\) nicht erreichen. Also sogar:
-
+mindestens eine Ziffer echt kleiner als \(b-1\) ist, kann die Summe den Wert \(b\) nicht erreichen. Also:
 \[
 \sum_{i=0}^{\infty} z_i b^{-i}<b.
 \]
-
 \subsubsection*{3. Ergebnis}
 
 Insgesamt folgt:
@@ -234,104 +192,44 @@ Die unendliche Reihe ist also die exakte Darstellung von \(a_0\).
 
 \subsubsection*{Beweis durch vollständige Induktion über \(n\)}
 
-\paragraph{Induktionsanfang: \(n=0\)}
-
-Zu zeigen ist:
-
+Für \(n=0\) ist zu zeigen:
 \[
-a_0=z_0b^{0}+a_1b^{-1}.
+a_0=z_0b^0+a_1b^{-1}=z_0+\frac{a_1}{b}.
+\]
+Da \(a_1=b(a_0-z_0)\) gilt, folgt
+\[
+a_0=z_0+\frac{b(a_0-z_0)}{b}=z_0+(a_0-z_0)=a_0.
 \]
 
-Da \(b^0=1\), ist dies gleichbedeutend mit:
-
-\[
-a_0=z_0+\frac{a_1}{b}.
-\]
-
-Einsetzen ergibt:
-
-\[
-a_0=z_0+(a_0-z_0)=a_0.
-\]
-
-Damit stimmt die Behauptung für \(n=0\).
-
-\paragraph{Induktionsschritt}
-
-Sei nun \(n\in\mathbb{N}\).
-
-Wir nehmen an, die Behauptung gelte bereits für \(n-1\), also:
-
+Nun sei \(n\in\N\) und die Behauptung gelte bereits für \(n-1\), also
 \[
 a_0=
 \sum_{i=0}^{n-1} z_i b^{-i}
 +
 a_n b^{-n}.
 \]
-
-Zu zeigen ist:
-
-\[
-a_0=
-\sum_{i=0}^{n} z_i b^{-i}
-+
-a_{n+1} b^{-n-1}.
-\]
-
-Aus der Rekursionsvorschrift
-
+Aus
 \[
 a_{n+1}=b(a_n-z_n)
 \]
-
-
-Nun setzen wir dies in die Induktionsannahme ein:
-
+folgt
+\[
+a_n=z_n+\frac{a_{n+1}}{b}.
+\]
+Einsetzen in die Induktionsannahme liefert
 \[
 a_0=
 \sum_{i=0}^{n-1} z_i b^{-i}
 +
 \left(z_n+\frac{a_{n+1}}{b}\right)b^{-n}.
 \]
-
-Ausmultiplizieren liefert:
-
-\[
-a_0=
-\sum_{i=0}^{n-1} z_i b^{-i}
-+
-z_n b^{-n}
-+
-\frac{a_{n+1}}{b}b^{-n}.
-\]
-
-Wegen
-
-\[
-\frac{1}{b}b^{-n}=b^{-n-1}
-\]
-
-erhält man:
-
-\[
-a_0=
-\sum_{i=0}^{n-1} z_i b^{-i}
-+
-z_n b^{-n}
-+
-a_{n+1}b^{-n-1}.
-\]
-
-
-Somit folgt:
-
+Daraus ergibt sich
 \[
 a_0=
 \sum_{i=0}^{n} z_i b^{-i}
 +
 a_{n+1}b^{-n-1}.
 \]
-
 Damit ist der Induktionsschritt gezeigt.
 
 \subsubsection*{Übergang zur unendlichen Darstellung}
@@ -672,37 +570,22 @@ Die Elemente eines solchen (endlichen) Maschinenzahlbereichs heißen \emph{Masch
 Im Jahr 1985 wurde der IEEE-754-Standard veröffentlicht.  
 
 
-Darin wird beispielsweise der Datentyp \texttt{double} beschrieben.
-
+Darin wird beispielsweise der Datentyp \texttt{double} beschrieben:
 \[
 F_{\text{double}}:=F(2,53,-1022,1023).
 \]
 
 \subsection*{Speicherbedarf von \texttt{double}}
 
-Zur Darstellung einer \texttt{double}-Zahl genügen 64 Bit:
-
-\begin{itemize}
-    \item 1 Bit für das Vorzeichen,
-    \item 52 gespeicherte Bits für die Mantisse,
-    \item 11 Bits für den Exponenten.
-\end{itemize}
+Zur Darstellung einer normalisierten \texttt{double}-Zahl genügen 64 Bit: 1 Bit für das Vorzeichen, 11 Bits für den Exponenten und 52 gespeicherte Bits für die Mantisse.
 
 \subsection*{Das sogenannte Hidden Bit}
 
-Bei normalisierten Binärzahlen gilt wegen der Normierung stets:
-
-\[
-z_0=1.
-\]
-
-Das erste Bit der Mantisse ist also immer gleich \(1\) und muss daher nicht extra gespeichert werden.
-
+Bei normalisierten Binärzahlen gilt stets \(z_0=1\). Dieses erste Mantissenbit muss daher nicht explizit gespeichert werden.
 
 \subsection*{Bitaufbau einer normalisierten \texttt{double}-Zahl}
 
-Die Speicherung in Bits sieht dann wie folgt aus:
-
+Die 64 Bits zerfallen also in
 \[
 \boxed{\text{1 Bit}}
 \qquad
@@ -710,29 +593,11 @@ Die Speicherung in Bits sieht dann wie folgt aus:
 \qquad
 \boxed{\text{52 Bits}}
 \]
+für Vorzeichen, Exponent und Mantisse.
 
-\[
-\underbrace{\hspace{2.2cm}}_{\text{Vorzeichen}}
-\underbrace{\hspace{3cm}}_{\text{Exponent}}
-\underbrace{\hspace{4cm}}_{\text{Mantisse}}
-\]
+Dabei codieren das Vorzeichenbit den Wert \(\frac{1-\sigma}{2}\), die Exponentbits den verschobenen Exponenten \(E+1023\) und die Mantissenbits die Ziffern \(z_1,z_2,\dots,z_{52}\).
 
-Inhalt der drei Bereiche:
-
-\begin{align*}
-\text{Vorzeichenbit:} &\quad \frac{1-\sigma}{2} \\[0.4em]
-\text{Exponentbits:} &\quad E+1023 \\[0.4em]
-\text{Mantissenbits:} &\quad z_1,z_2,\dots,z_{52}
-\end{align*}
-
-Die reservierten Exponentenwerte werden also verwendet für:
-
-\begin{itemize}
-    \item \(+\infty\) und \(-\infty\),
-    \item subnormale Zahlen,
-    \item Underflow,
-    \item NaN.
-\end{itemize}
+Reservierte Exponentenwerte werden für \(+\infty\), \(-\infty\), subnormale Zahlen, Underflow und NaN verwendet.
 
 \subsection*{Der Darstellungsbereich \(\operatorname{range}(F)\)}
 
@@ -857,326 +722,85 @@ Dabei bezeichnet \(\operatorname{rd}\) eine Rundung auf den Maschinenzahlbereich
 
 \begin{thm}
 Für jeden Maschinenzahlbereich
-
 \[
 F=F(b,m,E_{\min},E_{\max})
-\qquad\text{mit}\qquad
-E_{\min}<E_{\max}
+\qquad (E_{\min}<E_{\max})
 \]
-
-gilt:
-
+gilt
 \[
-\varepsilon(F)=\frac{1}{1+2b^{\,m-1}}.
+\varepsilon(F)=\frac{1}{1+2b^{m-1}}.
 \]
 \end{thm}
 
-\subsection*{Interpretation der Formel}
+\subsection*{Interpretation}
 
-\begin{itemize}
-    \item Größeres \(m\) \(\Rightarrow\) kleinere Maschinengenauigkeit \(\Rightarrow\) genaueres Rechnen.
-    \item Größere Basis verändert den Abstand benachbarter Zahlen.
-\end{itemize}
+Größeres \(m\) bedeutet kleinere Rundungsfehler und damit genaueres Rechnen. Die Basis \(b\) beeinflusst den Abstand benachbarter Maschinenzahlen.
 
 \subsection*{Beweisidee}
 
-Der größte relative Rundungsfehler entsteht:
-
-\begin{itemize}
-    \item genau zwischen zwei benachbarten Maschinenzahlen,
-    \item und zwar bei der kleinsten Größenordnung \(b^{E_{\min}}\), weil dort derselbe absolute Fehler relativ am stärksten wirkt.
-\end{itemize}
-
-Der Abstand zweier benachbarter Zahlen dort beträgt
-
-\[
-b^{E_{\min}}\,b^{-m+1}.
-\]
-
-Der maximale absolute Fehler ist die Hälfte davon:
-
-\[
-\frac12\, b^{E_{\min}} b^{-m+1}.
-\]
-
-Man betrachtet daher
-
-\[
-x=b^{E_{\min}}\left(1+\frac12 b^{-m+1}\right).
-\]
-
-Dann ergibt sich:
-
-\[
-\left|\frac{x-\operatorname{rd}(x)}{x}\right|
-=
-\frac{\frac12 b^{E_{\min}}b^{-m+1}}
-{b^{E_{\min}}\left(1+\frac12 b^{-m+1}\right)}
-=
-\frac{1}{1+2b^{m-1}}.
-\]
-
-Damit ist das Supremum genau dieser Wert.
-
-\subsubsection*{Warum darf man \(\operatorname{rd}(x)=b^{E_{\min}}\) wählen?}
-
-Für
-
-\[
-x=b^{E_{\min}}\left(1+\frac12 b^{-m+1}\right)
-\]
-
-liegt \(x\) genau zwischen den beiden benachbarten Maschinenzahlen
-
-\[
-a_1=b^{E_{\min}}
-\qquad\text{und}\qquad
-a_2=b^{E_{\min}}\left(1+b^{-m+1}\right).
-\]
-
-Denn der Abstand zwischen \(a_1\) und \(a_2\) beträgt
-
+Der größte relative Rundungsfehler entsteht genau zwischen zwei benachbarten Maschinenzahlen und zwar bei der kleinsten Größenordnung \(b^{E_{\min}}\). Dort beträgt der Abstand benachbarter Zahlen
 \[
 b^{E_{\min}}b^{-m+1},
 \]
-
-und \(x\) liegt genau in der Mitte.
-
-Also gilt:
-
+also ist der maximale absolute Fehler
 \[
-|x-a_1|=|x-a_2|.
+\frac12\,b^{E_{\min}}b^{-m+1}.
 \]
 
-Damit kann je nach Rundungsregel entweder
-
+Man betrachtet daher
 \[
-\operatorname{rd}(x)=a_1=b^{E_{\min}}
+x=b^{E_{\min}}\left(1+\frac12 b^{-m+1}\right),
 \]
-
-oder
-
+also genau die Mitte zwischen
 \[
-\operatorname{rd}(x)=a_2
+b^{E_{\min}}
+\quad\text{und}\quad
+b^{E_{\min}}\left(1+b^{-m+1}\right).
 \]
-
-gelten.
-
-Für den Fehlerbetrag ist das aber egal, da beide Abstände gleich groß sind. Deshalb darf man ohne Einschränkung bequem
-
-\[
-\operatorname{rd}(x)=b^{E_{\min}}
-\]
-
-wählen.
-
-Dann folgt:
-
+Damit darf man etwa \(\operatorname{rd}(x)=b^{E_{\min}}\) wählen und erhält
 \[
 \left|\frac{x-\operatorname{rd}(x)}{x}\right|
 =
-\left|\frac{b^{E_{\min}}\left(1+\frac12 b^{-m+1}\right)-b^{E_{\min}}}{b^{E_{\min}}\left(1+\frac12 b^{-m+1}\right)}\right|
-\]
-
-\[
-=
-\frac{b^{E_{\min}}\cdot \frac12 b^{-m+1}}{b^{E_{\min}}\left(1+\frac12 b^{-m+1}\right)}
-=
-\frac{\frac12 b^{-m+1}}{1+\frac12 b^{-m+1}}
+\frac{\frac12 b^{-m+1}}
+{1+\frac12 b^{-m+1}}
 =
 \frac{1}{1+2b^{m-1}}.
 \]
-
-Daraus folgt:
-
+Folglich gilt
 \[
 \varepsilon(F)\geq \frac{1}{1+2b^{m-1}}.
 \]
 
+Für die umgekehrte Abschätzung sei \(x\in\operatorname{range}(F)\setminus F\). Zwischen den beiden benachbarten Maschinenzahlen
 \[
-\Rightarrow\quad
-\varepsilon(F)
-\text{ ist der größte mögliche relative Fehler.}
+x'=b^E\sum_{i=0}^{m-1} z_i b^{-i},
+\qquad
+x''=x'+b^Eb^{-m+1}
 \]
-
-Da wir bereits ein Beispiel gefunden haben, bei dem der relative Fehler
-
-\[
-\frac{1}{1+2b^{m-1}}
-\]
-
-auftritt, muss gelten:
-
-\[
-\varepsilon(F)\geq \frac{1}{1+2b^{m-1}}.
-\]
-
-\subsubsection*{Obere Abschätzung}
-
-Für die andere Richtung genügt es, positive Zahlen \(x\) zu betrachten, da wegen des Betrags negative Zahlen denselben relativen Fehler liefern.
-
-Sei also
-
-\[
-x\in \operatorname{range}(F),\qquad x\notin F.
-\]
-
-Sei ferner
-
-\[
-x=b^E\sum_{i=0}^{\infty} z_i b^{-i}
-\]
-
-die normalisierte \(b\)-adische Darstellung von \(x\).
-
-Dann definieren wir die beiden benachbarten Maschinenzahlen
-
-\[
-x':=b^E\sum_{i=0}^{m-1} z_i b^{-i},
-\]
-
-\[
-x'':=b^E\left(\sum_{i=0}^{m-1} z_i b^{-i}+b^{-m+1}\right).
-\]
-
-Dann gilt:
-
-\[
-x',x''\in F
-\qquad\text{und}\qquad
-x'<x<x''.
-\]
-
-Also liegt die Rundung \(\operatorname{rd}(x)\) zwischen diesen beiden Nachbarzahlen.
-
-\subsubsection*{Abschätzung des Rundungsfehlers}
-
-Da \(\operatorname{rd}(x)\) auf eine der beiden benachbarten Maschinenzahlen rundet, ist der Fehler höchstens halb so groß wie deren Abstand:
-
+liegt \(x\), daher gilt
 \[
 |x-\operatorname{rd}(x)|
 \leq
-\frac12 (x''-x').
+\frac12\,b^Eb^{-m+1}.
 \]
-
-Nun gilt:
-
-\[
-x''-x'
-=
-b^E\cdot b^{-m+1}.
-\]
-
-Also folgt:
-
-\[
-|x-\operatorname{rd}(x)|
-\leq
-\frac12\, b^E b^{-m+1}.
-\]
-
-\textbf{Beispiel:} Für \(b=10,\ m=3,\ x=1{,}2424\dots\) sind die Nachbarn
-
-\[
-x'=1{,}24,\qquad x''=1{,}25.
-\]
-
-Daher:
-
-\[
-1{,}24<x<1{,}25
-\]
-
-und der Rundungsfehler ist höchstens halb so groß wie der Abstand \(0{,}01\), also höchstens \(0{,}005\).
-
-Da \(z_0>0\) gilt, ist in der normalisierten Darstellung von \(x\)
-
-\[
-x=b^E\sum_{i=0}^{\infty} z_i b^{-i}
-\]
-
-die Mantisse mindestens \(1\). Also folgt:
-
-\[
-x\geq b^E.
-\]
-
-Da außerdem \(b^E\in F\) eine Maschinenzahl ist und \(\operatorname{rd}(x)\) per Definition die Maschinenzahl mit minimalem Abstand zu \(x\) bezeichnet, gilt:
-
-\[
-|x-\operatorname{rd}(x)|\leq |x-b^E|.
-\]
-
-Wegen \(x\geq b^E\) ist
-
-\[
-x=b^E+|x-b^E|
-\geq b^E+|x-\operatorname{rd}(x)|.
-\]
-
-Damit erhält man:
-
+Da wegen der Normierung stets \(x\geq b^E\) gilt, folgt
 \[
 \left|\frac{x-\operatorname{rd}(x)}{x}\right|
 \leq
-\frac{|x-\operatorname{rd}(x)|}{b^E+|x-\operatorname{rd}(x)|}.
-\]
-
-Nun benutzen wir die bereits gezeigte Abschätzung
-
-\[
-|x-\operatorname{rd}(x)|
-\leq
-\frac12\,b^E b^{-m+1}.
-\]
-
-Einsetzen liefert:
-
-\[
-\left|\frac{x-\operatorname{rd}(x)}{x}\right|
-\leq
-\frac{1}{1+\dfrac{b^E}{|x-\operatorname{rd}(x)|}}
-\leq
-\frac{1}{1+\dfrac{b^E}{\frac12\,b^E b^{-m+1}}}.
-\]
-
-Kürzen von \(b^E\) ergibt:
-
-\[
-\left|\frac{x-\operatorname{rd}(x)}{x}\right|
-\leq
-\frac{1}{1+\dfrac{1}{\frac12\,b^{-m+1}}}
+\frac{\frac12\,b^Eb^{-m+1}}
+{b^E+\frac12\,b^Eb^{-m+1}}
 =
 \frac{1}{1+2b^{m-1}}.
 \]
-
-Also gilt für alle \(x\in \operatorname{range}(F)\):
-
-\[
-\left|\frac{x-\operatorname{rd}(x)}{x}\right|
-\leq
-\frac{1}{1+2b^{m-1}}.
-\]
-
-Daraus folgt:
-
+Also
 \[
 \varepsilon(F)\leq \frac{1}{1+2b^{m-1}}.
 \]
 
-Zusammen mit der bereits gezeigten unteren Abschätzung
-
-\[
-\varepsilon(F)\geq \frac{1}{1+2b^{m-1}}
-\]
-
-erhält man schließlich:
-
+Zusammen ergibt sich
 \[
 \varepsilon(F)=\frac{1}{1+2b^{m-1}}.
 \]
-
-Damit ist Satz 4.8 bewiesen.
 
 \begin{defn}
 Sei \(F\) ein Maschinenzahlbereich und \(s\in\N\).
