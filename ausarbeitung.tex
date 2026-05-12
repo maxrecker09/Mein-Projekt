@@ -225,8 +225,6 @@ E=\left\lfloor \log_b |x| \right\rfloor.
 
 Somit ist der Exponent eindeutig festgelegt.
 
-\vspace{0.5cm}
-
 Nun setzen wir
 
 \[
@@ -262,9 +260,6 @@ a_0=\sum_{i=0}^{\infty} z_i b^{-i}.
 \]
 
 Die unendliche Reihe ist also die exakte Darstellung von \(a_0\).
-
-\vspace{0.4cm}
-
 
 \subsubsection*{Beweis durch vollständige Induktion über \(n\)}
 
@@ -313,8 +308,6 @@ a_0=
 +
 a_{n+1} b^{-n-1}.
 \]
-
-\vspace{0.4cm}
 
 Aus der Rekursionsvorschrift
 
@@ -443,9 +436,6 @@ a_{n+1}b^{-n-1}\to 0.
 
 Nun bleibt noch zu zeigen, dass die Darstellung eindeutig ist.
 
-\vspace{0.4cm}
-
-
 \[
 1{,}0000\ldots = 0{,}9999\ldots
 \]
@@ -475,8 +465,6 @@ a_0=
 +
 \sum_{i=n_0+1}^{\infty}(b-1)b^{-i}.
 \]
-
-
 
 Dies ist wieder eine geometrische Reihe. Ausklammern von \(b^{-(n_0+1)}\) ergibt:
 
@@ -508,9 +496,6 @@ a_0=
 
 Das bedeutet: Man könnte die Ziffer an Stelle \(n_0\) um \(1\) erhöhen und danach nur noch Nullen schreiben. Es gäbe also eine zweite Darstellung derselben Zahl.
 
-\vspace{0.4cm}
-
-
 \subsubsection*{2. Eindeutigkeit der Darstellung}
 
 Angenommen, eine Zahl \(x\neq 0\) besitze zwei verschiedene normalisierte \(b\)-adische Darstellungen:
@@ -520,8 +505,6 @@ x=\sigma\cdot b^E\sum_{i=0}^{\infty} y_i b^{-i}
 =
 \sigma\cdot b^E\sum_{i=0}^{\infty} z_i b^{-i},
 \]
-
-\vspace{0.4cm}
 
 Sei also
 
@@ -687,8 +670,6 @@ Also folgt:
 
 Das ist ein Widerspruch zur Annahme, dass beide Reihen dieselbe Zahl darstellen.
 
-\vspace{0.4cm}
-
 \section{4.2 Maschinenzahlen}
 
 
@@ -721,8 +702,6 @@ Diese Wahl bestimmt den sogenannten Maschinenzahlbereich
 F(b,m,E_{\min},E_{\max}).
 \]
 
-\vspace{0.4cm}
-
 \textbf{Definition:}
 
 Der Maschinenzahlbereich ist die Menge aller \(b\)-adischen, \(m\)-stelligen, normalisierten Gleitkommazahlen mit Exponenten
@@ -752,8 +731,6 @@ z_i\in\{0,\dots,b-1\}
 \right\}.
 \]
 
-\vspace{0.5cm}
-
 Die Elemente eines solchen (endlichen) Maschinenzahlbereichs heißen \emph{Maschinenzahlen}.
 
 
@@ -761,19 +738,12 @@ Die Elemente eines solchen (endlichen) Maschinenzahlbereichs heißen \emph{Masch
 
 Im Jahr 1985 wurde der IEEE-754-Standard veröffentlicht.  
 
-\vspace{0.4cm}
 
 Darin wird beispielsweise der Datentyp \texttt{double} beschrieben.
 
 \[
 F_{\text{double}}:=F(2,53,-1022,1023).
 \]
-
-\vspace{0.5cm}
-
-
-
-\vspace{0.5cm}
 
 \subsection*{Speicherbedarf von \texttt{double}}
 
@@ -814,8 +784,6 @@ Die Speicherung in Bits sieht dann wie folgt aus:
 \underbrace{\hspace{4cm}}_{\text{Mantisse}}
 \]
 
-\vspace{0.4cm}
-
 Inhalt der drei Bereiche:
 
 \begin{align*}
@@ -823,9 +791,6 @@ Inhalt der drei Bereiche:
 \text{Exponentbits:} &\quad E+1023 \\[0.4em]
 \text{Mantissenbits:} &\quad z_1,z_2,\dots,z_{52}
 \end{align*}
-
-\vspace{0.6cm}
-
 
 Die reservierten Exponentenwerte werden also verwendet für:
 
@@ -851,12 +816,7 @@ Wir bezeichnen mit
 
 das kleinste Intervall, in dem alle darstellbaren positiven Zahlen liegen.
 
-\vspace{0.6cm}
-
 Es beschreibt also den Größenbereich der positiven Maschinenzahlen eines Zahlensystems.
-
-\vspace{0.8cm}
-
 
 \section{4.3 Rundungen}
 
@@ -883,7 +843,6 @@ heißt \emph{Rundung (zu \(F\))}, wenn für alle \(x\in\R\) gilt:
 \min_{a\in F}|x-a|.
 \]
 \end{defn}
-
 
 \subsection*{Mehrdeutige Rundungen}
 
@@ -926,7 +885,6 @@ als auch auf
 \]
 
 runden.
-
 
 \subsection*{IEEE-754-Regel: Runden zur geraden Zahl}
 
